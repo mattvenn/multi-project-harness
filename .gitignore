@@ -1,0 +1,6 @@
+*.swp
+*.vcd
+*.xml
+sim_build
+properties
+__pycache__
