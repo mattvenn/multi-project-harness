@@ -1,0 +1,3 @@
+[submodule "seven-segment-seconds"]
+	path = seven-segment-seconds
+	url = git@github.com:mattvenn/seven-segment-seconds
