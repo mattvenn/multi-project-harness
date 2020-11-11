@@ -22,7 +22,7 @@ clone with --recursive to get the demo project [seven segment seconds](https://g
 
 # TODO
 
-change input reset[3:0] for a wishbone peripheral that can hold each device in reset given commands from the Caravel SoC.
+* change input reset[3:0] for a wishbone peripheral that can hold each device in reset given commands from the Caravel SoC.
 
 # Demo
 
