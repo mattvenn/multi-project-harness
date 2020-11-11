@@ -6,6 +6,8 @@ clone with --recursive to get the demo project [seven segment seconds](https://g
 
 ![multi project harness diagram](docs/multi-project-harness.png)
 
+![multi project gds](docs/multi-project-gds.png)
+
 # Process
 
 * each design must have at max 10 inputs and outputs
@@ -42,3 +44,8 @@ run a simulation of activating one design and then the next:
 prove outputs go to 10'bz when reset:
 
     make formal
+
+# Example config
+
+* Working [config.tcl](example/config.tcl)
+* Slightly adapted [top.v](top.v) by adding blackboxed modules: [src/top.v](example/src/top.v)
