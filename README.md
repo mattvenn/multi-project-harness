@@ -2,14 +2,15 @@
 
 This is a proposal for handling multiple projects in the user project area of the [caravel harness](https://github.com/efabless/caravel)
 
-clone with --recursive to get the demo project [seven segment seconds]https://github.com/mattvenn/seven-segment-seconds)
+clone with --recursive to get the demo project [seven segment seconds](https://github.com/mattvenn/seven-segment-seconds)
 
 ![multi project harness diagram](docs/multi-project-harness.png)
 
 # Unknowns/Assumptions
 
 * 10 inputs and 10 outputs.
-* how to do clock?
+* how to do clock? will there be a dedicated clock from SoC?
+* haven't tested the manual macro placement yet as it is currently broken with openlane rc4
 
 # Process
 
