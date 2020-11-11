@@ -1,0 +1,13 @@
+[options]
+mode prove
+depth 20
+
+[engines]
+smtbmc yices
+
+[script]
+read -formal top.v
+prep -top multi_project_harness
+
+[files]
+top.v
