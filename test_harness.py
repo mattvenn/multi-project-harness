@@ -1,43 +1,159 @@
 import cocotb
 from cocotb.clock import Clock
-from cocotb.triggers import FallingEdge, RisingEdge, ClockCycles
+from cocotb.triggers import FallingEdge, RisingEdge, ClockCycles, with_timeout
+
+NUMBER_OF_PROJECTS = 2
+
+async def wishbone_write(dut, address, data):
+    assert dut.wbs_ack_o == 0
+    await RisingEdge(dut.wb_clk_i)
+    dut.wbs_stb_i   <= 1
+    dut.wbs_cyc_i   <= 1
+    dut.wbs_we_i    <= 1        # write
+    dut.wbs_sel_i   <= 0b1111   # select all bytes,      // which byte to read/write
+    dut.wbs_dat_i   <= data
+    dut.wbs_adr_i   <= address
+
+    await with_timeout (RisingEdge(dut.wbs_ack_o), 100, 'us')
+    await with_timeout (FallingEdge(dut.wbs_ack_o), 100, 'us')
+
+    dut.wbs_cyc_i   <= 0
+    dut.wbs_stb_i   <= 0
+    dut.wbs_sel_i   <= 0
+    dut.wbs_dat_i   <= 0
+    dut.wbs_adr_i   <= 0
+
+async def wishbone_read(dut, address):
+    assert dut.wbs_ack_o == 0
+    await RisingEdge(dut.wb_clk_i)
+    dut.wbs_stb_i   <= 1
+    dut.wbs_cyc_i   <= 1
+    dut.wbs_we_i    <= 0        # read
+    dut.wbs_sel_i   <= 0b1111   # select all bytes,      // which byte to read/write
+    dut.wbs_adr_i   <= address
+
+    await with_timeout (RisingEdge(dut.wbs_ack_o), 100, 'us')
+
+    # grab data
+    data = dut.wbs_dat_o
+
+    await with_timeout (FallingEdge(dut.wbs_ack_o), 100, 'us')
+
+    dut.wbs_cyc_i   <= 0
+    dut.wbs_stb_i   <= 0
+    dut.wbs_sel_i   <= 0
+    dut.wbs_dat_i   <= 0
+    dut.wbs_adr_i   <= 0
+
+    return data
+
+# reset
+async def reset(dut):
+    dut.wbs_cyc_i   <= 0
+    dut.wbs_stb_i   <= 0
+    dut.wbs_sel_i   <= 0
+    dut.wbs_dat_i   <= 0
+    dut.wbs_adr_i   <= 0
+
+    dut.wb_rst_i <= 1;
+    await ClockCycles(dut.wb_clk_i, 5)
+    dut.wb_rst_i <= 0;
+    await ClockCycles(dut.wb_clk_i, 5)
 
 @cocotb.test()
-async def test(dut):
-    clock = Clock(dut.clk, 10, units="us")
+async def test_wb_access(dut):
+    clock = Clock(dut.wb_clk_i, 10, units="us")
     cocotb.fork(clock.start())
-    dut.reset <= 0b1111;
-
-    # outs should be unset
-    assert not '1' in dut.gpio_out.value.binstr
-    assert not '0' in dut.gpio_out.value.binstr
-
-    await ClockCycles(dut.clk, 10)
-
-    # take inst0 out of reset
-    dut.reset <= 0b1110;
-
-    # use a gpio as a clock
-    gpio0_clock = Clock(dut.gpio_in[0], 10, units="us") 
-    clk_gen = cocotb.fork(gpio0_clock.start())
-
-    await ClockCycles(dut.clk, 500)
-
-    clk_gen.kill()
     
-    # all in reset
-    dut.reset <= 0b1111;
-    await FallingEdge(dut.clk)
-    assert not '1' in dut.gpio_out.value.binstr
-    assert not '0' in dut.gpio_out.value.binstr
+    await reset(dut)
 
-    await ClockCycles(dut.clk, 100)
+    for project_number in range(NUMBER_OF_PROJECTS):
+        # activate design 1
+        await wishbone_write(dut, 0x00FF00FF, project_number)
+        assert dut.active_project == project_number
 
-    # take inst1 out of reset
-    dut.reset <= 0b1101;
+        # check active design
+        active_project = await wishbone_read(dut, 0x00FF00FF)
+        assert active_project == project_number 
+
+@cocotb.test()
+# 7 segment
+async def test_project_0(dut):
+    clock = Clock(dut.wb_clk_i, 10, units="us")
+    cocotb.fork(clock.start())
+    
+    await reset(dut)
+
+    # activate design 0
+    project_number = 0
+    await wishbone_write(dut, 0x00FF00FF, project_number)
+    assert dut.active_project == project_number
 
     # use a gpio as a clock
-    gpio1_clock = Clock(dut.gpio_in[1], 10, units="us") 
-    clk_gen = cocotb.fork(gpio1_clock.start())
+    io_clock = Clock(dut.io_in[0], 10, units="us") 
+    clk_gen = cocotb.fork(io_clock.start())
 
-    await ClockCycles(dut.clk, 500)
+    # use external gpio as reset
+    dut.io_in[1] <= 1
+    await ClockCycles(dut.wb_clk_i, 5)
+    dut.io_in[1] <= 0
+
+    # wait some cycles
+    await ClockCycles(dut.wb_clk_i, 500)
+
+@cocotb.test()
+# ws2812
+async def test_project_1(dut):
+    clock = Clock(dut.wb_clk_i, 10, units="us")
+    cocotb.fork(clock.start())
+    
+    await reset(dut)
+
+    # activate design 1
+    project_number = 1
+    await wishbone_write(dut, 0x00FF00FF, project_number)
+    assert dut.active_project == project_number
+
+    # use a gpio as a clock
+    io_clock = Clock(dut.io_in[0], 10, units="us") 
+    clk_gen = cocotb.fork(io_clock.start())
+
+    # use external gpio as reset
+    dut.io_in[1] <= 1
+    await ClockCycles(dut.wb_clk_i, 5)
+    dut.io_in[1] <= 0
+
+    # setup a colour for some leds
+    led_num = 7
+    r = 255
+    g = 10
+    b = 100
+    await wishbone_write(dut, 0x00FF00FA, (led_num << 24) + (r << 16) + (g << 8) + b)
+
+    # wait some cycles
+    await ClockCycles(dut.wb_clk_i, 500)
+
+@cocotb.test()
+# vga_clk
+async def test_project_2(dut):
+    clock = Clock(dut.wb_clk_i, 10, units="us")
+    cocotb.fork(clock.start())
+    
+    await reset(dut)
+
+    # activate design 2
+    project_number = 2
+    await wishbone_write(dut, 0x00FF00FF, project_number)
+    assert dut.active_project == project_number
+
+    # use a gpio as a clock
+    io_clock = Clock(dut.io_in[0], 10, units="us") 
+    clk_gen = cocotb.fork(io_clock.start())
+
+    # use external gpio as reset
+    dut.io_in[1] <= 1
+    await ClockCycles(dut.wb_clk_i, 5)
+    dut.io_in[1] <= 0
+
+    # wait some cycles
+    await ClockCycles(dut.wb_clk_i, 600*800)
