@@ -6,7 +6,7 @@ clone with --recursive to get the demo project [seven segment seconds](https://g
 
 You will also need cocotb and iverilog installed.
 
-    sudo apt-get install iverilog
+    install iverilog from source git://github.com/steveicarus/iverilog.git
     pip3 install cocotb
 
 ![multi project harness diagram](docs/multi-project-harness.png)
