@@ -4,6 +4,11 @@ This is a proposal for handling multiple projects in the user project area of th
 
 clone with --recursive to get the demo project [seven segment seconds](https://github.com/mattvenn/seven-segment-seconds)
 
+You will also need cocotb and iverilog installed.
+
+    sudo apt-get install iverilog
+    pip3 install cocotb
+
 ![multi project harness diagram](docs/multi-project-harness.png)
 
 ![multi project gds](docs/multi-project-gds.png)

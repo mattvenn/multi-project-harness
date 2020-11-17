@@ -1,9 +1,9 @@
 [submodule "seven-segment-seconds"]
 	path = seven-segment-seconds
-	url = git@github.com:mattvenn/seven-segment-seconds
+	url = https://github.com/mattvenn/seven-segment-seconds
 [submodule "ws2812"]
 	path = ws2812
-	url = git@github.com:mattvenn/ws2812-core.git
+	url = https://github.com/mattvenn/ws2812-core.git
 [submodule "vga-clock"]
 	path = vga-clock
-	url = git@github.com:mattvenn/vga-clock.git
+	url = https://github.com/mattvenn/vga-clock.git
