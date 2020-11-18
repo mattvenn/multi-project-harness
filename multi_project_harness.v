@@ -74,7 +74,7 @@ module multi_project_harness #(
     seven_segment_seconds proj_0 (.clk(project_io_in[0][0]), .reset(project_io_in[0][1] | la_data_in[0]), .led_out(project_io_out[0][8:2]), .compare_in(wbs_dat_i[23:0]), .update_compare(seven_seg_update));
     // ws2812 needs led_num, rgb, write connected to wb
     ws2812                proj_1 (.clk(project_io_in[1][0]), .reset(project_io_in[1][1] | la_data_in[0]), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(ws2812_write), .data(project_io_out[1][2]));
- //   vga_clock             proj_2 (.clk(project_io_in[2][0]), .reset_n(!project_io_in[2][1]), .adj_hrs(project_io_in[2][2]), .adj_min(project_io_in[2][3]), .adj_sec(project_io_in[2][4]), .hsync(project_io_out[2][5]), .vsync(project_io_out[2][6]), .rrggbb(project_io_out[2][12:7]));
+    vga_clock             proj_2 (.clk(project_io_in[2][0]), .reset_n((!project_io_in[2][1]) | la_data_in[0]), .adj_hrs(project_io_in[2][2]), .adj_min(project_io_in[2][3]), .adj_sec(project_io_in[2][4]), .hsync(project_io_out[2][5]), .vsync(project_io_out[2][6]), .rrggbb(project_io_out[2][12:7]));
     
     reg [7:0] active_project = 0; // which design is active
 
