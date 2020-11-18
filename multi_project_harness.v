@@ -1,8 +1,9 @@
 `default_nettype none
-`define MPRJ_IO_PADS 36 // TODO
+`include "defines.v"
 module multi_project_harness #(
-    parameter address_active = 32'h00FF00FF,  // TODO
-    parameter address_ws2812 = 32'h00FF00FA,  // TODO
+    parameter address_active = 32'h30000000,
+    parameter address_ws2812 = 32'h30000100,
+    parameter address_7seg   = 32'h30000200,
     parameter num_projects   = 3
 ) (
     inout vdda1,	// User area 1 3.3V supply
@@ -37,6 +38,7 @@ module multi_project_harness #(
     output [`MPRJ_IO_PADS-1:0] io_oeb
     );
 
+
     `ifdef COCOTB_SIM
         initial begin
             $dumpfile ("harness.vcd");
@@ -56,9 +58,9 @@ module multi_project_harness #(
                                           `MPRJ_IO_PADS'b0;
 
     // each project sets own oeb
-    assign io_oeb = active_project == 0 ? project_io_out[0] :
-                    active_project == 1 ? project_io_out[1] :
-                    active_project == 2 ? project_io_out[2] :
+    assign io_oeb = active_project == 0 ? `MPRJ_IO_PADS'b1 : // all on
+                    active_project == 1 ? `MPRJ_IO_PADS'b1 :
+                    active_project == 2 ? `MPRJ_IO_PADS'b1 :
                                           `MPRJ_IO_PADS'b0;
 
     // inputs get set to z if not selected
@@ -66,13 +68,13 @@ module multi_project_harness #(
     assign project_io_in[1] = active_project == 1 ? io_in : `MPRJ_IO_PADS'bz;
     assign project_io_in[2] = active_project == 2 ? io_in : `MPRJ_IO_PADS'bz;
 
-
+    
     // instantiate all the modules
     // none of then care about output enable so leave that to the cpu
-    seven_segment_seconds proj_0 (.clk(project_io_in[0][0]), .reset(project_io_in[0][1]), .led_out(project_io_out[0][8:2]));
+    seven_segment_seconds proj_0 (.clk(project_io_in[0][0]), .reset(project_io_in[0][1] | la_data_in[0]), .led_out(project_io_out[0][8:2]), .compare_in(wbs_dat_i[23:0]), .update_compare(seven_seg_update));
     // ws2812 needs led_num, rgb, write connected to wb
-    ws2812                proj_1 (.clk(project_io_in[1][0]), .reset(project_io_in[1][1]), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(ws2812_write), .data(project_io_out[1][32]));
-    vga_clock             proj_2 (.clk(project_io_in[2][0]), .reset_n(!project_io_in[2][1]), .adj_hrs(project_io_in[2][2]), .adj_min(project_io_in[2][3]), .adj_sec(project_io_in[2][4]), .hsync(project_io_out[2][5]), .vsync(project_io_out[2][6]), .rrggbb(project_io_out[2][12:7]));
+    ws2812                proj_1 (.clk(project_io_in[1][0]), .reset(project_io_in[1][1] | la_data_in[0]), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(ws2812_write), .data(project_io_out[1][2]));
+ //   vga_clock             proj_2 (.clk(project_io_in[2][0]), .reset_n(!project_io_in[2][1]), .adj_hrs(project_io_in[2][2]), .adj_min(project_io_in[2][3]), .adj_sec(project_io_in[2][4]), .hsync(project_io_out[2][5]), .vsync(project_io_out[2][6]), .rrggbb(project_io_out[2][12:7]));
     
     reg [7:0] active_project = 0; // which design is active
 
@@ -88,11 +90,12 @@ module multi_project_harness #(
 
     // extra ws2812 setup
     wire ws2812_write = valid & wstrb & (wbs_adr_i == address_ws2812);
+    wire seven_seg_update = valid & wstrb & (wbs_adr_i == address_7seg);
 
     always @(posedge wb_clk_i) begin
-        // reset
         wbs_ack <= 0;
 
+        // reset
         if(wb_rst_i) begin
             active_project <= 0;
             wbs_data_out <= 0;
@@ -106,6 +109,9 @@ module multi_project_harness #(
                     wbs_ack <= 1;
                 end
                 address_ws2812: begin
+                    wbs_ack <= 1;
+                end
+                address_7seg: begin
                     wbs_ack <= 1;
                 end
 
@@ -125,3 +131,4 @@ module multi_project_harness #(
 
 
 endmodule
+`default_nettype wire
