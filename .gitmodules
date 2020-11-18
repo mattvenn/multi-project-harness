@@ -7,3 +7,6 @@
 [submodule "vga-clock"]
 	path = vga-clock
 	url = https://github.com/mattvenn/vga-clock.git
+[submodule "spinet"]
+	path = spinet
+	url = https://github.com/millerresearch/spinet
