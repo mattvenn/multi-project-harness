@@ -200,7 +200,7 @@ async def test_project_3(dut):
 
     # activate design 3
     project_number = 3
-    await wishbone_write(dut, 0x00FF00FF, project_number)
+    await wishbone_write(dut, ADDR_PROJECT, project_number)
     assert dut.active_project == project_number
 
     # use a gpio as a clock
