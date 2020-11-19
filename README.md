@@ -48,6 +48,10 @@ run a simulation of activating one design and then the next:
     make sim
     make gtkwave
 
+run a formal proof that the mux is correct
+
+    make formal
+
 # Example config
 
 * Working [config.tcl](example/config.tcl)

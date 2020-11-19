@@ -6,8 +6,8 @@ depth 20
 smtbmc yices
 
 [script]
-read -formal top.v
+read -formal multi_project_harness.v
 prep -top multi_project_harness
 
 [files]
-top.v
+multi_project_harness.v
