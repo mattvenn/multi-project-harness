@@ -1,4 +1,4 @@
-# multi project harness
+# Multi Project Harness
 
 This is a proposal for handling multiple projects in the user project area of the [Caravel harness](https://github.com/efabless/caravel)
 
