@@ -1,10 +1,14 @@
 `default_nettype none
 `include "defines.v"
 module multi_project_harness #(
+    // address_active: write to this memory address to select the project
     parameter address_active = 32'h30000000,
+    // each project gets 0x100 bytes memory space
     parameter address_ws2812 = 32'h30000100,
     parameter address_7seg   = 32'h30000200,
-    parameter num_projects   = 4
+    // h30000300 reserved for proj_3: spinet
+    parameter address_freq   = 32'h30000400,
+    parameter num_projects   = 5
 ) (
     inout vdda1,	// User area 1 3.3V supply
     inout vdda2,	// User area 2 3.3V supply
@@ -56,6 +60,7 @@ module multi_project_harness #(
                     active_project == 1 ? project_io_out[1] :
                     active_project == 2 ? project_io_out[2] :
                     active_project == 3 ? project_io_out[3] :
+                    active_project == 4 ? project_io_out[4] :
                                           `MPRJ_IO_PADS'b0;
 
     // each project sets own oeb
@@ -63,6 +68,7 @@ module multi_project_harness #(
                     active_project == 1 ? `MPRJ_IO_PADS'b1 :
                     active_project == 2 ? `MPRJ_IO_PADS'b1 :
                     active_project == 3 ? `MPRJ_IO_PADS'b1 :
+                    active_project == 4 ? `MPRJ_IO_PADS'b1 :
                                           `MPRJ_IO_PADS'b0;
 
     // inputs get set to z if not selected
@@ -70,8 +76,9 @@ module multi_project_harness #(
     assign project_io_in[1] = active_project == 1 ? io_in : `MPRJ_IO_PADS'bz;
     assign project_io_in[2] = active_project == 2 ? io_in : `MPRJ_IO_PADS'bz;
     assign project_io_in[3] = active_project == 3 ? io_in : `MPRJ_IO_PADS'bz;
+    assign project_io_in[4] = active_project == 4 ? io_in : `MPRJ_IO_PADS'bz;
 
-    
+
     // instantiate all the modules
     // none of then care about output enable so leave that to the cpu
     seven_segment_seconds proj_0 (.clk(project_io_in[0][0]), .reset(project_io_in[0][1] | la_data_in[0]), .led_out(project_io_out[0][8:2]), .compare_in(wbs_dat_i[23:0]), .update_compare(seven_seg_update));
@@ -79,7 +86,6 @@ module multi_project_harness #(
 
     ws2812                proj_1 (.clk(project_io_in[1][0]), .reset(project_io_in[1][1] | la_data_in[0]), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(ws2812_write), .data(project_io_out[1][2]));
     vga_clock             proj_2 (.clk(project_io_in[2][0]), .reset_n((!project_io_in[2][1]) | la_data_in[0]), .adj_hrs(project_io_in[2][2]), .adj_min(project_io_in[2][3]), .adj_sec(project_io_in[2][4]), .hsync(project_io_out[2][5]), .vsync(project_io_out[2][6]), .rrggbb(project_io_out[2][12:7]));
-
 
 	wire [13:0] p3in, p3out;
 	assign p3in = project_io_in[3][13:0];
@@ -93,7 +99,26 @@ module multi_project_harness #(
 		.MISO(p3out[9:8]),
 		.txready(p3out[11:10]),
 		.rxready(p3out[13:12]));
-    
+
+    wire [31:0] freq_cnt_cont;
+    freq_cnt proj_4(  // TODO change instance name from `top` to `freq_cnt`
+        .clk(project_io_in[4][0]),
+        .rst(project_io_in[4][1] | la_data_in[0]),
+
+        // register write interface (ignores < 32 bit writes, no read!):
+        // 32'h30000300 = writes UART clock divider, reads cont. counter value
+        // 32'h30000304 = Frequency counter update period [sys_clks]
+        .addr(wbs_adr_i[5:2]),
+        .value(wbs_dat_i),
+        .strobe(valid & (&wstrb) & ((wbs_adr_i >> 8) == (address_freq >> 8))),
+
+        // signal under test
+        .samplee(project_io_in[4][2]),
+        // continuous counter output to wishbone
+        .oc(freq_cnt_cont),
+        // UART output to pin
+        .tx(project_io_out[4][0])
+    );
     reg [7:0] active_project = 0; // which design is active
 
     // wishbone signals
@@ -103,7 +128,7 @@ module multi_project_harness #(
     reg wbs_ack;
     assign wbs_ack_o = wbs_ack;
     assign wbs_dat_o = wbs_data_out;
-    assign valid = wbs_cyc_i && wbs_stb_i; 
+    assign valid = wbs_cyc_i && wbs_stb_i;
     assign wstrb = wbs_sel_i & {4{wbs_we_i}};
 
     // extra ws2812 setup
@@ -133,7 +158,7 @@ module multi_project_harness #(
                     wbs_ack <= 1;
                 end
 
-            endcase 
+            endcase
         end else
         // reads - allow to see which is currently selected
         if(valid & wstrb == 4'b0) begin
@@ -143,7 +168,11 @@ module multi_project_harness #(
                     wbs_ack <= 1;
                 end
 
-            endcase 
+                address_freq: begin
+                    wbs_data_out <= freq_cnt_cont;
+                    wbs_ack <= 1;
+                end
+            endcase
         end
     end
 
