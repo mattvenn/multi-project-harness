@@ -1,11 +1,12 @@
 # cocotb setup
 MODULE = test_harness
 TOPLEVEL = multi_project_harness
-PROJ_0_SOURCES = seven-segment-seconds/seven_segment_seconds.v 
+PROJ_0_SOURCES = seven-segment-seconds/seven_segment_seconds.v
 PROJ_1_SOURCES = ws2812/ws2812.v
 PROJ_2_SOURCES = vga-clock/rtl/button_pulse.v vga-clock/rtl/digit.v vga-clock/rtl/VgaSyncGen.v vga-clock/rtl/fontROM.v vga-clock/rtl/vga_clock.v
 PROJ_3_SOURCES = spinet/rtl/spinet.v
-VERILOG_SOURCES = multi_project_harness.v $(PROJ_0_SOURCES) $(PROJ_1_SOURCES) $(PROJ_2_SOURCES) $(PROJ_3_SOURCES)
+PROJ_4_SOURCES = freq_cnt/asic_freq.v
+VERILOG_SOURCES = multi_project_harness.v $(PROJ_0_SOURCES) $(PROJ_1_SOURCES) $(PROJ_2_SOURCES) $(PROJ_3_SOURCES) $(PROJ_4_SOURCES)
 
 include $(shell cocotb-config --makefiles)/Makefile.sim
 
