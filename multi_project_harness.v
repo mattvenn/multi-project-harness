@@ -118,8 +118,8 @@ module multi_project_harness #(
     `endif
 
     // project 4
-    `ifndef FORMAL
     wire [31:0] freq_cnt_cont;
+    `ifndef FORMAL
     freq_cnt proj_4(  // TODO change instance name from `top` to `freq_cnt`
         .clk(project_io_in[4][0]),
         .rst(project_io_in[4][1] | la_data_in[0]),
