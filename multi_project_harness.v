@@ -23,7 +23,7 @@ module multi_project_harness #(
     // Wishbone Slave ports (WB MI A)
     input wire wb_clk_i,             // clock
     input wire wb_rst_i,             // reset
-    input wire wbs_stb_i,            // strobe - valid data
+    input wire wbs_stb_i,            // strobe - wb_valid data
     input wire wbs_cyc_i,            // cycle - high when during a request
     input wire wbs_we_i,             // write enable
     input wire [3:0] wbs_sel_i,      // which byte to read/write
@@ -94,8 +94,8 @@ module multi_project_harness #(
 
     // project 1
     // ws2812 needs led_num, rgb, write connected to wb
-    wire ws2812_write = valid & wstrb & (wbs_adr_i == address_ws2812);
-    wire seven_seg_update = valid & wstrb & (wbs_adr_i == address_7seg);
+    wire ws2812_write = wb_valid & wb_wstrb & (wbs_adr_i == address_ws2812);
+    wire seven_seg_update = wb_valid & wb_wstrb & (wbs_adr_i == address_7seg);
     `ifndef FORMAL
     ws2812                proj_1 (.clk(clk), .reset(reset | la_data_in[0]), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(ws2812_write), .data(project_io_out[1][2]));
     `endif
@@ -133,7 +133,7 @@ module multi_project_harness #(
         // 32'h30000304 = Frequency counter update period [sys_clks]
         .addr(wbs_adr_i[5:2]),
         .value(wbs_dat_i),
-        .strobe(valid & (&wstrb) & ((wbs_adr_i >> 8) == (address_freq >> 8))),
+        .strobe(wb_valid & (&wb_wstrb) & ((wbs_adr_i >> 8) == (address_freq >> 8))),
 
         // signal under test
         .samplee(project_io_in[4][2]),
@@ -145,29 +145,28 @@ module multi_project_harness #(
     `endif
 
     // wishbone MUX signals
-    wire valid;
-    wire [3:0] wstrb;
+    wire wb_valid;
+    wire [3:0] wb_wstrb;
     reg [31:0] wbs_data_out;
     reg wbs_ack;
     assign wbs_ack_o = wbs_ack;
     assign wbs_dat_o = wbs_data_out;
-    assign valid = wbs_cyc_i && wbs_stb_i;
-    assign wstrb = wbs_sel_i & {4{wbs_we_i}};
+    assign wb_valid = wbs_cyc_i && wbs_stb_i;
+    assign wb_wstrb = wbs_sel_i & {4{wbs_we_i}};
 
     always @(posedge clk) begin
-        wbs_ack <= 0;
-
         // reset
         if(reset) begin
             active_project <= 0;
             wbs_data_out <= 0;
             wbs_ack <= 0;
-        end
+        end else
         // writes
-        if(valid & wstrb) begin
+        if(wb_valid & (wb_wstrb > 0)) begin
             case(wbs_adr_i)
                 address_active: begin
-                    if (wstrb[0]) active_project[7:0]   <= wbs_dat_i[7:0];
+                    if (wb_wstrb[0]) 
+                        active_project[7:0] <= wbs_dat_i[7:0];
                     wbs_ack <= 1;
                 end
                 address_ws2812: begin
@@ -180,10 +179,10 @@ module multi_project_harness #(
             endcase
         end else
         // reads - allow to see which is currently selected
-        if(valid & wstrb == 4'b0) begin
+        if(wb_valid & wb_wstrb == 4'b0) begin
             case(wbs_adr_i)
                 address_active: begin
-                    wbs_data_out[7:0]   <= active_project[7:0];
+                    wbs_data_out[7:0] <= active_project[7:0];
                     wbs_ack <= 1;
                 end
 
@@ -192,6 +191,9 @@ module multi_project_harness #(
                     wbs_ack <= 1;
                 end
             endcase
+        end else begin
+            wbs_ack <= 0;
+            wbs_data_out <= 32'b0;
         end
     end
 
@@ -212,7 +214,42 @@ module multi_project_harness #(
                     assert(project_io_in[i] == `MPRJ_IO_PADS'b0);
             end
         end
+
+        // basic wishbone compliance
+        reg f_past_valid = 0;
+
+        always @(posedge clk) begin
+            f_past_valid <= 1;
+            assume(reset == !f_past_valid);
+            
+        end
+
+        // assume controller keeps cyc & strobe high until ack, data, wstrb and data stay stable
+        always @(posedge clk) begin
+            if(reset)
+                assume(!wbs_cyc_i);
+            if(f_past_valid && $past(wb_valid)) begin
+                // keep address & data stable
+                assume($stable(wb_wstrb));
+                assume($stable(wbs_adr_i));
+                assume($stable(wbs_dat_i));
+
+                // wait for ack
+                if(!wbs_ack)
+                    assume(wb_valid);
+            end
+        end
+
+        // assert ack happens when writing to a known address
+        always @(posedge clk) begin
+            if(f_past_valid && $past(wb_valid) && !$past(reset))
+                // reads & writes to project select address
+                if($past(wbs_adr_i == address_active))
+                    assert(wbs_ack);
+        end
+
     `endif
+
 
 endmodule
 `default_nettype wire

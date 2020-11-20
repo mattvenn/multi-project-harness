@@ -21,13 +21,15 @@ async def wishbone_write(dut, address, data):
     dut.wbs_adr_i   <= address
 
     await with_timeout (RisingEdge(dut.wbs_ack_o), 100, 'us')
-    await with_timeout (FallingEdge(dut.wbs_ack_o), 100, 'us')
+    await RisingEdge(dut.wb_clk_i)
 
     dut.wbs_cyc_i   <= 0
     dut.wbs_stb_i   <= 0
     dut.wbs_sel_i   <= 0
     dut.wbs_dat_i   <= 0
     dut.wbs_adr_i   <= 0
+
+    await with_timeout (FallingEdge(dut.wbs_ack_o), 100, 'us')
 
 async def wishbone_read(dut, address):
     assert dut.wbs_ack_o == 0
@@ -39,11 +41,10 @@ async def wishbone_read(dut, address):
     dut.wbs_adr_i   <= address
 
     await with_timeout (RisingEdge(dut.wbs_ack_o), 100, 'us')
+    await RisingEdge(dut.wb_clk_i)
 
     # grab data
     data = dut.wbs_dat_o
-
-    await with_timeout (FallingEdge(dut.wbs_ack_o), 100, 'us')
 
     dut.wbs_cyc_i   <= 0
     dut.wbs_stb_i   <= 0
@@ -51,10 +52,13 @@ async def wishbone_read(dut, address):
     dut.wbs_dat_i   <= 0
     dut.wbs_adr_i   <= 0
 
+    await with_timeout (FallingEdge(dut.wbs_ack_o), 100, 'us')
+
     return data
 
 # reset
 async def reset(dut):
+    dut.la_data_in <= 0
     dut.wbs_cyc_i   <= 0
     dut.wbs_stb_i   <= 0
     dut.wbs_sel_i   <= 0
@@ -128,10 +132,10 @@ async def test_project_0(dut):
     await wishbone_write(dut, ADDR_7SEG, 10)
 
     # wait some cycles
-    await ClockCycles(dut.wb_clk_i, 50)
-    assert dut.proj_0.digit == 4
-    await ClockCycles(dut.wb_clk_i, 1)
-    assert dut.proj_0.digit == 5
+    await ClockCycles(dut.wb_clk_i, 10)
+    assert dut.proj_0.digit == 1
+    await ClockCycles(dut.wb_clk_i, 10)
+    assert dut.proj_0.digit == 2
 
 @cocotb.test()
 # ws2812
