@@ -43,6 +43,10 @@ module multi_project_harness #(
     output wire [`MPRJ_IO_PADS-1:0] io_oeb
     );
 
+    // couple of aliases
+    wire clk = wb_clk_i;
+    wire reset = wb_rst_i;
+
     `ifdef COCOTB_SIM
         initial begin
             $dumpfile ("harness.vcd");
@@ -73,19 +77,19 @@ module multi_project_harness #(
                     active_project == 4 ? `MPRJ_IO_PADS'b1 :
                                           `MPRJ_IO_PADS'b0;
 
-    // inputs get set to z if not selected
-    assign project_io_in[0] = active_project == 0 ? io_in : `MPRJ_IO_PADS'bz;
-    assign project_io_in[1] = active_project == 1 ? io_in : `MPRJ_IO_PADS'bz;
-    assign project_io_in[2] = active_project == 2 ? io_in : `MPRJ_IO_PADS'bz;
-    assign project_io_in[3] = active_project == 3 ? io_in : `MPRJ_IO_PADS'bz;
-    assign project_io_in[4] = active_project == 4 ? io_in : `MPRJ_IO_PADS'bz;
+    // inputs get set to 0 if not selected
+    assign project_io_in[0] = active_project == 0 ? io_in : `MPRJ_IO_PADS'b0;
+    assign project_io_in[1] = active_project == 1 ? io_in : `MPRJ_IO_PADS'b0;
+    assign project_io_in[2] = active_project == 2 ? io_in : `MPRJ_IO_PADS'b0;
+    assign project_io_in[3] = active_project == 3 ? io_in : `MPRJ_IO_PADS'b0;
+    assign project_io_in[4] = active_project == 4 ? io_in : `MPRJ_IO_PADS'b0;
 
 
     // instantiate all the modules
 
     // project 0
     `ifndef FORMAL
-    seven_segment_seconds proj_0 (.clk(project_io_in[0][0]), .reset(project_io_in[0][1] | la_data_in[0]), .led_out(project_io_out[0][8:2]), .compare_in(wbs_dat_i[23:0]), .update_compare(seven_seg_update));
+    seven_segment_seconds proj_0 (.clk(clk), .reset(reset | la_data_in[0]), .led_out(project_io_out[0][8:2]), .compare_in(wbs_dat_i[23:0]), .update_compare(seven_seg_update));
     `endif
 
     // project 1
@@ -93,12 +97,12 @@ module multi_project_harness #(
     wire ws2812_write = valid & wstrb & (wbs_adr_i == address_ws2812);
     wire seven_seg_update = valid & wstrb & (wbs_adr_i == address_7seg);
     `ifndef FORMAL
-    ws2812                proj_1 (.clk(project_io_in[1][0]), .reset(project_io_in[1][1] | la_data_in[0]), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(ws2812_write), .data(project_io_out[1][2]));
+    ws2812                proj_1 (.clk(clk), .reset(reset | la_data_in[0]), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(ws2812_write), .data(project_io_out[1][2]));
     `endif
 
     // project 2
     `ifndef FORMAL
-    vga_clock             proj_2 (.clk(project_io_in[2][0]), .reset_n((!project_io_in[2][1]) | la_data_in[0]), .adj_hrs(project_io_in[2][2]), .adj_min(project_io_in[2][3]), .adj_sec(project_io_in[2][4]), .hsync(project_io_out[2][5]), .vsync(project_io_out[2][6]), .rrggbb(project_io_out[2][12:7]));
+    vga_clock             proj_2 (.clk(clk), .reset_n(!(reset | la_data_in[0])), .adj_hrs(project_io_in[2][2]), .adj_min(project_io_in[2][3]), .adj_sec(project_io_in[2][4]), .hsync(project_io_out[2][5]), .vsync(project_io_out[2][6]), .rrggbb(project_io_out[2][12:7]));
     `endif
 
     // project 3
@@ -107,8 +111,8 @@ module multi_project_harness #(
     assign project_io_out[3][13:0] = p3out;
     `ifndef FORMAL
     spinet #(.N(2), .WIDTH(16), .ABITS(3)) proj_3 (
-        .clk(p3in[0]),
-        .rst(p3in[1]),
+        .clk(clk),
+        .rst(reset | la_data_in[0]),
         .MOSI(p3in[3:2]),
         .SCK(p3in[5:4]),
         .SS(p3in[7:6]),
@@ -121,8 +125,8 @@ module multi_project_harness #(
     wire [31:0] freq_cnt_cont;
     `ifndef FORMAL
     freq_cnt proj_4(  // TODO change instance name from `top` to `freq_cnt`
-        .clk(project_io_in[4][0]),
-        .rst(project_io_in[4][1] | la_data_in[0]),
+        .clk(clk),
+        .rst(reset | la_data_in[0]),
 
         // register write interface (ignores < 32 bit writes, no read!):
         // 32'h30000300 = writes UART clock divider, reads cont. counter value
@@ -150,11 +154,11 @@ module multi_project_harness #(
     assign valid = wbs_cyc_i && wbs_stb_i;
     assign wstrb = wbs_sel_i & {4{wbs_we_i}};
 
-    always @(posedge wb_clk_i) begin
+    always @(posedge clk) begin
         wbs_ack <= 0;
 
         // reset
-        if(wb_rst_i) begin
+        if(reset) begin
             active_project <= 0;
             wbs_data_out <= 0;
             wbs_ack <= 0;
@@ -196,11 +200,16 @@ module multi_project_harness #(
         always @(*) begin
             if(active_project > 0 && active_project < num_projects)
                 assert(io_oeb == `MPRJ_IO_PADS'b1);
+
             for(i = 0; i < num_projects; i ++) begin
-                if(active_project == i)
+                // if project is selected
+                if(active_project == i) begin
+                    // ins and outs are connected
                     assert(io_out == project_io_out[i]);
-                if(active_project == i)
                     assert(io_in == project_io_in[i]);
+                end else
+                    // all other project's ins are set to 0
+                    assert(project_io_in[i] == `MPRJ_IO_PADS'b0);
             end
         end
     `endif
