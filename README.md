@@ -13,31 +13,33 @@ You will also need cocotb and iverilog installed.
 
 ![multi project gds](docs/multi-project-gds.png)
 
-# Process
+# Process of adding a new design
 
-* each design must have at max 10 inputs and outputs
-* each design is hardened (turned into a GDS2 layout)
-* designs and this harness are aggregated into 1 macro following this pattern: https://github.com/efabless/openlane/tree/master/designs/manual_macro_placement_test
-* the whole thing is put inside the Caravel user space
-* Caravel SoC programmed with firmware that sets the GPIOs half input and half output and holds all designs in reset
-* A button allows different designs to be un-reset
-* LEDs show which design is currently active
+## Context 1: add to multi-project-harness
 
-# TODO
+* add design as a submodule
+* add a test to the test_harness.py
 
-* change input reset[3:0] for a wishbone peripheral that can hold each device in reset given commands from the Caravel SoC.
-* add LED display
-* add button
-* SoC can read the button presses
+## Context 2: Caravel
+* clone caravel and add this repo as a submodule in caravel/verilog/rtl
+* add firmware and test in caravel/verilog/dv/caravel/user_proj_example
+* run the test and check your design is selected and generating expected signals. Best if the testbench actually checks something basic.
+
+# Context 3: OpenLane
+
+each design is hardened (turned into a GDS2 layout).  Designs and this harness are aggregated into 1 macro following this pattern: https://github.com/efabless/openlane/tree/master/designs/manual_macro_placement_test
+
+* harden your design but don't route the top metal power lines by setting in config: set ::env(DESIGN_IS_CORE) 0
+* copy all the macros gds and lef into macros/gds & macros/lef
+* harden top level multi-project-harness
+* ? How to do within Caravel.
+
 
 # Unknowns/Assumptions
 
-* 10 inputs and 10 outputs.
 * how to do clock? will there be a dedicated clock from SoC?
 * haven't tested the manual macro placement yet as it is currently broken with openlane rc4
 * how to put the final macro into the user project area of Caravel.
-* could IOs be multiplexed in a way that doesn't mean they have to be divided into inputs and outputs before hand? 
-
 
 # Demo
 
@@ -46,7 +48,7 @@ run a simulation of activating one design and then the next:
     make sim
     make gtkwave
 
-prove outputs go to 10'bz when reset:
+run a formal proof that the mux is correct
 
     make formal
 
