@@ -9,12 +9,19 @@ to generate asic_freq.v, which is instantiated in multi_project_harness.v
 
 TODO make nmigen choose a better name than `top` for the top-level module
 '''
+from subprocess import check_output
 from nmigen import Signal, Module, Elaboratable, Cat, C, ClockSignal, Memory
 from nmigen.lib.coding import GrayDecoder, GrayEncoder
 from nmigen.compat.fhdl.decorators import ClockDomainsRenamer
 from nmigen.lib.cdc import FFSynchronizer
 from nmigen.hdl.cd import ClockDomain
 from bin2bcd import Bin2bcd
+
+
+def desc():
+    ''' the git describe string '''
+    tmp = check_output(['git', 'describe', '--dirty', '--always'])
+    return tmp.decode('ascii').strip()
 
 
 class UART(Elaboratable):
@@ -27,6 +34,7 @@ class UART(Elaboratable):
             E.g. ``12e6 / 115200`` = ``104``.
         """
         assert divisor >= 4
+        print("UART divisor:", divisor)
 
         self.data_bits = data_bits
         self.divisor = Signal(32, reset=divisor)
@@ -225,8 +233,9 @@ class FreqMeter(Elaboratable):
 class ASICFreak(Elaboratable):
     def __init__(self, sys_clk_freq):
         '''
-        sys_clk_freq is used to set UART to 115200 baud/s and
+        sys_clk_freq is used to set UART to 9600 baud/s and
         1 Hz measurement rate on reset
+        These values can be set over wishbone at runtime
         '''
         self.sys_clk_freq = int(sys_clk_freq)
         self.samplee = Signal()  # the signal under test
@@ -248,8 +257,10 @@ class ASICFreak(Elaboratable):
     def elaborate(self, platform):
         m = Module()
 
-        m.submodules.uart = uart = UART(divisor=self.sys_clk_freq // 115200)
-        m.submodules.f_meter = f_meter = FreqMeter(self.sys_clk_freq)
+        m.submodules.uart = uart = UART(divisor=self.sys_clk_freq // 9600)
+        m.submodules.f_meter = f_meter = FreqMeter(
+            self.sys_clk_freq, width=8
+        )
         m.submodules.b2bcd = b2bcd = Bin2bcd(len(f_meter.value))
 
         # Configuration register interface
@@ -265,12 +276,14 @@ class ASICFreak(Elaboratable):
 
         m.d.comb += [
             f_meter.clk.eq(self.samplee),
+            self.oc.eq(f_meter.oc),
             # b2bcd.bin_in.eq(1234567895),
             b2bcd.bin_in.eq(f_meter.value),
             b2bcd.trig_in.eq(f_meter.value_valid)
         ]
 
-        mem = Memory(width=7, depth=7, init=b'Freak!\n')
+        greeting = b'asic_freq ' + desc().encode() + b'\n'
+        mem = Memory(width=7, depth=len(greeting), init=greeting)
         m.submodules.mem_r = mem_r = mem.read_port()
         mem_addr = Signal(8)
         print_cnt = Signal(8)
@@ -372,7 +385,11 @@ if __name__ == "__main__":
 
     if args.action == "generate":
         from nmigen.back import verilog
+        from os import system
 
-        afr = ASICFreak(10e6)
+        afr = ASICFreak(1e6)
         with open(fn + '.v', 'w') as f:
             f.write(verilog.convert(afr, ports=afr.ports()))
+
+        # too bad ...
+        system('sed -i "s/module top/module freq_cnt/g" asic_freq.v')

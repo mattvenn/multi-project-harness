@@ -4,12 +4,12 @@
 (* \nmigen.hierarchy  = "top.f_meter.U$$0" *)
 module \U$$0 (o, i);
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:156" *)
-  wire [5:0] \$1 ;
+  wire [7:0] \$1 ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:151" *)
-  input [5:0] i;
+  input [7:0] i;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:152" *)
-  output [5:0] o;
-  assign \$1  = i ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:156" *) i[5:1];
+  output [7:0] o;
+  assign \$1  = i ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:156" *) i[7:1];
   assign o = \$1 ;
 endmodule
 
@@ -19,6 +19,10 @@ module \U$$1 (i, o);
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *)
   wire \$1 ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *)
+  wire \$11 ;
+  (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *)
+  wire \$13 ;
+  (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *)
   wire \$3 ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *)
   wire \$5 ;
@@ -27,68 +31,72 @@ module \U$$1 (i, o);
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *)
   wire \$9 ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:178" *)
-  input [5:0] i;
+  input [7:0] i;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:179" *)
-  output [5:0] o;
-  assign \$9  = o[1] ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *) i[0];
-  assign \$1  = o[5] ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *) i[4];
-  assign \$3  = o[4] ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *) i[3];
-  assign \$5  = o[3] ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *) i[2];
-  assign \$7  = o[2] ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *) i[1];
-  assign o[0] = \$9 ;
-  assign o[1] = \$7 ;
-  assign o[2] = \$5 ;
-  assign o[3] = \$3 ;
-  assign o[4] = \$1 ;
-  assign o[5] = i[5];
+  output [7:0] o;
+  assign \$9  = o[3] ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *) i[2];
+  assign \$11  = o[2] ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *) i[1];
+  assign \$13  = o[1] ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *) i[0];
+  assign \$1  = o[7] ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *) i[6];
+  assign \$3  = o[6] ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *) i[5];
+  assign \$5  = o[5] ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *) i[4];
+  assign \$7  = o[4] ^ (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:185" *) i[3];
+  assign o[0] = \$13 ;
+  assign o[1] = \$11 ;
+  assign o[2] = \$9 ;
+  assign o[3] = \$7 ;
+  assign o[4] = \$5 ;
+  assign o[5] = \$3 ;
+  assign o[6] = \$1 ;
+  assign o[7] = i[7];
 endmodule
 
 (* generator = "nMigen" *)
 (* \nmigen.hierarchy  = "top.f_meter.U$$2" *)
 module \U$$2 (clk, latch, i, o, oc, rst);
-  (* src = "asic_freq.py:128" *)
-  wire [6:0] \$1 ;
-  (* src = "asic_freq.py:128" *)
-  wire [6:0] \$2 ;
-  (* src = "asic_freq.py:136" *)
+  (* src = "asic_freq.py:147" *)
+  wire [8:0] \$1 ;
+  (* src = "asic_freq.py:147" *)
+  wire [8:0] \$2 ;
+  (* src = "asic_freq.py:155" *)
   wire [32:0] \$4 ;
-  (* src = "asic_freq.py:136" *)
+  (* src = "asic_freq.py:155" *)
   wire [32:0] \$5 ;
-  (* src = "asic_freq.py:138" *)
+  (* src = "asic_freq.py:157" *)
   wire [32:0] \$7 ;
-  (* src = "asic_freq.py:138" *)
+  (* src = "asic_freq.py:157" *)
   wire [32:0] \$8 ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/ir.py:526" *)
   input clk;
-  (* src = "asic_freq.py:122" *)
+  (* src = "asic_freq.py:141" *)
   reg [31:0] counter = 32'd0;
-  (* src = "asic_freq.py:122" *)
+  (* src = "asic_freq.py:141" *)
   reg [31:0] \counter$next ;
-  (* src = "asic_freq.py:109" *)
-  input [5:0] i;
-  (* src = "asic_freq.py:126" *)
-  reg [5:0] i_d = 6'h00;
-  (* src = "asic_freq.py:126" *)
-  reg [5:0] \i_d$next ;
-  (* src = "asic_freq.py:121" *)
-  wire [5:0] inc;
-  (* src = "asic_freq.py:112" *)
+  (* src = "asic_freq.py:128" *)
+  input [7:0] i;
+  (* src = "asic_freq.py:145" *)
+  reg [7:0] i_d = 8'h00;
+  (* src = "asic_freq.py:145" *)
+  reg [7:0] \i_d$next ;
+  (* src = "asic_freq.py:140" *)
+  wire [7:0] inc;
+  (* src = "asic_freq.py:131" *)
   input latch;
-  (* src = "asic_freq.py:113" *)
+  (* src = "asic_freq.py:132" *)
   output [31:0] o;
   reg [31:0] o = 32'd0;
-  (* src = "asic_freq.py:113" *)
+  (* src = "asic_freq.py:132" *)
   reg [31:0] \o$next ;
-  (* src = "asic_freq.py:116" *)
+  (* src = "asic_freq.py:135" *)
   output [31:0] oc;
   reg [31:0] oc = 32'd0;
-  (* src = "asic_freq.py:116" *)
+  (* src = "asic_freq.py:135" *)
   reg [31:0] \oc$next ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/ir.py:526" *)
   input rst;
-  assign \$2  = i - (* src = "asic_freq.py:128" *) i_d;
-  assign \$5  = counter + (* src = "asic_freq.py:136" *) inc;
-  assign \$8  = oc + (* src = "asic_freq.py:138" *) inc;
+  assign \$2  = i - (* src = "asic_freq.py:147" *) i_d;
+  assign \$5  = counter + (* src = "asic_freq.py:155" *) inc;
+  assign \$8  = oc + (* src = "asic_freq.py:157" *) inc;
   always @(posedge clk)
       oc <= \oc$next ;
   always @(posedge clk)
@@ -102,14 +110,14 @@ module \U$$2 (clk, latch, i, o, oc, rst);
     (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/xfrm.py:530" *)
     casez (rst)
       1'h1:
-          \i_d$next  = 6'h00;
+          \i_d$next  = 8'h00;
     endcase
   end
   always @* begin
     \o$next  = o;
-    (* src = "asic_freq.py:130" *)
+    (* src = "asic_freq.py:149" *)
     casez (latch)
-      /* src = "asic_freq.py:130" */
+      /* src = "asic_freq.py:149" */
       1'h1:
           \o$next  = counter;
     endcase
@@ -120,12 +128,12 @@ module \U$$2 (clk, latch, i, o, oc, rst);
     endcase
   end
   always @* begin
-    (* src = "asic_freq.py:130" *)
+    (* src = "asic_freq.py:149" *)
     casez (latch)
-      /* src = "asic_freq.py:130" */
+      /* src = "asic_freq.py:149" */
       1'h1:
           \counter$next  = 32'd0;
-      /* src = "asic_freq.py:135" */
+      /* src = "asic_freq.py:154" */
       default:
           \counter$next  = \$4 [31:0];
     endcase
@@ -146,7 +154,7 @@ module \U$$2 (clk, latch, i, o, oc, rst);
   assign \$1  = \$2 ;
   assign \$4  = \$5 ;
   assign \$7  = \$8 ;
-  assign inc = \$2 [5:0];
+  assign inc = \$2 [7:0];
 endmodule
 
 (* generator = "nMigen" *)
@@ -155,19 +163,19 @@ module \U$$3 (clk, o, i, rst);
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/ir.py:526" *)
   input clk;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:178" *)
-  output [5:0] i;
+  output [7:0] i;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:152" *)
-  input [5:0] o;
+  input [7:0] o;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/ir.py:526" *)
   input rst;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/cdc.py:89" *)
-  reg [5:0] stage0 = 6'h00;
+  reg [7:0] stage0 = 8'h00;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/cdc.py:89" *)
-  wire [5:0] \stage0$next ;
+  wire [7:0] \stage0$next ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/cdc.py:89" *)
-  reg [5:0] stage1 = 6'h00;
+  reg [7:0] stage1 = 8'h00;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/cdc.py:89" *)
-  wire [5:0] \stage1$next ;
+  wire [7:0] \stage1$next ;
   always @(posedge clk)
       stage1 <= stage0;
   always @(posedge clk)
@@ -180,137 +188,137 @@ endmodule
 (* generator = "nMigen" *)
 (* \nmigen.hierarchy  = "top.b2bcd" *)
 module b2bcd(trig_in, trig_out, bcd_out, rst, clk, bin_in);
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:34" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:34" *)
   wire \$1 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:42" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:42" *)
   wire \$10 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
   wire \$12 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$14 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$15 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
   wire \$17 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$19 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$20 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
   wire \$22 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$24 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$25 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
   wire \$27 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$29 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:35" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:35" *)
   wire \$3 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$30 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
   wire \$32 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$34 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$35 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
   wire \$37 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$39 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$40 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
   wire \$42 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$44 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$45 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
   wire \$47 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$49 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:35" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:35" *)
   wire \$5 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$50 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
   wire \$52 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$54 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$55 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
   wire \$57 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$59 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *)
   wire [4:0] \$60 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:48" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:48" *)
   wire [72:0] \$62 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:48" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:48" *)
   wire [72:0] \$63 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:13" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:13" *)
   wire [71:0] \$65 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:40" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:40" *)
   wire [8:0] \$7 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:40" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:40" *)
   wire [8:0] \$8 ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:16" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:16" *)
   output [39:0] bcd_out;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:13" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:13" *)
   input [31:0] bin_in;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/ir.py:526" *)
   input clk;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:25" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:25" *)
   reg [7:0] count = 8'h40;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:25" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:25" *)
   reg [7:0] \count$next ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:29" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:29" *)
   wire is_running;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:30" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:30" *)
   reg is_running_ = 1'h0;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:30" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:30" *)
   reg \is_running_$next ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/ir.py:526" *)
   input rst;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:26" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:26" *)
   reg [71:0] scratch = 72'h000000000000000000;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:26" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:26" *)
   reg [71:0] \scratch$next ;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:12" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:12" *)
   input trig_in;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:15" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:15" *)
   output trig_out;
-  assign \$10  = count[0] == (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:42" *) 1'h0;
-  assign \$12  = scratch[35:32] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *) 3'h5;
-  assign \$15  = scratch[35:32] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *) 2'h3;
-  assign \$17  = scratch[39:36] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *) 3'h5;
-  assign \$1  = count < (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:34" *) 7'h40;
-  assign \$20  = scratch[39:36] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *) 2'h3;
-  assign \$22  = scratch[43:40] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *) 3'h5;
-  assign \$25  = scratch[43:40] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *) 2'h3;
-  assign \$27  = scratch[47:44] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *) 3'h5;
-  assign \$30  = scratch[47:44] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *) 2'h3;
-  assign \$32  = scratch[51:48] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *) 3'h5;
-  assign \$35  = scratch[51:48] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *) 2'h3;
-  assign \$37  = scratch[55:52] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *) 3'h5;
-  assign \$3  = ~ (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:35" *) is_running;
-  assign \$40  = scratch[55:52] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *) 2'h3;
-  assign \$42  = scratch[59:56] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *) 3'h5;
-  assign \$45  = scratch[59:56] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *) 2'h3;
-  assign \$47  = scratch[63:60] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *) 3'h5;
-  assign \$50  = scratch[63:60] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *) 2'h3;
-  assign \$52  = scratch[67:64] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *) 3'h5;
-  assign \$55  = scratch[67:64] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *) 2'h3;
-  assign \$57  = scratch[71:68] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *) 3'h5;
-  assign \$5  = \$3  & (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:35" *) is_running_;
-  assign \$60  = scratch[71:68] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:46" *) 2'h3;
-  assign \$63  = scratch <<< (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:48" *) 1'h1;
-  assign \$65  = + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:13" *) bin_in;
-  assign \$8  = count + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:40" *) 1'h1;
+  assign \$10  = count[0] == (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:42" *) 1'h0;
+  assign \$12  = scratch[35:32] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *) 3'h5;
+  assign \$15  = scratch[35:32] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *) 2'h3;
+  assign \$17  = scratch[39:36] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *) 3'h5;
+  assign \$1  = count < (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:34" *) 7'h40;
+  assign \$20  = scratch[39:36] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *) 2'h3;
+  assign \$22  = scratch[43:40] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *) 3'h5;
+  assign \$25  = scratch[43:40] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *) 2'h3;
+  assign \$27  = scratch[47:44] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *) 3'h5;
+  assign \$30  = scratch[47:44] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *) 2'h3;
+  assign \$32  = scratch[51:48] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *) 3'h5;
+  assign \$35  = scratch[51:48] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *) 2'h3;
+  assign \$37  = scratch[55:52] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *) 3'h5;
+  assign \$3  = ~ (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:35" *) is_running;
+  assign \$40  = scratch[55:52] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *) 2'h3;
+  assign \$42  = scratch[59:56] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *) 3'h5;
+  assign \$45  = scratch[59:56] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *) 2'h3;
+  assign \$47  = scratch[63:60] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *) 3'h5;
+  assign \$50  = scratch[63:60] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *) 2'h3;
+  assign \$52  = scratch[67:64] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *) 3'h5;
+  assign \$55  = scratch[67:64] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *) 2'h3;
+  assign \$57  = scratch[71:68] >= (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *) 3'h5;
+  assign \$5  = \$3  & (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:35" *) is_running_;
+  assign \$60  = scratch[71:68] + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:46" *) 2'h3;
+  assign \$63  = scratch <<< (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:48" *) 1'h1;
+  assign \$65  = + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:13" *) bin_in;
+  assign \$8  = count + (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:40" *) 1'h1;
   always @(posedge clk)
       count <= \count$next ;
   always @(posedge clk)
@@ -327,16 +335,16 @@ module b2bcd(trig_in, trig_out, bcd_out, rst, clk, bin_in);
   end
   always @* begin
     \count$next  = count;
-    (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:39" *)
+    (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:39" *)
     casez (is_running)
-      /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:39" */
+      /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:39" */
       1'h1:
           \count$next  = \$7 [7:0];
-      /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:50" */
+      /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:50" */
       default:
-          (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:51" *)
+          (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:51" *)
           casez (trig_in)
-            /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:51" */
+            /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:51" */
             1'h1:
                 \count$next  = 8'h00;
           endcase
@@ -349,85 +357,85 @@ module b2bcd(trig_in, trig_out, bcd_out, rst, clk, bin_in);
   end
   always @* begin
     \scratch$next  = scratch;
-    (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:39" *)
+    (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:39" *)
     casez (is_running)
-      /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:39" */
+      /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:39" */
       1'h1:
-          (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:42" *)
+          (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:42" *)
           casez (\$10 )
-            /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:42" */
+            /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:42" */
             1'h1:
               begin
-                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
                 casez (\$12 )
-                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" */
+                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" */
                   1'h1:
                       \scratch$next [35:32] = \$14 [3:0];
                 endcase
-                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
                 casez (\$17 )
-                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" */
+                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" */
                   1'h1:
                       \scratch$next [39:36] = \$19 [3:0];
                 endcase
-                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
                 casez (\$22 )
-                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" */
+                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" */
                   1'h1:
                       \scratch$next [43:40] = \$24 [3:0];
                 endcase
-                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
                 casez (\$27 )
-                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" */
+                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" */
                   1'h1:
                       \scratch$next [47:44] = \$29 [3:0];
                 endcase
-                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
                 casez (\$32 )
-                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" */
+                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" */
                   1'h1:
                       \scratch$next [51:48] = \$34 [3:0];
                 endcase
-                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
                 casez (\$37 )
-                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" */
+                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" */
                   1'h1:
                       \scratch$next [55:52] = \$39 [3:0];
                 endcase
-                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
                 casez (\$42 )
-                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" */
+                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" */
                   1'h1:
                       \scratch$next [59:56] = \$44 [3:0];
                 endcase
-                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
                 casez (\$47 )
-                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" */
+                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" */
                   1'h1:
                       \scratch$next [63:60] = \$49 [3:0];
                 endcase
-                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
                 casez (\$52 )
-                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" */
+                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" */
                   1'h1:
                       \scratch$next [67:64] = \$54 [3:0];
                 endcase
-                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" *)
+                (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" *)
                 casez (\$57 )
-                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:45" */
+                  /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:45" */
                   1'h1:
                       \scratch$next [71:68] = \$59 [3:0];
                 endcase
               end
-            /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:47" */
+            /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:47" */
             default:
                 \scratch$next  = \$62 [71:0];
           endcase
-      /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:50" */
+      /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:50" */
       default:
-          (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:51" *)
+          (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:51" *)
           casez (trig_in)
-            /* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:51" */
+            /* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:51" */
             1'h1:
                 \scratch$next  = \$65 ;
           endcase
@@ -457,67 +465,67 @@ endmodule
 
 (* generator = "nMigen" *)
 (* \nmigen.hierarchy  = "top.f_meter" *)
-module f_meter(\$signal , value, value_valid, rst, clk, period);
-  (* src = "asic_freq.py:175" *)
+module f_meter(\$signal , oc, value, value_valid, rst, clk, period);
+  (* src = "asic_freq.py:194" *)
   wire \$1 ;
-  (* src = "asic_freq.py:183" *)
+  (* src = "asic_freq.py:202" *)
   wire [32:0] \$3 ;
-  (* src = "asic_freq.py:183" *)
+  (* src = "asic_freq.py:202" *)
   wire [32:0] \$4 ;
-  (* src = "asic_freq.py:191" *)
-  wire [6:0] \$6 ;
-  (* src = "asic_freq.py:191" *)
-  wire [6:0] \$7 ;
-  (* src = "asic_freq.py:151" *)
+  (* src = "asic_freq.py:210" *)
+  wire [8:0] \$6 ;
+  (* src = "asic_freq.py:210" *)
+  wire [8:0] \$7 ;
+  (* src = "asic_freq.py:170" *)
   input \$signal ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:151" *)
-  wire [5:0] \U$$0_i ;
+  wire [7:0] \U$$0_i ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:152" *)
-  wire [5:0] \U$$0_o ;
+  wire [7:0] \U$$0_o ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:178" *)
-  wire [5:0] \U$$1_i ;
+  wire [7:0] \U$$1_i ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/lib/coding.py:179" *)
-  wire [5:0] \U$$1_o ;
-  (* src = "asic_freq.py:109" *)
-  wire [5:0] \U$$2_i ;
-  (* src = "asic_freq.py:112" *)
+  wire [7:0] \U$$1_o ;
+  (* src = "asic_freq.py:128" *)
+  wire [7:0] \U$$2_i ;
+  (* src = "asic_freq.py:131" *)
   wire \U$$2_latch ;
-  (* src = "asic_freq.py:113" *)
+  (* src = "asic_freq.py:132" *)
   wire [31:0] \U$$2_o ;
-  (* src = "asic_freq.py:116" *)
+  (* src = "asic_freq.py:135" *)
   wire [31:0] \U$$2_oc ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/ir.py:526" *)
   input clk;
-  (* src = "asic_freq.py:190" *)
-  reg [5:0] ev_cnt_ = 6'h00;
-  (* src = "asic_freq.py:190" *)
-  wire [5:0] \ev_cnt_$next ;
-  (* src = "asic_freq.py:169" *)
+  (* src = "asic_freq.py:209" *)
+  reg [7:0] ev_cnt_ = 8'h00;
+  (* src = "asic_freq.py:209" *)
+  wire [7:0] \ev_cnt_$next ;
+  (* src = "asic_freq.py:188" *)
   wire fmeter_clk;
-  (* src = "asic_freq.py:158" *)
-  wire [31:0] oc;
-  (* src = "asic_freq.py:164" *)
+  (* src = "asic_freq.py:177" *)
+  output [31:0] oc;
+  (* src = "asic_freq.py:183" *)
   input [31:0] period;
-  (* src = "asic_freq.py:174" *)
+  (* src = "asic_freq.py:193" *)
   reg [31:0] period_counter = 32'd0;
-  (* src = "asic_freq.py:174" *)
+  (* src = "asic_freq.py:193" *)
   reg [31:0] \period_counter$next ;
-  (* src = "asic_freq.py:173" *)
+  (* src = "asic_freq.py:192" *)
   wire period_done;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/ir.py:526" *)
   input rst;
-  (* src = "asic_freq.py:154" *)
+  (* src = "asic_freq.py:173" *)
   output [31:0] value;
-  (* src = "asic_freq.py:155" *)
+  (* src = "asic_freq.py:174" *)
   output value_valid;
   reg value_valid = 1'h0;
-  (* src = "asic_freq.py:155" *)
+  (* src = "asic_freq.py:174" *)
   reg \value_valid$next ;
-  assign \$1  = period_counter >= (* src = "asic_freq.py:175" *) period;
-  assign \$4  = period_counter + (* src = "asic_freq.py:183" *) 1'h1;
-  assign \$7  = ev_cnt_ + (* src = "asic_freq.py:191" *) 1'h1;
+  assign \$1  = period_counter >= (* src = "asic_freq.py:194" *) period;
+  assign \$4  = period_counter + (* src = "asic_freq.py:202" *) 1'h1;
+  assign \$7  = ev_cnt_ + (* src = "asic_freq.py:210" *) 1'h1;
   always @(posedge fmeter_clk)
-      ev_cnt_ <= \$7 [5:0];
+      ev_cnt_ <= \$7 [7:0];
   always @(posedge clk)
       period_counter <= \period_counter$next ;
   always @(posedge clk)
@@ -546,9 +554,9 @@ module f_meter(\$signal , value, value_valid, rst, clk, period);
   );
   always @* begin
     \value_valid$next  = 1'h0;
-    (* src = "asic_freq.py:177" *)
+    (* src = "asic_freq.py:196" *)
     casez (period_done)
-      /* src = "asic_freq.py:177" */
+      /* src = "asic_freq.py:196" */
       1'h1:
           \value_valid$next  = 1'h1;
     endcase
@@ -559,12 +567,12 @@ module f_meter(\$signal , value, value_valid, rst, clk, period);
     endcase
   end
   always @* begin
-    (* src = "asic_freq.py:177" *)
+    (* src = "asic_freq.py:196" *)
     casez (period_done)
-      /* src = "asic_freq.py:177" */
+      /* src = "asic_freq.py:196" */
       1'h1:
           \period_counter$next  = 32'd0;
-      /* src = "asic_freq.py:182" */
+      /* src = "asic_freq.py:201" */
       default:
           \period_counter$next  = \$3 [31:0];
     endcase
@@ -581,7 +589,7 @@ module f_meter(\$signal , value, value_valid, rst, clk, period);
   assign \U$$2_i  = \U$$1_o ;
   assign \U$$2_latch  = period_done;
   assign \U$$0_i  = ev_cnt_;
-  assign \ev_cnt_$next  = \$7 [5:0];
+  assign \ev_cnt_$next  = \$7 [7:0];
   assign period_done = \$1 ;
   assign fmeter_clk = \$signal ;
 endmodule
@@ -590,168 +598,170 @@ endmodule
 (* top =  1  *)
 (* \nmigen.hierarchy  = "top" *)
 module freq_cnt(oc, tx, addr, strobe, value, clk, rst, samplee);
-  (* src = "asic_freq.py:305" *)
+  (* src = "asic_freq.py:329" *)
   wire \$10 ;
-  (* src = "asic_freq.py:305" *)
+  (* src = "asic_freq.py:329" *)
   wire \$12 ;
-  (* src = "asic_freq.py:273" *)
+  (* src = "asic_freq.py:297" *)
   wire \$14 ;
-  (* src = "asic_freq.py:273" *)
+  (* src = "asic_freq.py:297" *)
   wire \$16 ;
-  (* src = "asic_freq.py:263" *)
+  (* src = "asic_freq.py:287" *)
   wire [7:0] \$18 ;
-  (* src = "asic_freq.py:273" *)
+  (* src = "asic_freq.py:297" *)
   wire \$2 ;
-  (* src = "asic_freq.py:293" *)
+  (* src = "asic_freq.py:317" *)
   wire \$20 ;
-  (* src = "asic_freq.py:293" *)
+  (* src = "asic_freq.py:317" *)
   wire \$22 ;
-  (* src = "asic_freq.py:295" *)
+  (* src = "asic_freq.py:319" *)
   wire [7:0] \$24 ;
-  (* src = "asic_freq.py:295" *)
+  (* src = "asic_freq.py:319" *)
   wire [6:0] \$25 ;
-  (* src = "asic_freq.py:305" *)
+  (* src = "asic_freq.py:329" *)
   wire \$28 ;
-  (* src = "asic_freq.py:305" *)
+  (* src = "asic_freq.py:329" *)
   wire \$30 ;
-  (* src = "asic_freq.py:273" *)
+  (* src = "asic_freq.py:297" *)
   wire \$32 ;
-  (* src = "asic_freq.py:273" *)
+  (* src = "asic_freq.py:297" *)
   wire \$34 ;
-  (* src = "asic_freq.py:277" *)
+  (* src = "asic_freq.py:301" *)
   wire [8:0] \$36 ;
-  (* src = "asic_freq.py:277" *)
+  (* src = "asic_freq.py:301" *)
   wire [8:0] \$37 ;
-  (* src = "asic_freq.py:279" *)
+  (* src = "asic_freq.py:303" *)
   wire \$39 ;
-  (* src = "asic_freq.py:273" *)
+  (* src = "asic_freq.py:297" *)
   wire \$4 ;
-  (* src = "asic_freq.py:300" *)
+  (* src = "asic_freq.py:324" *)
   wire \$41 ;
-  (* src = "asic_freq.py:305" *)
+  (* src = "asic_freq.py:329" *)
   wire \$43 ;
-  (* src = "asic_freq.py:305" *)
+  (* src = "asic_freq.py:329" *)
   wire \$45 ;
-  (* src = "asic_freq.py:293" *)
+  (* src = "asic_freq.py:317" *)
   wire \$47 ;
-  (* src = "asic_freq.py:293" *)
+  (* src = "asic_freq.py:317" *)
   wire \$49 ;
-  (* src = "asic_freq.py:297" *)
+  (* src = "asic_freq.py:321" *)
   wire [46:0] \$51 ;
-  (* src = "asic_freq.py:297" *)
+  (* src = "asic_freq.py:321" *)
   wire [46:0] \$52 ;
-  (* src = "asic_freq.py:293" *)
+  (* src = "asic_freq.py:317" *)
   wire \$54 ;
-  (* src = "asic_freq.py:293" *)
+  (* src = "asic_freq.py:317" *)
   wire \$56 ;
-  (* src = "asic_freq.py:298" *)
+  (* src = "asic_freq.py:322" *)
   wire [8:0] \$58 ;
-  (* src = "asic_freq.py:298" *)
+  (* src = "asic_freq.py:322" *)
   wire [8:0] \$59 ;
-  (* src = "asic_freq.py:293" *)
+  (* src = "asic_freq.py:317" *)
   wire \$6 ;
-  (* src = "asic_freq.py:293" *)
+  (* src = "asic_freq.py:317" *)
   wire \$8 ;
-  (* src = "asic_freq.py:228" *)
+  (* src = "asic_freq.py:248" *)
   input [3:0] addr;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:16" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:16" *)
   wire [39:0] b2bcd_bcd_out;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:13" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:13" *)
   wire [31:0] b2bcd_bin_in;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:12" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:12" *)
   wire b2bcd_trig_in;
-  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq-cnt/bin2bcd.py:15" *)
+  (* src = "/home/michael/fpga_wsp/multi-project-harness/freq_cnt/bin2bcd.py:15" *)
   wire b2bcd_trig_out;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/ir.py:526" *)
   input clk;
-  (* src = "asic_freq.py:151" *)
+  (* src = "asic_freq.py:170" *)
   wire \f_meter_$signal ;
-  (* src = "asic_freq.py:164" *)
-  reg [31:0] f_meter_period = 32'd10000000;
-  (* src = "asic_freq.py:164" *)
+  (* src = "asic_freq.py:177" *)
+  wire [31:0] f_meter_oc;
+  (* src = "asic_freq.py:183" *)
+  reg [31:0] f_meter_period = 32'd1000000;
+  (* src = "asic_freq.py:183" *)
   reg [31:0] \f_meter_period$next ;
-  (* src = "asic_freq.py:154" *)
+  (* src = "asic_freq.py:173" *)
   wire [31:0] f_meter_value;
-  (* src = "asic_freq.py:155" *)
+  (* src = "asic_freq.py:174" *)
   wire f_meter_value_valid;
-  (* src = "asic_freq.py:270" *)
+  (* src = "asic_freq.py:294" *)
   reg [1:0] fsm_state = 2'h0;
-  (* src = "asic_freq.py:270" *)
+  (* src = "asic_freq.py:294" *)
   reg [1:0] \fsm_state$next ;
-  (* src = "asic_freq.py:264" *)
+  (* src = "asic_freq.py:288" *)
   reg [7:0] mem_addr = 8'h00;
-  (* src = "asic_freq.py:264" *)
+  (* src = "asic_freq.py:288" *)
   reg [7:0] \mem_addr$next ;
-  (* src = "asic_freq.py:263" *)
-  wire [2:0] mem_r_addr;
-  (* src = "asic_freq.py:263" *)
+  (* src = "asic_freq.py:287" *)
+  wire [4:0] mem_r_addr;
+  (* src = "asic_freq.py:287" *)
   wire [6:0] mem_r_data;
-  (* src = "asic_freq.py:222" *)
-  input [31:0] oc;
-  (* src = "asic_freq.py:265" *)
+  (* src = "asic_freq.py:242" *)
+  output [31:0] oc;
+  (* src = "asic_freq.py:289" *)
   reg [7:0] print_cnt = 8'h00;
-  (* src = "asic_freq.py:265" *)
+  (* src = "asic_freq.py:289" *)
   reg [7:0] \print_cnt$next ;
-  (* src = "asic_freq.py:253" *)
+  (* src = "asic_freq.py:275" *)
   reg [39:0] result = 40'h0000000000;
-  (* src = "asic_freq.py:253" *)
+  (* src = "asic_freq.py:275" *)
   reg [39:0] \result$next ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/ir.py:526" *)
   input rst;
-  (* src = "asic_freq.py:221" *)
+  (* src = "asic_freq.py:241" *)
   input samplee;
-  (* src = "asic_freq.py:229" *)
+  (* src = "asic_freq.py:249" *)
   input strobe;
-  (* src = "asic_freq.py:223" *)
+  (* src = "asic_freq.py:243" *)
   output tx;
-  (* src = "asic_freq.py:21" *)
-  reg [31:0] uart_divisor = 32'd86;
-  (* src = "asic_freq.py:21" *)
+  (* src = "asic_freq.py:40" *)
+  reg [31:0] uart_divisor = 32'd104;
+  (* src = "asic_freq.py:40" *)
   reg [31:0] \uart_divisor$next ;
-  (* src = "asic_freq.py:24" *)
+  (* src = "asic_freq.py:43" *)
   wire uart_rx_i;
-  (* src = "asic_freq.py:28" *)
+  (* src = "asic_freq.py:47" *)
   wire uart_tx_ack;
-  (* src = "asic_freq.py:26" *)
+  (* src = "asic_freq.py:45" *)
   reg [7:0] uart_tx_data = 8'h00;
-  (* src = "asic_freq.py:26" *)
+  (* src = "asic_freq.py:45" *)
   reg [7:0] \uart_tx_data$next ;
-  (* src = "asic_freq.py:23" *)
+  (* src = "asic_freq.py:42" *)
   wire uart_tx_o;
-  (* src = "asic_freq.py:27" *)
+  (* src = "asic_freq.py:46" *)
   reg uart_tx_rdy = 1'h0;
-  (* src = "asic_freq.py:27" *)
+  (* src = "asic_freq.py:46" *)
   reg \uart_tx_rdy$next ;
-  (* src = "asic_freq.py:230" *)
+  (* src = "asic_freq.py:250" *)
   input [31:0] value;
-  assign \$10  = ~ (* src = "asic_freq.py:305" *) uart_tx_rdy;
-  assign \$12  = uart_tx_ack & (* src = "asic_freq.py:305" *) \$10 ;
-  assign \$14  = ~ (* src = "asic_freq.py:273" *) uart_tx_rdy;
-  assign \$16  = uart_tx_ack & (* src = "asic_freq.py:273" *) \$14 ;
-  assign \$18  = + (* src = "asic_freq.py:263" *) mem_r_data;
-  assign \$20  = ~ (* src = "asic_freq.py:293" *) uart_tx_rdy;
-  assign \$22  = uart_tx_ack & (* src = "asic_freq.py:293" *) \$20 ;
-  assign \$25  = result[39:36] + (* src = "asic_freq.py:295" *) 6'h30;
-  assign \$24  = + (* src = "asic_freq.py:295" *) \$25 ;
-  assign \$28  = ~ (* src = "asic_freq.py:305" *) uart_tx_rdy;
-  assign \$2  = ~ (* src = "asic_freq.py:273" *) uart_tx_rdy;
-  assign \$30  = uart_tx_ack & (* src = "asic_freq.py:305" *) \$28 ;
-  assign \$32  = ~ (* src = "asic_freq.py:273" *) uart_tx_rdy;
-  assign \$34  = uart_tx_ack & (* src = "asic_freq.py:273" *) \$32 ;
-  assign \$37  = mem_addr + (* src = "asic_freq.py:277" *) 1'h1;
-  assign \$39  = mem_addr >= (* src = "asic_freq.py:279" *) 3'h7;
-  assign \$41  = print_cnt >= (* src = "asic_freq.py:300" *) 4'ha;
-  assign \$43  = ~ (* src = "asic_freq.py:305" *) uart_tx_rdy;
-  assign \$45  = uart_tx_ack & (* src = "asic_freq.py:305" *) \$43 ;
-  assign \$47  = ~ (* src = "asic_freq.py:293" *) uart_tx_rdy;
-  assign \$4  = uart_tx_ack & (* src = "asic_freq.py:273" *) \$2 ;
-  assign \$49  = uart_tx_ack & (* src = "asic_freq.py:293" *) \$47 ;
-  assign \$52  = result <<< (* src = "asic_freq.py:297" *) 3'h4;
-  assign \$54  = ~ (* src = "asic_freq.py:293" *) uart_tx_rdy;
-  assign \$56  = uart_tx_ack & (* src = "asic_freq.py:293" *) \$54 ;
-  assign \$59  = print_cnt + (* src = "asic_freq.py:298" *) 1'h1;
-  assign \$6  = ~ (* src = "asic_freq.py:293" *) uart_tx_rdy;
-  assign \$8  = uart_tx_ack & (* src = "asic_freq.py:293" *) \$6 ;
+  assign \$10  = ~ (* src = "asic_freq.py:329" *) uart_tx_rdy;
+  assign \$12  = uart_tx_ack & (* src = "asic_freq.py:329" *) \$10 ;
+  assign \$14  = ~ (* src = "asic_freq.py:297" *) uart_tx_rdy;
+  assign \$16  = uart_tx_ack & (* src = "asic_freq.py:297" *) \$14 ;
+  assign \$18  = + (* src = "asic_freq.py:287" *) mem_r_data;
+  assign \$20  = ~ (* src = "asic_freq.py:317" *) uart_tx_rdy;
+  assign \$22  = uart_tx_ack & (* src = "asic_freq.py:317" *) \$20 ;
+  assign \$25  = result[39:36] + (* src = "asic_freq.py:319" *) 6'h30;
+  assign \$24  = + (* src = "asic_freq.py:319" *) \$25 ;
+  assign \$28  = ~ (* src = "asic_freq.py:329" *) uart_tx_rdy;
+  assign \$2  = ~ (* src = "asic_freq.py:297" *) uart_tx_rdy;
+  assign \$30  = uart_tx_ack & (* src = "asic_freq.py:329" *) \$28 ;
+  assign \$32  = ~ (* src = "asic_freq.py:297" *) uart_tx_rdy;
+  assign \$34  = uart_tx_ack & (* src = "asic_freq.py:297" *) \$32 ;
+  assign \$37  = mem_addr + (* src = "asic_freq.py:301" *) 1'h1;
+  assign \$39  = mem_addr >= (* src = "asic_freq.py:303" *) 5'h18;
+  assign \$41  = print_cnt >= (* src = "asic_freq.py:324" *) 4'ha;
+  assign \$43  = ~ (* src = "asic_freq.py:329" *) uart_tx_rdy;
+  assign \$45  = uart_tx_ack & (* src = "asic_freq.py:329" *) \$43 ;
+  assign \$47  = ~ (* src = "asic_freq.py:317" *) uart_tx_rdy;
+  assign \$4  = uart_tx_ack & (* src = "asic_freq.py:297" *) \$2 ;
+  assign \$49  = uart_tx_ack & (* src = "asic_freq.py:317" *) \$47 ;
+  assign \$52  = result <<< (* src = "asic_freq.py:321" *) 3'h4;
+  assign \$54  = ~ (* src = "asic_freq.py:317" *) uart_tx_rdy;
+  assign \$56  = uart_tx_ack & (* src = "asic_freq.py:317" *) \$54 ;
+  assign \$59  = print_cnt + (* src = "asic_freq.py:322" *) 1'h1;
+  assign \$6  = ~ (* src = "asic_freq.py:317" *) uart_tx_rdy;
+  assign \$8  = uart_tx_ack & (* src = "asic_freq.py:317" *) \$6 ;
   always @(posedge clk)
       print_cnt <= \print_cnt$next ;
   always @(posedge clk)
@@ -779,24 +789,42 @@ module freq_cnt(oc, tx, addr, strobe, value, clk, rst, samplee);
   f_meter f_meter (
     .\$signal (\f_meter_$signal ),
     .clk(clk),
+    .oc(f_meter_oc),
     .period(f_meter_period),
     .rst(rst),
     .value(f_meter_value),
     .value_valid(f_meter_value_valid)
   );
-  reg [6:0] mem [6:0];
+  reg [6:0] mem [23:0];
   initial begin
-    mem[0] = 7'h46;
-    mem[1] = 7'h72;
-    mem[2] = 7'h65;
-    mem[3] = 7'h61;
-    mem[4] = 7'h6b;
-    mem[5] = 7'h21;
-    mem[6] = 7'h0a;
+    mem[0] = 7'h61;
+    mem[1] = 7'h73;
+    mem[2] = 7'h69;
+    mem[3] = 7'h63;
+    mem[4] = 7'h5f;
+    mem[5] = 7'h66;
+    mem[6] = 7'h72;
+    mem[7] = 7'h65;
+    mem[8] = 7'h71;
+    mem[9] = 7'h20;
+    mem[10] = 7'h61;
+    mem[11] = 7'h66;
+    mem[12] = 7'h38;
+    mem[13] = 7'h31;
+    mem[14] = 7'h64;
+    mem[15] = 7'h35;
+    mem[16] = 7'h35;
+    mem[17] = 7'h2d;
+    mem[18] = 7'h64;
+    mem[19] = 7'h69;
+    mem[20] = 7'h72;
+    mem[21] = 7'h74;
+    mem[22] = 7'h79;
+    mem[23] = 7'h0a;
   end
-  reg [2:0] _0_;
+  reg [4:0] _0_;
   always @(posedge clk) begin
-    _0_ <= mem_addr[2:0];
+    _0_ <= mem_addr[4:0];
   end
   assign mem_r_data = mem[_0_];
   uart uart (
@@ -811,13 +839,13 @@ module freq_cnt(oc, tx, addr, strobe, value, clk, rst, samplee);
   );
   always @* begin
     \uart_divisor$next  = uart_divisor;
-    (* src = "asic_freq.py:245" *)
+    (* src = "asic_freq.py:267" *)
     casez (strobe)
-      /* src = "asic_freq.py:245" */
+      /* src = "asic_freq.py:267" */
       1'h1:
-          (* src = "asic_freq.py:246" *)
+          (* src = "asic_freq.py:268" *)
           casez (addr)
-            /* src = "asic_freq.py:247" */
+            /* src = "asic_freq.py:269" */
             4'h0:
                 \uart_divisor$next  = value;
           endcase
@@ -825,18 +853,18 @@ module freq_cnt(oc, tx, addr, strobe, value, clk, rst, samplee);
     (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/xfrm.py:530" *)
     casez (rst)
       1'h1:
-          \uart_divisor$next  = 32'd86;
+          \uart_divisor$next  = 32'd104;
     endcase
   end
   always @* begin
     \f_meter_period$next  = f_meter_period;
-    (* src = "asic_freq.py:245" *)
+    (* src = "asic_freq.py:267" *)
     casez (strobe)
-      /* src = "asic_freq.py:245" */
+      /* src = "asic_freq.py:267" */
       1'h1:
-          (* src = "asic_freq.py:246" *)
+          (* src = "asic_freq.py:268" *)
           casez (addr)
-            /* src = "asic_freq.py:249" */
+            /* src = "asic_freq.py:271" */
             4'h1:
                 \f_meter_period$next  = value;
           endcase
@@ -844,28 +872,75 @@ module freq_cnt(oc, tx, addr, strobe, value, clk, rst, samplee);
     (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/xfrm.py:530" *)
     casez (rst)
       1'h1:
-          \f_meter_period$next  = 32'd10000000;
+          \f_meter_period$next  = 32'd1000000;
+    endcase
+  end
+  always @* begin
+    \fsm_state$next  = fsm_state;
+    (* src = "asic_freq.py:294" *)
+    casez (fsm_state)
+      /* src = "asic_freq.py:295" */
+      /* \nmigen.decoding  = "INIT/0" */
+      2'h0:
+          (* src = "asic_freq.py:303" *)
+          casez (\$39 )
+            /* src = "asic_freq.py:303" */
+            1'h1:
+                \fsm_state$next  = 2'h1;
+          endcase
+      /* src = "asic_freq.py:306" */
+      /* \nmigen.decoding  = "MEAS/1" */
+      2'h1:
+          (* src = "asic_freq.py:308" *)
+          casez (b2bcd_trig_out)
+            /* src = "asic_freq.py:308" */
+            1'h1:
+                \fsm_state$next  = 2'h2;
+          endcase
+      /* src = "asic_freq.py:315" */
+      /* \nmigen.decoding  = "PRINT/2" */
+      2'h2:
+          (* src = "asic_freq.py:324" *)
+          casez (\$41 )
+            /* src = "asic_freq.py:324" */
+            1'h1:
+                \fsm_state$next  = 2'h3;
+          endcase
+      /* src = "asic_freq.py:327" */
+      /* \nmigen.decoding  = "PRINT_EOL/3" */
+      2'h3:
+          (* src = "asic_freq.py:329" *)
+          casez (\$45 )
+            /* src = "asic_freq.py:329" */
+            1'h1:
+                \fsm_state$next  = 2'h1;
+          endcase
+    endcase
+    (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/xfrm.py:530" *)
+    casez (rst)
+      1'h1:
+          \fsm_state$next  = 2'h0;
     endcase
   end
   always @* begin
     \result$next  = result;
-    (* src = "asic_freq.py:270" *)
+    (* src = "asic_freq.py:294" *)
     casez (fsm_state)
-      /* src = "asic_freq.py:282" */
+      /* src = "asic_freq.py:306" */
       /* \nmigen.decoding  = "MEAS/1" */
       2'h1:
-          (* src = "asic_freq.py:284" *)
+          (* src = "asic_freq.py:308" *)
           casez (b2bcd_trig_out)
-            /* src = "asic_freq.py:284" */
+            /* src = "asic_freq.py:308" */
             1'h1:
                 \result$next  = b2bcd_bcd_out;
           endcase
-      /* src = "asic_freq.py:291" */
+      /* src = "asic_freq.py:315" */
       /* \nmigen.decoding  = "PRINT/2" */
       2'h2:
-          (* src = "asic_freq.py:293" *)
+          (* src = "asic_freq.py:317" *)
           casez (\$49 )
-            /* src = "asic_freq.py:293" */
+            /* src = "asic_freq.py:317" */
             1'h1:
                 \result$next  = \$51 [39:0];
           endcase
@@ -878,23 +953,23 @@ module freq_cnt(oc, tx, addr, strobe, value, clk, rst, samplee);
   end
   always @* begin
     \print_cnt$next  = print_cnt;
-    (* src = "asic_freq.py:270" *)
+    (* src = "asic_freq.py:294" *)
     casez (fsm_state)
-      /* src = "asic_freq.py:282" */
+      /* src = "asic_freq.py:306" */
       /* \nmigen.decoding  = "MEAS/1" */
       2'h1:
-          (* src = "asic_freq.py:284" *)
+          (* src = "asic_freq.py:308" *)
           casez (b2bcd_trig_out)
-            /* src = "asic_freq.py:284" */
+            /* src = "asic_freq.py:308" */
             1'h1:
                 \print_cnt$next  = 8'h00;
           endcase
-      /* src = "asic_freq.py:291" */
+      /* src = "asic_freq.py:315" */
       /* \nmigen.decoding  = "PRINT/2" */
       2'h2:
-          (* src = "asic_freq.py:293" *)
+          (* src = "asic_freq.py:317" *)
           casez (\$56 )
-            /* src = "asic_freq.py:293" */
+            /* src = "asic_freq.py:317" */
             1'h1:
                 \print_cnt$next  = \$58 [7:0];
           endcase
@@ -907,32 +982,32 @@ module freq_cnt(oc, tx, addr, strobe, value, clk, rst, samplee);
   end
   always @* begin
     \uart_tx_rdy$next  = 1'h0;
-    (* src = "asic_freq.py:270" *)
+    (* src = "asic_freq.py:294" *)
     casez (fsm_state)
-      /* src = "asic_freq.py:271" */
+      /* src = "asic_freq.py:295" */
       /* \nmigen.decoding  = "INIT/0" */
       2'h0:
-          (* src = "asic_freq.py:273" *)
+          (* src = "asic_freq.py:297" *)
           casez (\$4 )
-            /* src = "asic_freq.py:273" */
+            /* src = "asic_freq.py:297" */
             1'h1:
                 \uart_tx_rdy$next  = 1'h1;
           endcase
-      /* src = "asic_freq.py:291" */
+      /* src = "asic_freq.py:315" */
       /* \nmigen.decoding  = "PRINT/2" */
       2'h2:
-          (* src = "asic_freq.py:293" *)
+          (* src = "asic_freq.py:317" *)
           casez (\$8 )
-            /* src = "asic_freq.py:293" */
+            /* src = "asic_freq.py:317" */
             1'h1:
                 \uart_tx_rdy$next  = 1'h1;
           endcase
-      /* src = "asic_freq.py:303" */
+      /* src = "asic_freq.py:327" */
       /* \nmigen.decoding  = "PRINT_EOL/3" */
       2'h3:
-          (* src = "asic_freq.py:305" *)
+          (* src = "asic_freq.py:329" *)
           casez (\$12 )
-            /* src = "asic_freq.py:305" */
+            /* src = "asic_freq.py:329" */
             1'h1:
                 \uart_tx_rdy$next  = 1'h1;
           endcase
@@ -945,32 +1020,32 @@ module freq_cnt(oc, tx, addr, strobe, value, clk, rst, samplee);
   end
   always @* begin
     \uart_tx_data$next  = uart_tx_data;
-    (* src = "asic_freq.py:270" *)
+    (* src = "asic_freq.py:294" *)
     casez (fsm_state)
-      /* src = "asic_freq.py:271" */
+      /* src = "asic_freq.py:295" */
       /* \nmigen.decoding  = "INIT/0" */
       2'h0:
-          (* src = "asic_freq.py:273" *)
+          (* src = "asic_freq.py:297" *)
           casez (\$16 )
-            /* src = "asic_freq.py:273" */
+            /* src = "asic_freq.py:297" */
             1'h1:
                 \uart_tx_data$next  = \$18 ;
           endcase
-      /* src = "asic_freq.py:291" */
+      /* src = "asic_freq.py:315" */
       /* \nmigen.decoding  = "PRINT/2" */
       2'h2:
-          (* src = "asic_freq.py:293" *)
+          (* src = "asic_freq.py:317" *)
           casez (\$22 )
-            /* src = "asic_freq.py:293" */
+            /* src = "asic_freq.py:317" */
             1'h1:
                 \uart_tx_data$next  = \$24 ;
           endcase
-      /* src = "asic_freq.py:303" */
+      /* src = "asic_freq.py:327" */
       /* \nmigen.decoding  = "PRINT_EOL/3" */
       2'h3:
-          (* src = "asic_freq.py:305" *)
+          (* src = "asic_freq.py:329" *)
           casez (\$30 )
-            /* src = "asic_freq.py:305" */
+            /* src = "asic_freq.py:329" */
             1'h1:
                 \uart_tx_data$next  = 8'h0a;
           endcase
@@ -983,14 +1058,14 @@ module freq_cnt(oc, tx, addr, strobe, value, clk, rst, samplee);
   end
   always @* begin
     \mem_addr$next  = mem_addr;
-    (* src = "asic_freq.py:270" *)
+    (* src = "asic_freq.py:294" *)
     casez (fsm_state)
-      /* src = "asic_freq.py:271" */
+      /* src = "asic_freq.py:295" */
       /* \nmigen.decoding  = "INIT/0" */
       2'h0:
-          (* src = "asic_freq.py:273" *)
+          (* src = "asic_freq.py:297" *)
           casez (\$34 )
-            /* src = "asic_freq.py:273" */
+            /* src = "asic_freq.py:297" */
             1'h1:
                 \mem_addr$next  = \$36 [7:0];
           endcase
@@ -1001,265 +1076,219 @@ module freq_cnt(oc, tx, addr, strobe, value, clk, rst, samplee);
           \mem_addr$next  = 8'h00;
     endcase
   end
-  always @* begin
-    \fsm_state$next  = fsm_state;
-    (* src = "asic_freq.py:270" *)
-    casez (fsm_state)
-      /* src = "asic_freq.py:271" */
-      /* \nmigen.decoding  = "INIT/0" */
-      2'h0:
-          (* src = "asic_freq.py:279" *)
-          casez (\$39 )
-            /* src = "asic_freq.py:279" */
-            1'h1:
-                \fsm_state$next  = 2'h1;
-          endcase
-      /* src = "asic_freq.py:282" */
-      /* \nmigen.decoding  = "MEAS/1" */
-      2'h1:
-          (* src = "asic_freq.py:284" *)
-          casez (b2bcd_trig_out)
-            /* src = "asic_freq.py:284" */
-            1'h1:
-                \fsm_state$next  = 2'h2;
-          endcase
-      /* src = "asic_freq.py:291" */
-      /* \nmigen.decoding  = "PRINT/2" */
-      2'h2:
-          (* src = "asic_freq.py:300" *)
-          casez (\$41 )
-            /* src = "asic_freq.py:300" */
-            1'h1:
-                \fsm_state$next  = 2'h3;
-          endcase
-      /* src = "asic_freq.py:303" */
-      /* \nmigen.decoding  = "PRINT_EOL/3" */
-      2'h3:
-          (* src = "asic_freq.py:305" *)
-          casez (\$45 )
-            /* src = "asic_freq.py:305" */
-            1'h1:
-                \fsm_state$next  = 2'h1;
-          endcase
-    endcase
-    (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/xfrm.py:530" *)
-    casez (rst)
-      1'h1:
-          \fsm_state$next  = 2'h0;
-    endcase
-  end
   assign \$36  = \$37 ;
   assign \$51  = \$52 ;
   assign \$58  = \$59 ;
   assign uart_rx_i = 1'h0;
   assign tx = uart_tx_o;
-  assign mem_r_addr = mem_addr[2:0];
+  assign mem_r_addr = mem_addr[4:0];
   assign b2bcd_trig_in = f_meter_value_valid;
   assign b2bcd_bin_in = f_meter_value;
+  assign oc = f_meter_oc;
   assign \f_meter_$signal  = samplee;
 endmodule
 
 (* generator = "nMigen" *)
 (* \nmigen.hierarchy  = "top.uart" *)
 module uart(tx_rdy, tx_ack, tx_data, tx_o, rx_i, rst, clk, divisor);
-  (* src = "asic_freq.py:44" *)
+  (* src = "asic_freq.py:63" *)
   wire \$1 ;
-  (* src = "asic_freq.py:58" *)
+  (* src = "asic_freq.py:77" *)
   wire [4:0] \$11 ;
-  (* src = "asic_freq.py:58" *)
+  (* src = "asic_freq.py:77" *)
   wire [4:0] \$12 ;
-  (* src = "asic_freq.py:44" *)
+  (* src = "asic_freq.py:63" *)
   wire \$14 ;
-  (* src = "asic_freq.py:50" *)
+  (* src = "asic_freq.py:69" *)
   wire [32:0] \$16 ;
-  (* src = "asic_freq.py:50" *)
+  (* src = "asic_freq.py:69" *)
   wire [32:0] \$17 ;
-  (* src = "asic_freq.py:53" *)
+  (* src = "asic_freq.py:72" *)
   wire \$19 ;
-  (* src = "asic_freq.py:54" *)
+  (* src = "asic_freq.py:73" *)
   wire [32:0] \$21 ;
-  (* src = "asic_freq.py:54" *)
+  (* src = "asic_freq.py:73" *)
   wire [32:0] \$22 ;
-  (* src = "asic_freq.py:59" *)
+  (* src = "asic_freq.py:78" *)
   wire [32:0] \$24 ;
-  (* src = "asic_freq.py:59" *)
+  (* src = "asic_freq.py:78" *)
   wire [32:0] \$25 ;
-  (* src = "asic_freq.py:67" *)
+  (* src = "asic_freq.py:86" *)
   wire \$27 ;
-  (* src = "asic_freq.py:68" *)
+  (* src = "asic_freq.py:87" *)
   wire \$29 ;
-  (* src = "asic_freq.py:44" *)
+  (* src = "asic_freq.py:63" *)
   wire \$3 ;
-  (* src = "asic_freq.py:68" *)
+  (* src = "asic_freq.py:87" *)
   wire \$30 ;
-  (* src = "asic_freq.py:68" *)
+  (* src = "asic_freq.py:87" *)
   wire \$32 ;
-  (* src = "asic_freq.py:67" *)
+  (* src = "asic_freq.py:86" *)
   wire \$35 ;
-  (* src = "asic_freq.py:69" *)
-  wire \$37 ;
-  (* src = "asic_freq.py:70" *)
-  wire \$39 ;
-  (* src = "asic_freq.py:70" *)
-  wire \$41 ;
-  (* src = "asic_freq.py:80" *)
-  wire \$43 ;
   (* src = "asic_freq.py:88" *)
+  wire \$37 ;
+  (* src = "asic_freq.py:89" *)
+  wire \$39 ;
+  (* src = "asic_freq.py:89" *)
+  wire \$41 ;
+  (* src = "asic_freq.py:99" *)
+  wire \$43 ;
+  (* src = "asic_freq.py:107" *)
   wire \$45 ;
-  (* src = "asic_freq.py:67" *)
+  (* src = "asic_freq.py:86" *)
   wire \$47 ;
-  (* src = "asic_freq.py:69" *)
+  (* src = "asic_freq.py:88" *)
   wire \$49 ;
-  (* src = "asic_freq.py:53" *)
+  (* src = "asic_freq.py:72" *)
   wire \$5 ;
-  (* src = "asic_freq.py:70" *)
+  (* src = "asic_freq.py:89" *)
   wire \$51 ;
-  (* src = "asic_freq.py:70" *)
+  (* src = "asic_freq.py:89" *)
   wire \$53 ;
-  (* src = "asic_freq.py:67" *)
+  (* src = "asic_freq.py:86" *)
   wire \$55 ;
-  (* src = "asic_freq.py:69" *)
+  (* src = "asic_freq.py:88" *)
   wire \$57 ;
-  (* src = "asic_freq.py:70" *)
+  (* src = "asic_freq.py:89" *)
   wire \$59 ;
-  (* src = "asic_freq.py:70" *)
+  (* src = "asic_freq.py:89" *)
   wire \$61 ;
-  (* src = "asic_freq.py:80" *)
+  (* src = "asic_freq.py:99" *)
   wire \$63 ;
-  (* src = "asic_freq.py:85" *)
+  (* src = "asic_freq.py:104" *)
   wire [4:0] \$65 ;
-  (* src = "asic_freq.py:85" *)
+  (* src = "asic_freq.py:104" *)
   wire [4:0] \$66 ;
-  (* src = "asic_freq.py:67" *)
+  (* src = "asic_freq.py:86" *)
   wire \$68 ;
-  (* src = "asic_freq.py:44" *)
+  (* src = "asic_freq.py:63" *)
   wire \$7 ;
-  (* src = "asic_freq.py:69" *)
+  (* src = "asic_freq.py:88" *)
   wire \$70 ;
-  (* src = "asic_freq.py:70" *)
+  (* src = "asic_freq.py:89" *)
   wire \$72 ;
-  (* src = "asic_freq.py:70" *)
+  (* src = "asic_freq.py:89" *)
   wire \$74 ;
-  (* src = "asic_freq.py:75" *)
+  (* src = "asic_freq.py:94" *)
   wire [31:0] \$76 ;
-  (* src = "asic_freq.py:75" *)
+  (* src = "asic_freq.py:94" *)
   wire [31:0] \$78 ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/back/rtlil.py:525" *)
   wire \$79 ;
-  (* src = "asic_freq.py:80" *)
+  (* src = "asic_freq.py:99" *)
   wire \$82 ;
-  (* src = "asic_freq.py:81" *)
+  (* src = "asic_freq.py:100" *)
   wire [32:0] \$84 ;
-  (* src = "asic_freq.py:81" *)
+  (* src = "asic_freq.py:100" *)
   wire [32:0] \$85 ;
-  (* src = "asic_freq.py:86" *)
+  (* src = "asic_freq.py:105" *)
   wire [32:0] \$87 ;
-  (* src = "asic_freq.py:86" *)
+  (* src = "asic_freq.py:105" *)
   wire [32:0] \$88 ;
-  (* src = "asic_freq.py:53" *)
+  (* src = "asic_freq.py:72" *)
   wire \$9 ;
-  (* src = "asic_freq.py:67" *)
+  (* src = "asic_freq.py:86" *)
   wire \$90 ;
-  (* src = "asic_freq.py:80" *)
+  (* src = "asic_freq.py:99" *)
   wire \$92 ;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/ir.py:526" *)
   input clk;
-  (* src = "asic_freq.py:21" *)
+  (* src = "asic_freq.py:40" *)
   input [31:0] divisor;
   (* src = "/home/michael/fpga_wsp/nmigen/nmigen/hdl/ir.py:526" *)
   input rst;
-  (* src = "asic_freq.py:34" *)
+  (* src = "asic_freq.py:53" *)
   wire rx_ack;
-  (* src = "asic_freq.py:64" *)
+  (* src = "asic_freq.py:83" *)
   reg [3:0] rx_count = 4'h0;
-  (* src = "asic_freq.py:64" *)
+  (* src = "asic_freq.py:83" *)
   reg [3:0] \rx_count$next ;
-  (* src = "asic_freq.py:30" *)
+  (* src = "asic_freq.py:49" *)
   wire [7:0] rx_data;
-  (* src = "asic_freq.py:31" *)
+  (* src = "asic_freq.py:50" *)
   reg rx_err;
-  (* src = "asic_freq.py:24" *)
+  (* src = "asic_freq.py:43" *)
   input rx_i;
-  (* src = "asic_freq.py:32" *)
+  (* src = "asic_freq.py:51" *)
   reg rx_ovf = 1'h0;
-  (* src = "asic_freq.py:32" *)
+  (* src = "asic_freq.py:51" *)
   reg \rx_ovf$next ;
-  (* src = "asic_freq.py:62" *)
+  (* src = "asic_freq.py:81" *)
   reg [31:0] rx_phase = 32'd0;
-  (* src = "asic_freq.py:62" *)
+  (* src = "asic_freq.py:81" *)
   reg [31:0] \rx_phase$next ;
-  (* src = "asic_freq.py:33" *)
+  (* src = "asic_freq.py:52" *)
   reg rx_rdy = 1'h0;
-  (* src = "asic_freq.py:33" *)
+  (* src = "asic_freq.py:52" *)
   reg \rx_rdy$next ;
-  (* src = "asic_freq.py:63" *)
+  (* src = "asic_freq.py:82" *)
   reg [9:0] rx_shreg = 10'h3ff;
-  (* src = "asic_freq.py:63" *)
+  (* src = "asic_freq.py:82" *)
   reg [9:0] \rx_shreg$next ;
-  (* src = "asic_freq.py:28" *)
+  (* src = "asic_freq.py:47" *)
   output tx_ack;
   reg tx_ack;
-  (* src = "asic_freq.py:41" *)
+  (* src = "asic_freq.py:60" *)
   reg [3:0] tx_count = 4'h0;
-  (* src = "asic_freq.py:41" *)
+  (* src = "asic_freq.py:60" *)
   reg [3:0] \tx_count$next ;
-  (* src = "asic_freq.py:26" *)
+  (* src = "asic_freq.py:45" *)
   input [7:0] tx_data;
-  (* src = "asic_freq.py:23" *)
+  (* src = "asic_freq.py:42" *)
   output tx_o;
-  (* src = "asic_freq.py:39" *)
+  (* src = "asic_freq.py:58" *)
   reg [31:0] tx_phase = 32'd0;
-  (* src = "asic_freq.py:39" *)
+  (* src = "asic_freq.py:58" *)
   reg [31:0] \tx_phase$next ;
-  (* src = "asic_freq.py:27" *)
+  (* src = "asic_freq.py:46" *)
   input tx_rdy;
-  (* src = "asic_freq.py:40" *)
+  (* src = "asic_freq.py:59" *)
   reg [9:0] tx_shreg = 10'h3ff;
-  (* src = "asic_freq.py:40" *)
+  (* src = "asic_freq.py:59" *)
   reg [9:0] \tx_shreg$next ;
-  assign \$9  = tx_phase != (* src = "asic_freq.py:53" *) 1'h0;
-  assign \$12  = tx_count - (* src = "asic_freq.py:58" *) 1'h1;
-  assign \$14  = tx_count == (* src = "asic_freq.py:44" *) 1'h0;
-  assign \$17  = divisor - (* src = "asic_freq.py:50" *) 1'h1;
-  assign \$1  = tx_count == (* src = "asic_freq.py:44" *) 1'h0;
-  assign \$19  = tx_phase != (* src = "asic_freq.py:53" *) 1'h0;
-  assign \$22  = tx_phase - (* src = "asic_freq.py:54" *) 1'h1;
-  assign \$25  = divisor - (* src = "asic_freq.py:59" *) 1'h1;
-  assign \$27  = rx_count == (* src = "asic_freq.py:67" *) 1'h0;
-  assign \$30  = ~ (* src = "asic_freq.py:68" *) rx_shreg[0];
-  assign \$32  = \$30  & (* src = "asic_freq.py:68" *) rx_shreg[9];
-  assign \$29  = ~ (* src = "asic_freq.py:68" *) \$32 ;
-  assign \$35  = rx_count == (* src = "asic_freq.py:67" *) 1'h0;
-  assign \$37  = ~ (* src = "asic_freq.py:69" *) rx_i;
-  assign \$3  = tx_count == (* src = "asic_freq.py:44" *) 1'h0;
-  assign \$39  = ~ (* src = "asic_freq.py:70" *) rx_rdy;
-  assign \$41  = rx_ack | (* src = "asic_freq.py:70" *) \$39 ;
-  assign \$43  = rx_phase != (* src = "asic_freq.py:80" *) 1'h0;
-  assign \$45  = rx_count == (* src = "asic_freq.py:88" *) 1'h1;
-  assign \$47  = rx_count == (* src = "asic_freq.py:67" *) 1'h0;
-  assign \$49  = ~ (* src = "asic_freq.py:69" *) rx_i;
-  assign \$51  = ~ (* src = "asic_freq.py:70" *) rx_rdy;
-  assign \$53  = rx_ack | (* src = "asic_freq.py:70" *) \$51 ;
-  assign \$55  = rx_count == (* src = "asic_freq.py:67" *) 1'h0;
-  assign \$57  = ~ (* src = "asic_freq.py:69" *) rx_i;
-  assign \$5  = tx_phase != (* src = "asic_freq.py:53" *) 1'h0;
-  assign \$59  = ~ (* src = "asic_freq.py:70" *) rx_rdy;
-  assign \$61  = rx_ack | (* src = "asic_freq.py:70" *) \$59 ;
-  assign \$63  = rx_phase != (* src = "asic_freq.py:80" *) 1'h0;
-  assign \$66  = rx_count - (* src = "asic_freq.py:85" *) 1'h1;
-  assign \$68  = rx_count == (* src = "asic_freq.py:67" *) 1'h0;
-  assign \$70  = ~ (* src = "asic_freq.py:69" *) rx_i;
-  assign \$72  = ~ (* src = "asic_freq.py:70" *) rx_rdy;
-  assign \$74  = rx_ack | (* src = "asic_freq.py:70" *) \$72 ;
-  assign \$76  = divisor / (* src = "asic_freq.py:75" *) 2'h2;
-  assign \$7  = tx_count == (* src = "asic_freq.py:44" *) 1'h0;
+  assign \$9  = tx_phase != (* src = "asic_freq.py:72" *) 1'h0;
+  assign \$12  = tx_count - (* src = "asic_freq.py:77" *) 1'h1;
+  assign \$14  = tx_count == (* src = "asic_freq.py:63" *) 1'h0;
+  assign \$17  = divisor - (* src = "asic_freq.py:69" *) 1'h1;
+  assign \$1  = tx_count == (* src = "asic_freq.py:63" *) 1'h0;
+  assign \$19  = tx_phase != (* src = "asic_freq.py:72" *) 1'h0;
+  assign \$22  = tx_phase - (* src = "asic_freq.py:73" *) 1'h1;
+  assign \$25  = divisor - (* src = "asic_freq.py:78" *) 1'h1;
+  assign \$27  = rx_count == (* src = "asic_freq.py:86" *) 1'h0;
+  assign \$30  = ~ (* src = "asic_freq.py:87" *) rx_shreg[0];
+  assign \$32  = \$30  & (* src = "asic_freq.py:87" *) rx_shreg[9];
+  assign \$29  = ~ (* src = "asic_freq.py:87" *) \$32 ;
+  assign \$35  = rx_count == (* src = "asic_freq.py:86" *) 1'h0;
+  assign \$37  = ~ (* src = "asic_freq.py:88" *) rx_i;
+  assign \$3  = tx_count == (* src = "asic_freq.py:63" *) 1'h0;
+  assign \$39  = ~ (* src = "asic_freq.py:89" *) rx_rdy;
+  assign \$41  = rx_ack | (* src = "asic_freq.py:89" *) \$39 ;
+  assign \$43  = rx_phase != (* src = "asic_freq.py:99" *) 1'h0;
+  assign \$45  = rx_count == (* src = "asic_freq.py:107" *) 1'h1;
+  assign \$47  = rx_count == (* src = "asic_freq.py:86" *) 1'h0;
+  assign \$49  = ~ (* src = "asic_freq.py:88" *) rx_i;
+  assign \$51  = ~ (* src = "asic_freq.py:89" *) rx_rdy;
+  assign \$53  = rx_ack | (* src = "asic_freq.py:89" *) \$51 ;
+  assign \$55  = rx_count == (* src = "asic_freq.py:86" *) 1'h0;
+  assign \$57  = ~ (* src = "asic_freq.py:88" *) rx_i;
+  assign \$5  = tx_phase != (* src = "asic_freq.py:72" *) 1'h0;
+  assign \$59  = ~ (* src = "asic_freq.py:89" *) rx_rdy;
+  assign \$61  = rx_ack | (* src = "asic_freq.py:89" *) \$59 ;
+  assign \$63  = rx_phase != (* src = "asic_freq.py:99" *) 1'h0;
+  assign \$66  = rx_count - (* src = "asic_freq.py:104" *) 1'h1;
+  assign \$68  = rx_count == (* src = "asic_freq.py:86" *) 1'h0;
+  assign \$70  = ~ (* src = "asic_freq.py:88" *) rx_i;
+  assign \$72  = ~ (* src = "asic_freq.py:89" *) rx_rdy;
+  assign \$74  = rx_ack | (* src = "asic_freq.py:89" *) \$72 ;
+  assign \$76  = divisor / (* src = "asic_freq.py:94" *) 2'h2;
+  assign \$7  = tx_count == (* src = "asic_freq.py:63" *) 1'h0;
   assign \$79  = divisor == (* src = "/home/michael/fpga_wsp/nmigen/nmigen/back/rtlil.py:525" *) 1'h0;
-  assign \$78  = \$79  ? (* src = "asic_freq.py:75" *) 32'd0 : \$76 ;
-  assign \$82  = rx_phase != (* src = "asic_freq.py:80" *) 1'h0;
-  assign \$85  = rx_phase - (* src = "asic_freq.py:81" *) 1'h1;
-  assign \$88  = divisor - (* src = "asic_freq.py:86" *) 1'h1;
-  assign \$90  = rx_count == (* src = "asic_freq.py:67" *) 1'h0;
-  assign \$92  = rx_phase != (* src = "asic_freq.py:80" *) 1'h0;
+  assign \$78  = \$79  ? (* src = "asic_freq.py:94" *) 32'd0 : \$76 ;
+  assign \$82  = rx_phase != (* src = "asic_freq.py:99" *) 1'h0;
+  assign \$85  = rx_phase - (* src = "asic_freq.py:100" *) 1'h1;
+  assign \$88  = divisor - (* src = "asic_freq.py:105" *) 1'h1;
+  assign \$90  = rx_count == (* src = "asic_freq.py:86" *) 1'h0;
+  assign \$92  = rx_phase != (* src = "asic_freq.py:99" *) 1'h0;
   always @(posedge clk)
       rx_shreg <= \rx_shreg$next ;
   always @(posedge clk)
@@ -1278,38 +1307,38 @@ module uart(tx_rdy, tx_ack, tx_data, tx_o, rx_i, rst, clk, divisor);
       tx_shreg <= \tx_shreg$next ;
   always @* begin
     tx_ack = 1'h0;
-    (* src = "asic_freq.py:44" *)
+    (* src = "asic_freq.py:63" *)
     casez (\$1 )
-      /* src = "asic_freq.py:44" */
+      /* src = "asic_freq.py:63" */
       1'h1:
           tx_ack = 1'h1;
     endcase
   end
   always @* begin
     \rx_phase$next  = rx_phase;
-    (* src = "asic_freq.py:67" *)
+    (* src = "asic_freq.py:86" *)
     casez (\$68 )
-      /* src = "asic_freq.py:67" */
+      /* src = "asic_freq.py:86" */
       1'h1:
-          (* src = "asic_freq.py:69" *)
+          (* src = "asic_freq.py:88" *)
           casez (\$70 )
-            /* src = "asic_freq.py:69" */
+            /* src = "asic_freq.py:88" */
             1'h1:
-                (* src = "asic_freq.py:70" *)
+                (* src = "asic_freq.py:89" *)
                 casez (\$74 )
-                  /* src = "asic_freq.py:70" */
+                  /* src = "asic_freq.py:89" */
                   1'h1:
                       \rx_phase$next  = \$78 ;
                 endcase
           endcase
-      /* src = "asic_freq.py:79" */
+      /* src = "asic_freq.py:98" */
       default:
-          (* src = "asic_freq.py:80" *)
+          (* src = "asic_freq.py:99" *)
           casez (\$82 )
-            /* src = "asic_freq.py:80" */
+            /* src = "asic_freq.py:99" */
             1'h1:
                 \rx_phase$next  = \$84 [31:0];
-            /* src = "asic_freq.py:82" */
+            /* src = "asic_freq.py:101" */
             default:
                 \rx_phase$next  = \$87 [31:0];
           endcase
@@ -1322,19 +1351,19 @@ module uart(tx_rdy, tx_ack, tx_data, tx_o, rx_i, rst, clk, divisor);
   end
   always @* begin
     \rx_shreg$next  = rx_shreg;
-    (* src = "asic_freq.py:67" *)
+    (* src = "asic_freq.py:86" *)
     casez (\$90 )
-      /* src = "asic_freq.py:67" */
+      /* src = "asic_freq.py:86" */
       1'h1:
           /* empty */;
-      /* src = "asic_freq.py:79" */
+      /* src = "asic_freq.py:98" */
       default:
-          (* src = "asic_freq.py:80" *)
+          (* src = "asic_freq.py:99" *)
           casez (\$92 )
-            /* src = "asic_freq.py:80" */
+            /* src = "asic_freq.py:99" */
             1'h1:
                 /* empty */;
-            /* src = "asic_freq.py:82" */
+            /* src = "asic_freq.py:101" */
             default:
                 \rx_shreg$next  = { rx_i, rx_shreg[9:1] };
           endcase
@@ -1347,24 +1376,24 @@ module uart(tx_rdy, tx_ack, tx_data, tx_o, rx_i, rst, clk, divisor);
   end
   always @* begin
     \tx_shreg$next  = tx_shreg;
-    (* src = "asic_freq.py:44" *)
+    (* src = "asic_freq.py:63" *)
     casez (\$3 )
-      /* src = "asic_freq.py:44" */
+      /* src = "asic_freq.py:63" */
       1'h1:
-          (* src = "asic_freq.py:46" *)
+          (* src = "asic_freq.py:65" *)
           casez (tx_rdy)
-            /* src = "asic_freq.py:46" */
+            /* src = "asic_freq.py:65" */
             1'h1:
                 \tx_shreg$next  = { 1'h1, tx_data, 1'h0 };
           endcase
-      /* src = "asic_freq.py:52" */
+      /* src = "asic_freq.py:71" */
       default:
-          (* src = "asic_freq.py:53" *)
+          (* src = "asic_freq.py:72" *)
           casez (\$5 )
-            /* src = "asic_freq.py:53" */
+            /* src = "asic_freq.py:72" */
             1'h1:
                 /* empty */;
-            /* src = "asic_freq.py:55" */
+            /* src = "asic_freq.py:74" */
             default:
                 \tx_shreg$next  = { 1'h1, tx_shreg[9:1] };
           endcase
@@ -1377,24 +1406,24 @@ module uart(tx_rdy, tx_ack, tx_data, tx_o, rx_i, rst, clk, divisor);
   end
   always @* begin
     \tx_count$next  = tx_count;
-    (* src = "asic_freq.py:44" *)
+    (* src = "asic_freq.py:63" *)
     casez (\$7 )
-      /* src = "asic_freq.py:44" */
+      /* src = "asic_freq.py:63" */
       1'h1:
-          (* src = "asic_freq.py:46" *)
+          (* src = "asic_freq.py:65" *)
           casez (tx_rdy)
-            /* src = "asic_freq.py:46" */
+            /* src = "asic_freq.py:65" */
             1'h1:
                 \tx_count$next  = 4'ha;
           endcase
-      /* src = "asic_freq.py:52" */
+      /* src = "asic_freq.py:71" */
       default:
-          (* src = "asic_freq.py:53" *)
+          (* src = "asic_freq.py:72" *)
           casez (\$9 )
-            /* src = "asic_freq.py:53" */
+            /* src = "asic_freq.py:72" */
             1'h1:
                 /* empty */;
-            /* src = "asic_freq.py:55" */
+            /* src = "asic_freq.py:74" */
             default:
                 \tx_count$next  = \$11 [3:0];
           endcase
@@ -1407,24 +1436,24 @@ module uart(tx_rdy, tx_ack, tx_data, tx_o, rx_i, rst, clk, divisor);
   end
   always @* begin
     \tx_phase$next  = tx_phase;
-    (* src = "asic_freq.py:44" *)
+    (* src = "asic_freq.py:63" *)
     casez (\$14 )
-      /* src = "asic_freq.py:44" */
+      /* src = "asic_freq.py:63" */
       1'h1:
-          (* src = "asic_freq.py:46" *)
+          (* src = "asic_freq.py:65" *)
           casez (tx_rdy)
-            /* src = "asic_freq.py:46" */
+            /* src = "asic_freq.py:65" */
             1'h1:
                 \tx_phase$next  = \$16 [31:0];
           endcase
-      /* src = "asic_freq.py:52" */
+      /* src = "asic_freq.py:71" */
       default:
-          (* src = "asic_freq.py:53" *)
+          (* src = "asic_freq.py:72" *)
           casez (\$19 )
-            /* src = "asic_freq.py:53" */
+            /* src = "asic_freq.py:72" */
             1'h1:
                 \tx_phase$next  = \$21 [31:0];
-            /* src = "asic_freq.py:55" */
+            /* src = "asic_freq.py:74" */
             default:
                 \tx_phase$next  = \$24 [31:0];
           endcase
@@ -1437,42 +1466,42 @@ module uart(tx_rdy, tx_ack, tx_data, tx_o, rx_i, rst, clk, divisor);
   end
   always @* begin
     rx_err = 1'h0;
-    (* src = "asic_freq.py:67" *)
+    (* src = "asic_freq.py:86" *)
     casez (\$27 )
-      /* src = "asic_freq.py:67" */
+      /* src = "asic_freq.py:86" */
       1'h1:
           rx_err = \$29 ;
     endcase
   end
   always @* begin
     \rx_rdy$next  = rx_rdy;
-    (* src = "asic_freq.py:67" *)
+    (* src = "asic_freq.py:86" *)
     casez (\$35 )
-      /* src = "asic_freq.py:67" */
+      /* src = "asic_freq.py:86" */
       1'h1:
-          (* src = "asic_freq.py:69" *)
+          (* src = "asic_freq.py:88" *)
           casez (\$37 )
-            /* src = "asic_freq.py:69" */
+            /* src = "asic_freq.py:88" */
             1'h1:
-                (* src = "asic_freq.py:70" *)
+                (* src = "asic_freq.py:89" *)
                 casez (\$41 )
-                  /* src = "asic_freq.py:70" */
+                  /* src = "asic_freq.py:89" */
                   1'h1:
                       \rx_rdy$next  = 1'h0;
                 endcase
           endcase
-      /* src = "asic_freq.py:79" */
+      /* src = "asic_freq.py:98" */
       default:
-          (* src = "asic_freq.py:80" *)
+          (* src = "asic_freq.py:99" *)
           casez (\$43 )
-            /* src = "asic_freq.py:80" */
+            /* src = "asic_freq.py:99" */
             1'h1:
                 /* empty */;
-            /* src = "asic_freq.py:82" */
+            /* src = "asic_freq.py:101" */
             default:
-                (* src = "asic_freq.py:88" *)
+                (* src = "asic_freq.py:107" *)
                 casez (\$45 )
-                  /* src = "asic_freq.py:88" */
+                  /* src = "asic_freq.py:107" */
                   1'h1:
                       \rx_rdy$next  = 1'h1;
                 endcase
@@ -1486,20 +1515,20 @@ module uart(tx_rdy, tx_ack, tx_data, tx_o, rx_i, rst, clk, divisor);
   end
   always @* begin
     \rx_ovf$next  = rx_ovf;
-    (* src = "asic_freq.py:67" *)
+    (* src = "asic_freq.py:86" *)
     casez (\$47 )
-      /* src = "asic_freq.py:67" */
+      /* src = "asic_freq.py:86" */
       1'h1:
-          (* src = "asic_freq.py:69" *)
+          (* src = "asic_freq.py:88" *)
           casez (\$49 )
-            /* src = "asic_freq.py:69" */
+            /* src = "asic_freq.py:88" */
             1'h1:
-                (* src = "asic_freq.py:70" *)
+                (* src = "asic_freq.py:89" *)
                 casez (\$53 )
-                  /* src = "asic_freq.py:70" */
+                  /* src = "asic_freq.py:89" */
                   1'h1:
                       \rx_ovf$next  = 1'h0;
-                  /* src = "asic_freq.py:77" */
+                  /* src = "asic_freq.py:96" */
                   default:
                       \rx_ovf$next  = 1'h1;
                 endcase
@@ -1513,29 +1542,29 @@ module uart(tx_rdy, tx_ack, tx_data, tx_o, rx_i, rst, clk, divisor);
   end
   always @* begin
     \rx_count$next  = rx_count;
-    (* src = "asic_freq.py:67" *)
+    (* src = "asic_freq.py:86" *)
     casez (\$55 )
-      /* src = "asic_freq.py:67" */
+      /* src = "asic_freq.py:86" */
       1'h1:
-          (* src = "asic_freq.py:69" *)
+          (* src = "asic_freq.py:88" *)
           casez (\$57 )
-            /* src = "asic_freq.py:69" */
+            /* src = "asic_freq.py:88" */
             1'h1:
-                (* src = "asic_freq.py:70" *)
+                (* src = "asic_freq.py:89" *)
                 casez (\$61 )
-                  /* src = "asic_freq.py:70" */
+                  /* src = "asic_freq.py:89" */
                   1'h1:
                       \rx_count$next  = 4'ha;
                 endcase
           endcase
-      /* src = "asic_freq.py:79" */
+      /* src = "asic_freq.py:98" */
       default:
-          (* src = "asic_freq.py:80" *)
+          (* src = "asic_freq.py:99" *)
           casez (\$63 )
-            /* src = "asic_freq.py:80" */
+            /* src = "asic_freq.py:99" */
             1'h1:
                 /* empty */;
-            /* src = "asic_freq.py:82" */
+            /* src = "asic_freq.py:101" */
             default:
                 \rx_count$next  = \$65 [3:0];
           endcase

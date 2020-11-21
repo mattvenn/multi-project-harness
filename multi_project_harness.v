@@ -136,11 +136,11 @@ module multi_project_harness #(
         .strobe(wb_valid & (&wb_wstrb) & ((wbs_adr_i >> 8) == (address_freq >> 8))),
 
         // signal under test
-        .samplee(project_io_in[4][2]),
+        .samplee(project_io_in[4][0]),
         // continuous counter output to wishbone
         .oc(freq_cnt_cont),
         // UART output to pin
-        .tx(project_io_out[4][0])
+        .tx(project_io_out[4][1])
     );
     `endif
 
@@ -165,7 +165,7 @@ module multi_project_harness #(
         if(wb_valid & (wb_wstrb > 0)) begin
             case(wbs_adr_i)
                 address_active: begin
-                    if (wb_wstrb[0]) 
+                    if (wb_wstrb[0])
                         active_project[7:0] <= wbs_dat_i[7:0];
                     wbs_ack <= 1;
                 end
@@ -176,6 +176,9 @@ module multi_project_harness #(
                     wbs_ack <= 1;
                 end
 
+                address_freq, address_freq + 4: begin
+                    wbs_ack <= 1;
+                end
             endcase
         end else
         // reads - allow to see which is currently selected
@@ -221,7 +224,7 @@ module multi_project_harness #(
         always @(posedge clk) begin
             f_past_valid <= 1;
             assume(reset == !f_past_valid);
-            
+
         end
 
         // assume controller keeps cyc & strobe high until ack, data, wstrb and data stay stable
