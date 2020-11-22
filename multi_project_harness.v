@@ -124,23 +124,30 @@ module multi_project_harness #(
     // project 4
     wire [31:0] freq_cnt_cont;
     `ifndef FORMAL
-    freq_cnt proj_4(  // TODO change instance name from `top` to `freq_cnt`
+    freq_cnt proj_4(
         .clk(clk),
         .rst(reset | la_data_in[0]),
 
-        // register write interface (ignores < 32 bit writes, no read!):
+        // register write interface (ignores < 32 bit writes):
         // 32'h30000300 = writes UART clock divider, reads cont. counter value
         // 32'h30000304 = Frequency counter update period [sys_clks]
+        // 32'h30000314 = decimal points of the 7-segment display (9 bits)
         .addr(wbs_adr_i[5:2]),
         .value(wbs_dat_i),
         .strobe(wb_valid & (&wb_wstrb) & ((wbs_adr_i >> 8) == (address_freq >> 8))),
 
         // signal under test
         .samplee(project_io_in[4][0]),
+
         // continuous counter output to wishbone
         .oc(freq_cnt_cont),
+
         // UART output to pin
-        .tx(project_io_out[4][1])
+        .tx(project_io_out[4][0]),
+
+        // 7 segment display outputs
+        .col_drvs(project_io_out[4][9:1]),  // 9 x column drivers
+        .seg_drvs(project_io_out[4][17:10])  // 8 x segment drivers
     );
     `endif
 
@@ -175,11 +182,11 @@ module multi_project_harness #(
                 address_7seg: begin
                     wbs_ack <= 1;
                 end
-
-                address_freq, address_freq + 4: begin
-                    wbs_ack <= 1;
-                end
             endcase
+
+            // asic_freq has a range of 6 registers
+            if((wbs_adr_i >= address_freq) && (wbs_adr_i < address_freq + 6 * 4))
+                wbs_ack <= 1;
         end else
         // reads - allow to see which is currently selected
         if(wb_valid & wb_wstrb == 4'b0) begin

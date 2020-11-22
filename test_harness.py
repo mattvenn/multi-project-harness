@@ -255,8 +255,8 @@ def int2bcd(v):
 @cocotb.test()
 # freq_cnt
 async def test_project_4(dut):
-    T_sys_clk = 1000  # system clock period [ns]
-    T_sut_clk = 10  # signal under test period [ns]
+    T_sys_clk = 100  # system clock period [ns] (10 MHz)
+    T_sut_clk = 10  # signal under test period [ns] (100 MHz)
     meas_cycles = 0x100
     f_meter_value_expect = meas_cycles * T_sys_clk // T_sut_clk
 
@@ -274,14 +274,33 @@ async def test_project_4(dut):
     sut_clk = Clock(dut.io_in[0], T_sut_clk, units="ns")
     cocotb.fork(sut_clk.start())
 
+    # Write to the 2 config registers
     await wishbone_write(dut, ADDR_FREQ, 4)  # min. UART clock divider
     await wishbone_write(dut, ADDR_FREQ + 4, meas_cycles)  # Meas. period cnt.
+    await wishbone_write(dut, ADDR_FREQ + 0x14, 0b100000010)  # decimal dots
+
+    # Make sure the Wishbone writes succeeded
+    assert dut.proj_4.uart_divisor == 4
+    assert dut.proj_4.f_meter.period == meas_cycles
+    assert dut.proj_4.seven_seg.decimal_pts == 0b100000010
 
     # Wait for the measurement cycle to complete ...
-    # first meas. is messed up due to wishbone write, wait for second one
+    # first count is incomplete due to wishbone write, wait for second one
     await RisingEdge(dut.proj_4.b2bcd_trig_out)
     await RisingEdge(dut.proj_4.b2bcd_trig_out)
 
+    # .vcd file does not match testbench state at this point ... WTF???
+    # import pdb; pdb.set_trace()
+    await ClockCycles(dut.wb_clk_i, 1)  # this works around it
+
     # Compare simulation values against expected values
-    assert dut.proj_4.f_meter_value == f_meter_value_expect
-    assert dut.proj_4.b2bcd_bcd_out == int2bcd(f_meter_value_expect)
+    assert dut.proj_4.f_meter_value == f_meter_value_expect, \
+        "unexpected f_meter_value: {:x} != {:x}".format(
+            int(dut.proj_4.f_meter_value),
+            f_meter_value_expect
+        )
+    assert dut.proj_4.b2bcd_bcd_out == int2bcd(f_meter_value_expect), \
+        "unexpected b2bcd_bcd_out: {:x} != {:x}".format(
+            int(dut.proj_4.b2bcd_bcd_out),
+            int2bcd(f_meter_value_expect)
+        )
