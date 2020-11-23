@@ -10,6 +10,9 @@ ADDR_PROJECT = 0x30000000
 ADDR_WS2812  = 0x30000100
 ADDR_7SEG    = 0x30000200
 
+ADDR_FREQ    = 0x30000400
+
+
 async def wishbone_write(dut, address, data):
     assert dut.wbs_ack_o == 0
     await RisingEdge(dut.wb_clk_i)
@@ -94,7 +97,7 @@ async def spix(dut, sig, v):
 async def test_wb_access(dut):
     clock = Clock(dut.wb_clk_i, 10, units="us")
     cocotb.fork(clock.start())
-    
+
     await reset(dut)
 
     for project_number in range(NUMBER_OF_PROJECTS):
@@ -104,14 +107,14 @@ async def test_wb_access(dut):
 
         # check active design
         active_project = await wishbone_read(dut, ADDR_PROJECT)
-        assert active_project == project_number 
+        assert active_project == project_number
 
 @cocotb.test()
 # 7 segment
 async def test_project_0(dut):
     clock = Clock(dut.wb_clk_i, 10, units="us")
     cocotb.fork(clock.start())
-    
+
     await reset(dut)
 
     # activate design 0
@@ -120,7 +123,7 @@ async def test_project_0(dut):
     assert dut.active_project == project_number
 
     # use a gpio as a clock
-    io_clock = Clock(dut.io_in[0], 10, units="us") 
+    io_clock = Clock(dut.io_in[0], 10, units="us")
     clk_gen = cocotb.fork(io_clock.start())
 
     # use external gpio as reset
@@ -142,7 +145,7 @@ async def test_project_0(dut):
 async def test_project_1(dut):
     clock = Clock(dut.wb_clk_i, 10, units="us")
     cocotb.fork(clock.start())
-    
+
     await reset(dut)
 
     # activate design 1
@@ -151,7 +154,7 @@ async def test_project_1(dut):
     assert dut.active_project == project_number
 
     # use a gpio as a clock
-    io_clock = Clock(dut.io_in[0], 10, units="us") 
+    io_clock = Clock(dut.io_in[0], 10, units="us")
     clk_gen = cocotb.fork(io_clock.start())
 
     # use external gpio as reset
@@ -174,7 +177,7 @@ async def test_project_1(dut):
 async def test_project_2(dut):
     clock = Clock(dut.wb_clk_i, 10, units="us")
     cocotb.fork(clock.start())
-    
+
     await reset(dut)
 
     # activate design 2
@@ -183,7 +186,7 @@ async def test_project_2(dut):
     assert dut.active_project == project_number
 
     # use a gpio as a clock
-    io_clock = Clock(dut.io_in[0], 10, units="us") 
+    io_clock = Clock(dut.io_in[0], 10, units="us")
     clk_gen = cocotb.fork(io_clock.start())
 
     # use external gpio as reset
@@ -199,7 +202,7 @@ async def test_project_2(dut):
 async def test_project_3(dut):
     clock = Clock(dut.wb_clk_i, 10, units="us")
     cocotb.fork(clock.start())
-    
+
     await reset(dut)
 
     # activate design 3
@@ -208,7 +211,7 @@ async def test_project_3(dut):
     assert dut.active_project == project_number
 
     # use a gpio as a clock
-    io_clock = Clock(dut.io_in[0], 10, units="us") 
+    io_clock = Clock(dut.io_in[0], 10, units="us")
     clk_gen = cocotb.fork(io_clock.start())
 
     # use external gpio as reset
@@ -240,3 +243,60 @@ async def test_project_3(dut):
 
     # check data and sender address
     assert (rcv & 0xFF) == data and ((rcv>>8) & 0x7) == 0
+
+
+def int2bcd(v):
+    out = 0
+    for s in str(v):
+        out = (out << 4) | int(s)
+    return out
+
+
+@cocotb.test()
+# freq_cnt
+async def test_project_4(dut):
+    T_sys_clk = 100  # system clock period [ns] (10 MHz)
+    T_sut_clk = 10  # signal under test period [ns] (100 MHz)
+    meas_cycles = 0x100
+    f_meter_value_expect = meas_cycles * T_sys_clk // T_sut_clk
+
+    clock = Clock(dut.wb_clk_i, T_sys_clk, units="ns")
+    cocotb.fork(clock.start())
+
+    await reset(dut)
+
+    # activate design 4
+    project_number = 4
+    await wishbone_write(dut, ADDR_PROJECT, project_number)
+    assert dut.active_project == project_number
+
+    # drive gpio0 which is the signal under test
+    sut_clk = Clock(dut.io_in[0], T_sut_clk, units="ns")
+    cocotb.fork(sut_clk.start())
+
+    # Write to the 2 config registers
+    await wishbone_write(dut, ADDR_FREQ, 4)  # min. UART clock divider
+    await wishbone_write(dut, ADDR_FREQ + 4, meas_cycles)  # Meas. period cnt.
+    await wishbone_write(dut, ADDR_FREQ + 0x14, 0b100000010)  # decimal dots
+
+    # Make sure the Wishbone writes succeeded
+    assert dut.proj_4.serial.uart.divisor == 4
+    assert dut.proj_4.f_meter.period == meas_cycles
+    assert dut.proj_4.seven_seg.decimal_pts == 0b100000010
+
+    # Wait for the measurement cycle to complete ...
+    # first count is incomplete due to wishbone write, wait for second one
+    await RisingEdge(dut.proj_4.b2bcd_trig_out)
+    await RisingEdge(dut.proj_4.b2bcd_trig_out)
+
+    # .vcd file does not match testbench state at this point ... WTF???
+    # import pdb; pdb.set_trace()
+    await ClockCycles(dut.wb_clk_i, 1)  # this works around it
+
+    # Compare simulation values against expected values
+    assert dut.proj_4.f_meter_value == f_meter_value_expect
+    assert dut.proj_4.b2bcd_bcd_out == int2bcd(f_meter_value_expect)
+
+    # Read the current frequency counter value
+    readVal = await wishbone_read(dut, ADDR_FREQ)  # periodic count value
+    assert readVal == f_meter_value_expect

@@ -1,18 +1,13 @@
-[*]
-[*] GTKWave Analyzer v3.3.108 (w)1999-2020 BSI
-[*] Fri Nov 20 11:24:26 2020
-[*]
-[dumpfile] "/home/matt/work/asic-workshop/multi-project-harness/seven_segment_seconds.vcd"
-[dumpfile_mtime] "Fri Nov 20 11:24:06 2020"
-[dumpfile_size] 36312
-[savefile] "/home/matt/work/asic-workshop/multi-project-harness/harness.gtkw"
+[dumpfile] "seven_segment_seconds.vcd"
 [timestart] 0
-[size] 1963 1481
-[pos] -397 -34
-*-27.000000 425400000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1916 1036
+[pos] -1 -1
+*-28.000000 583000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] multi_project_harness.
+[treeopen] multi_project_harness.proj_4.
+[treeopen] multi_project_harness.proj_4.f_meter.
 [sst_width] 272
-[signals_width] 560
+[signals_width] 390
 [sst_expanded] 1
 [sst_vpaned_height] 455
 @28
@@ -42,6 +37,8 @@ multi_project_harness.wbs_we_i
 multi_project_harness.wbs_adr_i[31:0]
 @1000200
 -wishbone
+@c00200
+-digit
 @22
 multi_project_harness.active_project[7:0]
 @28
@@ -51,7 +48,29 @@ multi_project_harness.proj_0.compare_in[23:0]
 multi_project_harness.proj_0.compare[23:0]
 @24
 multi_project_harness.proj_0.second_counter[23:0]
-@23
+@22
 multi_project_harness.proj_0.digit[3:0]
+@1401200
+-digit
+@800200
+-freq_cnt
+@22
+multi_project_harness.proj_4.oc[31:0]
+@28
+multi_project_harness.proj_4.tx
+@820
+multi_project_harness.proj_4.uart.tx_data[7:0]
+@24
+multi_project_harness.proj_4.f_meter.value[31:0]
+multi_project_harness.proj_4.f_meter.U$$2.counter[31:0]
+@28
+multi_project_harness.proj_4.f_meter.U$$2.latch
+multi_project_harness.proj_4.b2bcd_trig_out
+@24
+multi_project_harness.proj_4.f_meter_value[31:0]
+@22
+multi_project_harness.proj_4.b2bcd_bcd_out[39:0]
+@1000200
+-freq_cnt
 [pattern_trace] 1
 [pattern_trace] 0
