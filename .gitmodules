@@ -12,4 +12,4 @@
 	url = https://github.com/millerresearch/spinet
 [submodule "asicfreq"]
 	path = asicfreq
-	url = git@git.sr.ht:~jersey99/asicfreq
+	url = https://git.sr.ht/~jersey99/asicfreq
