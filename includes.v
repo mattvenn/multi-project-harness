@@ -7,5 +7,5 @@
 `include "multi_project_harness/vga-clock/rtl/fontROM.v"
 `include "multi_project_harness/vga-clock/rtl/vga_clock.v"
 `include "multi_project_harness/spinet/rtl/spinet.v"
-`include "multi_project_harness/freq_cnt/asic_freq.v"
+`include "multi_project_harness/asicfreq/asic_freq.v"
 
