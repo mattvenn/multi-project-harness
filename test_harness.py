@@ -280,7 +280,7 @@ async def test_project_4(dut):
     await wishbone_write(dut, ADDR_FREQ + 0x14, 0b100000010)  # decimal dots
 
     # Make sure the Wishbone writes succeeded
-    assert dut.proj_4.uart_divisor == 4
+    assert dut.proj_4.serial.uart.divisor == 4
     assert dut.proj_4.f_meter.period == meas_cycles
     assert dut.proj_4.seven_seg.decimal_pts == 0b100000010
 
@@ -294,13 +294,9 @@ async def test_project_4(dut):
     await ClockCycles(dut.wb_clk_i, 1)  # this works around it
 
     # Compare simulation values against expected values
-    assert dut.proj_4.f_meter_value == f_meter_value_expect, \
-        "unexpected f_meter_value: {:x} != {:x}".format(
-            int(dut.proj_4.f_meter_value),
-            f_meter_value_expect
-        )
-    assert dut.proj_4.b2bcd_bcd_out == int2bcd(f_meter_value_expect), \
-        "unexpected b2bcd_bcd_out: {:x} != {:x}".format(
-            int(dut.proj_4.b2bcd_bcd_out),
-            int2bcd(f_meter_value_expect)
-        )
+    assert dut.proj_4.f_meter_value == f_meter_value_expect
+    assert dut.proj_4.b2bcd_bcd_out == int2bcd(f_meter_value_expect)
+
+    # Read the current frequency counter value
+    readVal = await wishbone_read(dut, ADDR_FREQ)  # periodic count value
+    assert readVal == f_meter_value_expect

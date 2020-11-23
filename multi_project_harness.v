@@ -122,16 +122,32 @@ module multi_project_harness #(
     `endif
 
     // project 4
-    wire [31:0] freq_cnt_cont;
+    wire [31:0] cnt;
+    wire [31:0] cnt_cont;
     `ifndef FORMAL
     freq_cnt proj_4(
         .clk(clk),
         .rst(reset | la_data_in[0]),
 
         // register write interface (ignores < 32 bit writes):
-        // 32'h30000300 = writes UART clock divider, reads cont. counter value
-        // 32'h30000304 = Frequency counter update period [sys_clks]
-        // 32'h30000314 = decimal points of the 7-segment display (9 bits)
+        // 30000300:
+        //   write UART clock divider (min. value = 4),
+        //   read periodically reset freq. counter value
+        // 30000304:
+        //   write frequency counter update period [sys_clks]
+        //   read continuous freq. counter value
+        // 30000308
+        //   set 7-segment display mode,
+        //   0: show meas. freq., 1: show wishbone value
+        // 3000030C
+        //   set 7-segment display value:
+        //   digit7 ... digit0  (4 bit each)
+        // 30000310
+        //   set 7-segment display value:
+        //   digit8
+        // 30000314
+        //   set 7-segment decimal points:
+        //   dec_point8 ... dec_point0  (1 bit each)
         .addr(wbs_adr_i[5:2]),
         .value(wbs_dat_i),
         .strobe(wb_valid & (&wb_wstrb) & ((wbs_adr_i >> 8) == (address_freq >> 8))),
@@ -139,8 +155,11 @@ module multi_project_harness #(
         // signal under test
         .samplee(project_io_in[4][0]),
 
+        // periodic counter output to wishbone
+        .o(cnt),
+
         // continuous counter output to wishbone
-        .oc(freq_cnt_cont),
+        .oc(cnt_cont),
 
         // UART output to pin
         .tx(project_io_out[4][0]),
@@ -197,7 +216,12 @@ module multi_project_harness #(
                 end
 
                 address_freq: begin
-                    wbs_data_out <= freq_cnt_cont;
+                    wbs_data_out <= cnt;
+                    wbs_ack <= 1;
+                end
+
+                address_freq + 4: begin
+                    wbs_data_out <= cnt_cont;
                     wbs_ack <= 1;
                 end
             endcase
