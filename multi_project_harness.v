@@ -153,7 +153,7 @@ module multi_project_harness #(
         .strobe(wb_valid & (&wb_wstrb) & ((wbs_adr_i >> 8) == (address_freq >> 8))),
 
         // signal under test
-        .samplee(project_io_in[4][0]),
+        .samplee(project_io_in[4][18]),
 
         // periodic counter output to wishbone
         .o(cnt),
