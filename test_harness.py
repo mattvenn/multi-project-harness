@@ -210,22 +210,12 @@ async def test_project_3(dut):
     await wishbone_write(dut, ADDR_PROJECT, project_number)
     assert dut.active_project == project_number
 
-    # use a gpio as a clock
-    io_clock = Clock(dut.io_in[0], 10, units="us")
-    clk_gen = cocotb.fork(io_clock.start())
-
-    # use external gpio as reset
-    dut.io_in[1] <= 1
-    await ClockCycles(dut.wb_clk_i, 5)
-    dut.io_in[1] <= 0
-    await ClockCycles(dut.wb_clk_i, 5)
-
     # group SPI & ready signals for net nodes 0, 1
     SPIsigs = namedtuple('SPIsigs', 'miso mosi ss sck txrdy rxrdy')
-    spi0 = SPIsigs(miso=dut.io_out[8], mosi=dut.io_in[2], ss=dut.io_in[6],
-                      sck=dut.io_in[4], txrdy=dut.io_out[10], rxrdy=dut.io_out[12])
-    spi1 = SPIsigs(miso=dut.io_out[9], mosi=dut.io_in[3], ss=dut.io_in[7],
-                      sck=dut.io_in[5], txrdy=dut.io_out[11], rxrdy=dut.io_out[13])
+    spi0 = SPIsigs(miso=dut.io_out[18], mosi=dut.io_in[0], ss=dut.io_in[12],
+                      sck=dut.io_in[6], txrdy=dut.io_out[24], rxrdy=dut.io_out[30])
+    spi1 = SPIsigs(miso=dut.io_out[19], mosi=dut.io_in[1], ss=dut.io_in[13],
+                      sck=dut.io_in[7], txrdy=dut.io_out[25], rxrdy=dut.io_out[31])
 
     assert spi0.txrdy.value and spi1.txrdy.value
     assert (not spi0.rxrdy.value) and (not spi1.rxrdy.value)
