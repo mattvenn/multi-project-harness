@@ -110,7 +110,7 @@ module multi_project_harness #(
 	assign p3in = project_io_in[3][35:0];
 	assign project_io_out[3][35:0] = p3out;
     `ifndef FORMAL
-	spinet #(.N(6), .WIDTH(16), .ABITS(3)) proj_3 (
+	spinet6 proj_3 (
 		.clk(clk),
 		.rst(reset | la_data_in[0]),
 		.MOSI(p3in[5:0]),
