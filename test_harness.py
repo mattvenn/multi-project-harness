@@ -217,6 +217,13 @@ async def test_project_3(dut):
     spi1 = SPIsigs(miso=dut.io_out[19], mosi=dut.io_in[1], ss=dut.io_in[13],
                       sck=dut.io_in[7], txrdy=dut.io_out[25], rxrdy=dut.io_out[31])
 
+    spi0.ss <= False
+    spi1.ss <= False
+    await ClockCycles(dut.wb_clk_i, 1)
+    spi0.ss <= True
+    spi1.ss <= True
+    await ClockCycles(dut.wb_clk_i, 10)
+
     assert spi0.txrdy.value and spi1.txrdy.value
     assert (not spi0.rxrdy.value) and (not spi1.rxrdy.value)
 
