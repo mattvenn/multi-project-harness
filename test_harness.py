@@ -211,11 +211,11 @@ async def test_project_3(dut):
     assert dut.active_project == project_number
 
     # group SPI & ready signals for net nodes 0, 1
-    SPIsigs = namedtuple('SPIsigs', 'miso mosi ss sck txrdy rxrdy')
-    spi0 = SPIsigs(miso=dut.io_out[18], mosi=dut.io_in[0], ss=dut.io_in[12],
-                      sck=dut.io_in[6], txrdy=dut.io_out[24], rxrdy=dut.io_out[30])
-    spi1 = SPIsigs(miso=dut.io_out[19], mosi=dut.io_in[1], ss=dut.io_in[13],
-                      sck=dut.io_in[7], txrdy=dut.io_out[25], rxrdy=dut.io_out[31])
+    SPIsigs = namedtuple('SPIsigs', 'mosi sck ss miso txrdy rxrdy')
+    spi0 = SPIsigs(mosi=dut.io_out[0], sck=dut.io_in[1], ss=dut.io_in[2],
+                      miso=dut.io_in[3], txrdy=dut.io_out[4], rxrdy=dut.io_out[7])
+    spi1 = SPIsigs(mosi=dut.io_out[8], sck=dut.io_in[9], ss=dut.io_in[10],
+                      miso=dut.io_in[11], txrdy=dut.io_out[12], rxrdy=dut.io_out[13])
 
     spi0.ss <= False
     spi1.ss <= False
@@ -267,8 +267,8 @@ async def test_project_4(dut):
     await wishbone_write(dut, ADDR_PROJECT, project_number)
     assert dut.active_project == project_number
 
-    # drive gpio18 which is the signal under test
-    sut_clk = Clock(dut.io_in[18], T_sut_clk, units="ns")
+    # drive gpio0 which is the signal under test
+    sut_clk = Clock(dut.io_in[0], T_sut_clk, units="ns")
     cocotb.fork(sut_clk.start())
 
     # Write to the 2 config registers
