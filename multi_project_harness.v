@@ -125,7 +125,7 @@ module multi_project_harness #(
     wire [31:0] cnt;
     wire [31:0] cnt_cont;
     `ifndef FORMAL
-    freq_cnt proj_4(
+    asic_freq proj_4(
         .clk(clk),
         .rst(reset | la_data_in[0]),
 
