@@ -288,5 +288,5 @@ async def test_project_4(dut):
     assert dut.proj_4.b2bcd_bcd_out == int2bcd(f_meter_value_expect)
 
     # Read the current frequency counter value
-    readVal = await wishbone_read(dut, ADDR_FREQ)  # periodic count value
+    readVal = await wishbone_read(dut, ADDR_FREQ + 0x18)  # periodic count val.
     assert readVal == f_meter_value_expect
