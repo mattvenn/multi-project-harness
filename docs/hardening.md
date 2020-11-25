@@ -17,6 +17,7 @@ The strategy is:
 
 * copy this gds and lef file to the caravel user project directory and run the caravel makefile to add the macro
     * don't know how to do this part
+    * make in caravel/openlane
     
 # Current results for submodules
 
@@ -94,3 +95,14 @@ An issue has been opened here: https://github.com/RTimothyEdwards/netgen/issues/
               lvs_total_errors :                    6
 
 # Current results for top level macro 
+
+        tritonRoute_violations :                  180
+              Short_violations :                  170
+             MetSpc_violations :                   10
+            OffGrid_violations :                    0
+            MinHole_violations :                    0
+              Other_violations :                    0
+              Magic_violations :                 1126
+            antenna_violations :                  110
+              lvs_total_errors :                  102
+
