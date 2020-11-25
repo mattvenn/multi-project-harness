@@ -21,13 +21,15 @@ You will also need cocotb and iverilog installed.
 * add a test to the test_harness.py
 
 ## Context 2: Caravel
+
 * clone caravel and add this repo as a submodule in caravel/verilog/rtl
 * add firmware and test in caravel/verilog/dv/caravel/user_proj_example
 * run the test and check your design is selected and generating expected signals. Best if the testbench actually checks something basic.
+* see https://github.com/mattvenn/caravel/tree/multi-project/verilog/dv/caravel/user_proj_example/seven-segment-counter for an example
 
 ## Context 3: OpenLane
 
-Each design is hardened (turned into a GDS2 layout) and then aggrated into the top module.  See here for more [info](docs/hardening.md)
+Each design is hardened (turned into a GDS2 layout) and then aggrated into the top module. See here for more [info](docs/hardening.md)
 
 # Simulation / Verification
 
