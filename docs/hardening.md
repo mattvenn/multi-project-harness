@@ -120,3 +120,21 @@ An issue has been opened here: https://github.com/RTimothyEdwards/netgen/issues/
             antenna_violations :                  102
               lvs_total_errors :                    3
 
+## slightly wider spaced macros
+
+        tritonRoute_violations :                    0
+              Short_violations :                    0
+             MetSpc_violations :                    0
+            OffGrid_violations :                    0
+            MinHole_violations :                    0
+              Other_violations :                    0
+              Magic_violations :                  501
+            antenna_violations :                  105
+              lvs_total_errors :                    0
+
+Magic violations:
+
+    Metal3 > 3um spacing to unrelated m3 < 0.4um (met3.3d)
+    All nwells must contain metal-connected N+ taps (nwell.4)
+    Metal1 > 3um spacing to unrelated m1 < 0.28um (met1.3b)
+    Metal2 > 3um spacing to unrelated m2 < 0.28um (met2.3b)
