@@ -9,7 +9,11 @@ The strategy is:
     * this is done with [update_macros.sh](../openlane/config/update_macros.sh)
 
 * harden top level macro that includes all the subprojects
-    * the config [is here](../openlane/config/config.tcl)
+    * copy [multi_project_harness.v] to the openlane src/ directory
+    * use this [config](../openlane/config/config.tcl)
+    * have to modify multi_project_harness.v to add:
+        * `include blackbox.v
+        * `define MPRJ_IO_PADS 38
 
 * copy this gds and lef file to the caravel user project directory and run the caravel makefile to add the macro
     * don't know how to do this part

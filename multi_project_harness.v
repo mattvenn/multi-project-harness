@@ -1,6 +1,14 @@
 `default_nettype none
-//`include "defines.v"
-`define MPRJ_IO_PADS 38
+// openlane context
+`ifdef BLACKBOX
+    `include "blackbox.v"
+    `define MPRJ_IO_PADS 38
+`endif
+// cocotb simulation context
+`ifdef COCOTB_SIM
+    `define MPRJ_IO_PADS 38
+`endif
+// caravel context has access to defines.v so can read MPRJ_IO_PADS from there
 module multi_project_harness #(
     // address_active: write to this memory address to select the project
     parameter address_active = 32'h30000000,
