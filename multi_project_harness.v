@@ -162,8 +162,8 @@ module multi_project_harness #(
         .value(wbs_dat_i),
         .strobe(wb_valid & (&wb_wstrb) & ((wbs_adr_i >> 8) == (address_freq >> 8))),
 
-        // signal under test
-        .samplee(project_io_in[4][18]),
+        // signal under test input
+        .samplee(project_io_in[4][25]),
 
         // periodic counter output to wishbone
         .o(cnt),
@@ -171,12 +171,12 @@ module multi_project_harness #(
         // continuous counter output to wishbone
         .oc(cnt_cont),
 
-        // UART output to pin
-        .tx(project_io_out[4][0]),
+        // UART output to FTDI input
+        .tx(project_io_out[4][6]),
 
         // 7 segment display outputs
-        .col_drvs(project_io_out[4][9:1]),  // 9 x column drivers
-        .seg_drvs(project_io_out[4][17:10])  // 8 x segment drivers
+        .col_drvs(project_io_out[4][16:8]),  // 9 x column drivers
+        .seg_drvs(project_io_out[4][24:17])  // 8 x segment drivers
     );
     `endif
 

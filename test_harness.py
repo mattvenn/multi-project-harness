@@ -267,8 +267,8 @@ async def test_project_4(dut):
     await wishbone_write(dut, ADDR_PROJECT, project_number)
     assert dut.active_project == project_number
 
-    # drive gpio18 which is the signal under test
-    sut_clk = Clock(dut.io_in[18], T_sut_clk, units="ns")
+    # drive gpio25 which is the signal under test
+    sut_clk = Clock(dut.io_in[25], T_sut_clk, units="ns")
     cocotb.fork(sut_clk.start())
 
     # Write to the 2 config registers
