@@ -138,24 +138,26 @@ module multi_project_harness #(
         .rst(reset | la_data_in[0]),
 
         // register write interface (ignores < 32 bit writes):
-        // 30000300:
+        // 30000400:
         //   write UART clock divider (min. value = 4),
-        //   read periodically reset freq. counter value
-        // 30000304:
+        // 30000404:
         //   write frequency counter update period [sys_clks]
-        //   read continuous freq. counter value
-        // 30000308
+        // 30000408
         //   set 7-segment display mode,
         //   0: show meas. freq., 1: show wishbone value
-        // 3000030C
+        // 3000040C
         //   set 7-segment display value:
         //   digit7 ... digit0  (4 bit each)
-        // 30000310
+        // 30000410
         //   set 7-segment display value:
         //   digit8
-        // 30000314
+        // 30000414
         //   set 7-segment decimal points:
         //   dec_point8 ... dec_point0  (1 bit each)
+        // 30000418
+        //   read periodically reset freq. counter value
+        // 3000041C
+        //   read continuous freq. counter value
         .addr(wbs_adr_i[5:2]),
         .value(wbs_dat_i),
         .strobe(wb_valid & (&wb_wstrb) & ((wbs_adr_i >> 8) == (address_freq >> 8))),
@@ -223,12 +225,12 @@ module multi_project_harness #(
                     wbs_ack <= 1;
                 end
 
-                address_freq: begin
+                address_freq + 8'h18: begin
                     wbs_data_out <= cnt;
                     wbs_ack <= 1;
                 end
 
-                address_freq + 4: begin
+                address_freq + 8'h1c: begin
                     wbs_data_out <= cnt_cont;
                     wbs_ack <= 1;
                 end
