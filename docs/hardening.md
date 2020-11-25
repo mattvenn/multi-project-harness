@@ -96,6 +96,8 @@ An issue has been opened here: https://github.com/RTimothyEdwards/netgen/issues/
 
 # Current results for top level macro 
 
+## with auto placing macros
+
         tritonRoute_violations :                  180
               Short_violations :                  170
              MetSpc_violations :                   10
@@ -105,4 +107,16 @@ An issue has been opened here: https://github.com/RTimothyEdwards/netgen/issues/
               Magic_violations :                 1126
             antenna_violations :                  110
               lvs_total_errors :                  102
+
+## with hand placed macros
+
+        tritonRoute_violations :                    3
+              Short_violations :                    3
+             MetSpc_violations :                    0
+            OffGrid_violations :                    0
+            MinHole_violations :                    0
+              Other_violations :                    0
+              Magic_violations :                  922
+            antenna_violations :                  102
+              lvs_total_errors :                    3
 
