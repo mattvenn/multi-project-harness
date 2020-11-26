@@ -18,6 +18,7 @@ The strategy is:
 * copy this gds and lef file to the caravel user project directory and run the caravel makefile to add the macro
     * don't know how to do this part
     * make in caravel/openlane
+    * current is 1800 x 1800 um but mostly empty space
     
 # Current results for submodules
 
