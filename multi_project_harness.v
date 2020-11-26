@@ -8,6 +8,9 @@
 `ifdef COCOTB_SIM
     `define MPRJ_IO_PADS 38
 `endif
+`ifdef FORMAL
+    `define MPRJ_IO_PADS 38
+`endif
 // caravel context has access to defines.v so can read MPRJ_IO_PADS from there
 module multi_project_harness #(
     // address_active: write to this memory address to select the project
@@ -48,7 +51,7 @@ module multi_project_harness #(
     // IOs
     input  wire [`MPRJ_IO_PADS-1:0] io_in,
     output wire [`MPRJ_IO_PADS-1:0] io_out,
-    output wire [`MPRJ_IO_PADS-1:0] io_oeb
+    output wire [`MPRJ_IO_PADS-1:0] io_oeb // active low!
     );
 
     // couple of aliases
@@ -75,22 +78,22 @@ module multi_project_harness #(
                     active_project == 2 ? project_io_out[2] :
                     active_project == 3 ? project_io_out[3] :
                     active_project == 4 ? project_io_out[4] :
-                                          `MPRJ_IO_PADS'b0;
+                                        {`MPRJ_IO_PADS {1'b0}};
 
     // each project sets own oeb
-    assign io_oeb = active_project == 0 ? `MPRJ_IO_PADS'b1 : // all on
-                    active_project == 1 ? `MPRJ_IO_PADS'b1 :
-                    active_project == 2 ? `MPRJ_IO_PADS'b1 :
-                    active_project == 3 ? `MPRJ_IO_PADS'b1 :
-                    active_project == 4 ? `MPRJ_IO_PADS'b1 :
-                                          `MPRJ_IO_PADS'b0;
+    assign io_oeb = active_project == 0 ? {`MPRJ_IO_PADS {1'b0}} : // all on
+                    active_project == 1 ? {`MPRJ_IO_PADS {1'b0}} : // all on
+                    active_project == 2 ? {`MPRJ_IO_PADS {1'b0}} : // all on
+                    active_project == 3 ? {`MPRJ_IO_PADS {1'b0}} : // all on
+                    active_project == 4 ? {`MPRJ_IO_PADS {1'b0}} : // all on
+                                          {`MPRJ_IO_PADS {1'b1}} ; // all off
 
     // inputs get set to 0 if not selected
-    assign project_io_in[0] = active_project == 0 ? io_in : `MPRJ_IO_PADS'b0;
-    assign project_io_in[1] = active_project == 1 ? io_in : `MPRJ_IO_PADS'b0;
-    assign project_io_in[2] = active_project == 2 ? io_in : `MPRJ_IO_PADS'b0;
-    assign project_io_in[3] = active_project == 3 ? io_in : `MPRJ_IO_PADS'b0;
-    assign project_io_in[4] = active_project == 4 ? io_in : `MPRJ_IO_PADS'b0;
+    assign project_io_in[0] = active_project == 0 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign project_io_in[1] = active_project == 1 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign project_io_in[2] = active_project == 2 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign project_io_in[3] = active_project == 3 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign project_io_in[4] = active_project == 4 ? io_in : {`MPRJ_IO_PADS {1'b0}};
 
 
     // instantiate all the modules
@@ -243,7 +246,7 @@ module multi_project_harness #(
         integer i;
         always @(*) begin
             if(active_project > 0 && active_project < num_projects)
-                assert(io_oeb == `MPRJ_IO_PADS'b1);
+                assert(io_oeb == {`MPRJ_IO_PADS {1'b0}});
 
             for(i = 0; i < num_projects; i ++) begin
                 // if project is selected
@@ -253,7 +256,7 @@ module multi_project_harness #(
                     assert(io_in == project_io_in[i]);
                 end else
                     // all other project's ins are set to 0
-                    assert(project_io_in[i] == `MPRJ_IO_PADS'b0);
+                    assert(project_io_in[i] == {`MPRJ_IO_PADS {1'b0}});
             end
         end
 
