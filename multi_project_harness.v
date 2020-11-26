@@ -106,19 +106,12 @@ module multi_project_harness #(
     `endif
 
     // project 3
-	wire [37:0] p3i, p3o;
-	assign p3i = project_io_in[3][37:0];
-	assign project_io_out[3][37:0] = p3o;
     `ifndef FORMAL
 	spinet6 proj_3 (
 		.clk(clk),
 		.rst(reset | la_data_in[0]),
-		.MOSI   ({p3i[32],p3i[26],p3i[20],p3i[14],p3i[ 8],p3i[0]}),
-		.SCK    ({p3i[33],p3i[27],p3i[21],p3i[15],p3i[ 9],p3i[1]}),
-		.SS     ({p3i[34],p3i[28],p3i[22],p3i[16],p3i[10],p3i[2]}),
-		.MISO   ({p3o[35],p3o[29],p3o[23],p3o[17],p3o[11],p3o[3]}),
-		.txready({p3o[36],p3o[30],p3o[24],p3o[18],p3o[12],p3o[4]}),
-		.rxready({p3o[37],p3o[31],p3o[25],p3o[19],p3o[13],p3o[7]}));
+		.io_in(project_io_in[3]),
+		.io_out(project_io_out[3]));
     `endif
 
     // project 4

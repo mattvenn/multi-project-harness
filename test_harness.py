@@ -82,10 +82,10 @@ async def spix(dut, sig, v):
     rcv = 0
     for i in range(16):
         sig.mosi <= (v >> 15)
-        sig.sck <= True
+        sig.sclk <= True
         await ClockCycles(dut.wb_clk_i, tick)
         rcv = (rcv << 1) | sig.miso.value
-        sig.sck <= False
+        sig.sclk <= False
         v <<= 1
         await ClockCycles(dut.wb_clk_i, tick)
     await ClockCycles(dut.wb_clk_i, tick)
@@ -211,11 +211,11 @@ async def test_project_3(dut):
     assert dut.active_project == project_number
 
     # group SPI & ready signals for net nodes 0, 1
-    SPIsigs = namedtuple('SPIsigs', 'mosi sck ss miso txrdy rxrdy')
-    spi0 = SPIsigs(mosi=dut.io_out[0], sck=dut.io_in[1], ss=dut.io_in[2],
-                      miso=dut.io_in[3], txrdy=dut.io_out[4], rxrdy=dut.io_out[7])
-    spi1 = SPIsigs(mosi=dut.io_out[8], sck=dut.io_in[9], ss=dut.io_in[10],
-                      miso=dut.io_in[11], txrdy=dut.io_out[12], rxrdy=dut.io_out[13])
+    SPIsigs = namedtuple('SPIsigs', 'mosi sclk ss miso txrdy rxrdy')
+    spi0 = SPIsigs(mosi=dut.io_in[32], sclk=dut.io_in[33], ss=dut.io_in[34],
+                      miso=dut.io_out[35], txrdy=dut.io_out[36], rxrdy=dut.io_out[37])
+    spi1 = SPIsigs(mosi=dut.io_in[26], sclk=dut.io_in[27], ss=dut.io_in[28],
+                      miso=dut.io_out[29], txrdy=dut.io_out[30], rxrdy=dut.io_out[31])
 
     spi0.ss <= False
     spi1.ss <= False
