@@ -15,6 +15,8 @@
 module multi_project_harness #(
     // address_active: write to this memory address to select the project
     parameter address_active = 32'h30000000,
+    parameter address_oeb0   = 32'h30000004,
+    parameter address_oeb1   = 32'h30000008,
     // each project gets 0x100 bytes memory space
     parameter address_ws2812 = 32'h30000100,
     parameter address_7seg   = 32'h30000200,
@@ -71,6 +73,7 @@ module multi_project_harness #(
     wire [`MPRJ_IO_PADS-1:0] project_io_out [num_projects-1:0];
 
     reg [7:0] active_project; // which design is active
+    reg [`MPRJ_IO_PADS-1:0] reg_oeb;
 
     // mux project outputs
     assign io_out = active_project == 0 ? project_io_out[0] :
@@ -80,13 +83,8 @@ module multi_project_harness #(
                     active_project == 4 ? project_io_out[4] :
                                         {`MPRJ_IO_PADS {1'b0}};
 
-    // each project sets own oeb
-    assign io_oeb = active_project == 0 ? {`MPRJ_IO_PADS {1'b0}} : // all on
-                    active_project == 1 ? {`MPRJ_IO_PADS {1'b0}} : // all on
-                    active_project == 2 ? {`MPRJ_IO_PADS {1'b0}} : // all on
-                    active_project == 3 ? {`MPRJ_IO_PADS {1'b0}} : // all on
-                    active_project == 4 ? {`MPRJ_IO_PADS {1'b0}} : // all on
-                                          {`MPRJ_IO_PADS {1'b1}} ; // all off
+    // each project sets own oeb via wishbone
+    assign io_oeb = reg_oeb;
 
     // inputs get set to 0 if not selected
     assign project_io_in[0] = active_project == 0 ? io_in : {`MPRJ_IO_PADS {1'b0}};
@@ -197,6 +195,7 @@ module multi_project_harness #(
         // reset
         if(reset) begin
             active_project <= 0;
+            reg_oeb <= 0;
             wbs_data_out <= 0;
             wbs_ack <= 0;
         end else
@@ -206,6 +205,16 @@ module multi_project_harness #(
                 address_active: begin
                     if (wb_wstrb[0])
                         active_project[7:0] <= wbs_dat_i[7:0];
+                    wbs_ack <= 1;
+                end
+                address_oeb0: begin
+                    if(&wb_wstrb)
+                        reg_oeb[31:0] <= wbs_dat_i[31:0];
+                    wbs_ack <= 1;
+                end
+                address_oeb1: begin
+                    if(&wb_wstrb)
+                        reg_oeb[`MPRJ_IO_PADS-1:32] <= wbs_dat_i[`MPRJ_IO_PADS-1-32:0];
                     wbs_ack <= 1;
                 end
                 address_ws2812: begin

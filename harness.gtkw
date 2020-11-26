@@ -1,13 +1,20 @@
-[dumpfile] "seven_segment_seconds.vcd"
+[*]
+[*] GTKWave Analyzer v3.3.108 (w)1999-2020 BSI
+[*] Thu Nov 26 13:22:56 2020
+[*]
+[dumpfile] "/home/matt/work/asic-workshop/multi-project-harness/seven_segment_seconds.vcd"
+[dumpfile_mtime] "Thu Nov 26 13:22:00 2020"
+[dumpfile_size] 150623
+[savefile] "/home/matt/work/asic-workshop/multi-project-harness/harness.gtkw"
 [timestart] 0
 [size] 1916 1036
 [pos] -1 -1
-*-28.000000 583000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-30.000000 962000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] multi_project_harness.
 [treeopen] multi_project_harness.proj_4.
 [treeopen] multi_project_harness.proj_4.f_meter.
 [sst_width] 272
-[signals_width] 390
+[signals_width] 632
 [sst_expanded] 1
 [sst_vpaned_height] 455
 @28
@@ -37,6 +44,49 @@ multi_project_harness.wbs_we_i
 multi_project_harness.wbs_adr_i[31:0]
 @1000200
 -wishbone
+@800023
+multi_project_harness.reg_oeb[37:0]
+@29
+(0)multi_project_harness.reg_oeb[37:0]
+(1)multi_project_harness.reg_oeb[37:0]
+(2)multi_project_harness.reg_oeb[37:0]
+(3)multi_project_harness.reg_oeb[37:0]
+(4)multi_project_harness.reg_oeb[37:0]
+(5)multi_project_harness.reg_oeb[37:0]
+(6)multi_project_harness.reg_oeb[37:0]
+(7)multi_project_harness.reg_oeb[37:0]
+(8)multi_project_harness.reg_oeb[37:0]
+(9)multi_project_harness.reg_oeb[37:0]
+(10)multi_project_harness.reg_oeb[37:0]
+(11)multi_project_harness.reg_oeb[37:0]
+(12)multi_project_harness.reg_oeb[37:0]
+(13)multi_project_harness.reg_oeb[37:0]
+(14)multi_project_harness.reg_oeb[37:0]
+(15)multi_project_harness.reg_oeb[37:0]
+(16)multi_project_harness.reg_oeb[37:0]
+(17)multi_project_harness.reg_oeb[37:0]
+(18)multi_project_harness.reg_oeb[37:0]
+(19)multi_project_harness.reg_oeb[37:0]
+(20)multi_project_harness.reg_oeb[37:0]
+(21)multi_project_harness.reg_oeb[37:0]
+(22)multi_project_harness.reg_oeb[37:0]
+(23)multi_project_harness.reg_oeb[37:0]
+(24)multi_project_harness.reg_oeb[37:0]
+(25)multi_project_harness.reg_oeb[37:0]
+(26)multi_project_harness.reg_oeb[37:0]
+(27)multi_project_harness.reg_oeb[37:0]
+(28)multi_project_harness.reg_oeb[37:0]
+(29)multi_project_harness.reg_oeb[37:0]
+(30)multi_project_harness.reg_oeb[37:0]
+(31)multi_project_harness.reg_oeb[37:0]
+(32)multi_project_harness.reg_oeb[37:0]
+(33)multi_project_harness.reg_oeb[37:0]
+(34)multi_project_harness.reg_oeb[37:0]
+(35)multi_project_harness.reg_oeb[37:0]
+(36)multi_project_harness.reg_oeb[37:0]
+(37)multi_project_harness.reg_oeb[37:0]
+@1001201
+-group_end
 @c00200
 -digit
 @22
@@ -58,8 +108,6 @@ multi_project_harness.proj_0.digit[3:0]
 multi_project_harness.proj_4.oc[31:0]
 @28
 multi_project_harness.proj_4.tx
-@820
-multi_project_harness.proj_4.uart.tx_data[7:0]
 @24
 multi_project_harness.proj_4.f_meter.value[31:0]
 multi_project_harness.proj_4.f_meter.U$$2.counter[31:0]

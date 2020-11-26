@@ -4,9 +4,12 @@ from cocotb.triggers import FallingEdge, RisingEdge, ClockCycles, with_timeout, 
 from cocotb.result import ReturnValue
 from collections import namedtuple
 
-NUMBER_OF_PROJECTS = 2
+NUMBER_OF_PROJECTS = 5
+NUMBER_OF_PINS = 38
 
 ADDR_PROJECT = 0x30000000
+ADDR_OEB0    = 0x30000004
+ADDR_OEB1    = 0x30000008
 ADDR_WS2812  = 0x30000100
 ADDR_7SEG    = 0x30000200
 
@@ -108,6 +111,24 @@ async def test_wb_access(dut):
         # check active design
         active_project = await wishbone_read(dut, ADDR_PROJECT)
         assert active_project == project_number
+
+@cocotb.test()
+async def test_oeb(dut):
+    clock = Clock(dut.wb_clk_i, 10, units="us")
+    cocotb.fork(clock.start())
+
+    await reset(dut)
+
+    for io in range(NUMBER_OF_PINS):
+        # activate design 1
+        if io < 32:
+            await wishbone_write(dut, ADDR_OEB0, 1 << io )
+            await wishbone_write(dut, ADDR_OEB1, 0)
+        else:
+            await wishbone_write(dut, ADDR_OEB0, 0)
+            await wishbone_write(dut, ADDR_OEB1, 1 << (io - 32))
+        assert dut.reg_oeb == 1 << io
+
 
 @cocotb.test()
 # 7 segment
