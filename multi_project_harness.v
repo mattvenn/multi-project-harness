@@ -118,7 +118,7 @@ module multi_project_harness #(
 
     // project 3
     `ifndef FORMAL
-	spinet6 proj_3 (
+	spinet5 proj_3 (
 		.clk(clk),
 		.rst(reset | la_data_in[0]),
 		.io_in(project_io_in[3]),
