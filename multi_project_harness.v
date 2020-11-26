@@ -48,7 +48,7 @@ module multi_project_harness #(
     output wire [127:0] la_data_out,
     input  wire [127:0] la_oen,
 
-    // IOs
+    // IOs - avoid using 0-7 as they are dual purpose and maybe connected to other things
     input  wire [`MPRJ_IO_PADS-1:0] io_in,
     output wire [`MPRJ_IO_PADS-1:0] io_out,
     output wire [`MPRJ_IO_PADS-1:0] io_oeb // active low!
@@ -99,21 +99,21 @@ module multi_project_harness #(
     // instantiate all the modules
 
     // project 0
+    wire seven_seg_update = wb_valid & wb_wstrb & (wbs_adr_i == address_7seg);
     `ifndef FORMAL
-    seven_segment_seconds proj_0 (.clk(clk), .reset(reset | la_data_in[0]), .led_out(project_io_out[0][8:2]), .compare_in(wbs_dat_i[23:0]), .update_compare(seven_seg_update));
+    seven_segment_seconds proj_0 (.clk(clk), .reset(reset | la_data_in[0]), .led_out(project_io_out[0][14:8]), .compare_in(wbs_dat_i[23:0]), .update_compare(seven_seg_update));
     `endif
 
     // project 1
     // ws2812 needs led_num, rgb, write connected to wb
     wire ws2812_write = wb_valid & wb_wstrb & (wbs_adr_i == address_ws2812);
-    wire seven_seg_update = wb_valid & wb_wstrb & (wbs_adr_i == address_7seg);
     `ifndef FORMAL
-    ws2812                proj_1 (.clk(clk), .reset(reset | la_data_in[0]), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(ws2812_write), .data(project_io_out[1][2]));
+    ws2812                proj_1 (.clk(clk), .reset(reset | la_data_in[0]), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(ws2812_write), .data(project_io_out[1][8]));
     `endif
 
     // project 2
     `ifndef FORMAL
-    vga_clock             proj_2 (.clk(clk), .reset_n(!(reset | la_data_in[0])), .adj_hrs(project_io_in[2][2]), .adj_min(project_io_in[2][3]), .adj_sec(project_io_in[2][4]), .hsync(project_io_out[2][5]), .vsync(project_io_out[2][6]), .rrggbb(project_io_out[2][12:7]));
+    vga_clock             proj_2 (.clk(clk), .reset_n(!(reset | la_data_in[0])), .adj_hrs(project_io_in[2][8]), .adj_min(project_io_in[2][9]), .adj_sec(project_io_in[2][10]), .hsync(project_io_out[2][11]), .vsync(project_io_out[2][12]), .rrggbb(project_io_out[2][18:13]));
     `endif
 
     // project 3
