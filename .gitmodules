@@ -13,3 +13,6 @@
 [submodule "asicfreq"]
 	path = asicfreq
 	url = https://git.sr.ht/~jersey99/asicfreq
+[submodule "ASIC_watch"]
+	path = ASIC_watch
+	url = git@github.com:GuillemCabo/ASIC_watch.git
