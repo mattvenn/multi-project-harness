@@ -13,3 +13,6 @@
 [submodule "asicfreq"]
 	path = asicfreq
 	url = https://git.sr.ht/~jersey99/asicfreq
+[submodule "MMM_SA_2by2_posit_4_0"]
+	path = MMM_SA_2by2_posit_4_0
+	url = https://github.com/Bynaryman/MMM_SA_2by2_posit_4_0

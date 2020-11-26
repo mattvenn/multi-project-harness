@@ -262,6 +262,33 @@ async def test_project_3(dut):
     # check data and sender address
     assert (rcv & 0xFF) == data and ((rcv>>8) & 0x7) == 0
 
+@cocotb.test()
+# MMM_SA_2by2_posit_4_0
+async def test_project_2(dut):
+    clock = Clock(dut.wb_clk_i, 10, units="us")
+    cocotb.fork(clock.start())
+
+    await reset(dut)
+
+    # activate design 4
+    project_number = 4
+    await wishbone_write(dut, ADDR_PROJECT, project_number)
+    assert dut.active_project == project_number
+
+    # use a gpio as a clock
+    io_clock = Clock(dut.io_in[0], 10, units="us")
+    clk_gen = cocotb.fork(io_clock.start())
+
+    # use external gpio as reset
+    dut.io_in[1] <= 1
+    dut.io_in[2] <= 0
+    await ClockCycles(dut.wb_clk_i, 5)
+    dut.io_in[1] <= 0
+    dut.io_in[2] <= 1
+
+    # wait some cycles
+    await ClockCycles(dut.wb_clk_i, 8)
+
 
 def int2bcd(v):
     out = 0
