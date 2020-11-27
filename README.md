@@ -21,6 +21,7 @@ You will also need cocotb and iverilog installed.
 * add sources to includes.v
 * add sources to Makefile for cocotb test
 * add a test to the test_harness.py
+* add blackbox module definition to blackbox.v
 
 ## Context 2: Caravel
 

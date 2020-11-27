@@ -55,3 +55,14 @@ module spinet6 (
 	input [6:0] MOSI, SCK, SS,
 	output [6:0] MISO);
 endmodule
+
+(* blackbox *)
+module watch_hhmm (
+    input wire clk_i, //32.768 KHz
+    input wire rstn_i, // active low
+    output wire [6:0] segment_hxxx,
+    output wire [6:0] segment_xhxx,
+    output wire [6:0] segment_xxmx,
+    output wire [6:0] segment_xxxm
+);
+endmodule
