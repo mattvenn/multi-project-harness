@@ -22,7 +22,7 @@ module multi_project_harness #(
     parameter address_7seg   = 32'h30000200,
     // h30000300 reserved for proj_3: spinet
     parameter address_freq   = 32'h30000400,
-    parameter num_projects   = 5
+    parameter num_projects   = 6
 ) (
     inout wire vdda1,   // User area 1 3.3V supply
     inout wire vdda2,   // User area 2 3.3V supply
@@ -81,6 +81,7 @@ module multi_project_harness #(
                     active_project == 2 ? project_io_out[2] :
                     active_project == 3 ? project_io_out[3] :
                     active_project == 4 ? project_io_out[4] :
+                    active_project == 5 ? project_io_out[5] :
                                         {`MPRJ_IO_PADS {1'b0}};
 
     // each project sets own oeb via wishbone
@@ -92,6 +93,7 @@ module multi_project_harness #(
     assign project_io_in[2] = active_project == 2 ? io_in : {`MPRJ_IO_PADS {1'b0}};
     assign project_io_in[3] = active_project == 3 ? io_in : {`MPRJ_IO_PADS {1'b0}};
     assign project_io_in[4] = active_project == 4 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign project_io_in[5] = active_project == 5 ? io_in : {`MPRJ_IO_PADS {1'b0}};
 
 
     // instantiate all the modules
@@ -178,6 +180,18 @@ module multi_project_harness #(
         // 7 segment display outputs
         .col_drvs(project_io_out[4][16:8]),  // 9 x column drivers
         .seg_drvs(project_io_out[4][24:17])  // 8 x segment drivers
+    );
+    `endif
+
+     // project 5
+    `ifndef FORMAL
+    watch_hhmm proj_5 (
+        .clk_i        ( clk                      ),
+        .rstn_i       ( ~(reset | la_data_in[0]) ),
+        .segment_hxxx ( project_io_out[5][14:8]  ),
+        .segment_xhxx ( project_io_out[5][21:15] ),
+        .segment_xxmx ( project_io_out[5][28:22] ),
+        .segment_xxxm ( project_io_out[5][35:29] )
     );
     `endif
 

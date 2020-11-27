@@ -4,7 +4,7 @@ from cocotb.triggers import FallingEdge, RisingEdge, ClockCycles, with_timeout, 
 from cocotb.result import ReturnValue
 from collections import namedtuple
 
-NUMBER_OF_PROJECTS = 5
+NUMBER_OF_PROJECTS = 6
 NUMBER_OF_PINS = 38
 
 ADDR_PROJECT = 0x30000000
@@ -318,3 +318,28 @@ async def test_project_4(dut):
     # Read the current frequency counter value
     readVal = await wishbone_read(dut, ADDR_FREQ + 0x18)  # periodic count val.
     assert readVal == f_meter_value_expect
+
+@cocotb.test()
+# ASIC watch
+async def test_project_6(dut):
+    clock = Clock(dut.wb_clk_i, 10, units="us")
+    cocotb.fork(clock.start())
+
+    await reset(dut)
+
+    # activate design 6
+    project_number = 6
+    await wishbone_write(dut, ADDR_PROJECT, project_number)
+    assert dut.active_project == project_number
+
+    # use a gpio as a clock
+    io_clock = Clock(dut.io_in[0], 10, units="us")
+    clk_gen = cocotb.fork(io_clock.start())
+
+    # use external gpio as reset
+    dut.io_in[1] <= 1
+    await ClockCycles(dut.wb_clk_i, 5)
+    dut.io_in[1] <= 0
+
+    # wait some cycles
+    await ClockCycles(dut.wb_clk_i, 10)
