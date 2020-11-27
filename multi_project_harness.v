@@ -256,9 +256,6 @@ module multi_project_harness #(
     `ifdef FORMAL
         integer i;
         always @(*) begin
-            if(active_project > 0 && active_project < num_projects)
-                assert(io_oeb == {`MPRJ_IO_PADS {1'b0}});
-
             for(i = 0; i < num_projects; i ++) begin
                 // if project is selected
                 if(active_project == i) begin
