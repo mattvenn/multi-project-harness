@@ -186,7 +186,7 @@ module multi_project_harness #(
      // project 5
     `ifndef FORMAL
     watch_hhmm proj_5 (
-        .clk_i        ( clk                      ),
+        .clk_i        ( project_io_in[5][36]     ),
         .rstn_i       ( ~(reset | la_data_in[0]) ),
         .segment_hxxx ( project_io_out[5][14:8]  ),
         .segment_xhxx ( project_io_out[5][21:15] ),
