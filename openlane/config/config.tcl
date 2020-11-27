@@ -20,7 +20,7 @@ set ::env(PL_TARGET_DENSITY) 0.35
 set ::env(PL_BASIC_PLACEMENT) 1
 set ::env(CELL_PAD) 0
 
-set ::env(CLOCK_PERIOD) "100"
+set ::env(CLOCK_PERIOD) "20"
 set ::env(CLOCK_PORT) "wb_clk_i"
 set ::env(CLOCK_TREE_SYNTH) 0
 
