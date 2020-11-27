@@ -47,13 +47,11 @@ endmodule
 
 
 (* blackbox *)
-module spinet6 (
+module spinet5 (
 	input clk,
 	input rst,
-	output [6:0] txready,
-	output [6:0] rxready,
-	input [6:0] MOSI, SCK, SS,
-	output [6:0] MISO);
+	input [37:0] io_in,
+	output [37:0] io_out);
 endmodule
 
 (* blackbox *)
