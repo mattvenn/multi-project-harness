@@ -20,81 +20,6 @@ The strategy is:
     * make in caravel/openlane
     * current is 1800 x 1800 um but mostly empty space
     
-# Current results for submodules
-
-All the DRC errors reported are of the type
-
-* All nwells must contain metal-connected N+ taps (nwell.4)
-* Min area of metal1 holes > 0.14um^2 (met1.7)
-
-Additionally freqcnt has LVS errors that don't seem real. All these pins exist in the design and in the extracted spice file.
-An issue has been opened here: https://github.com/RTimothyEdwards/netgen/issues/7
-
-    col_drvs[2]                                |(no matching pin)                          
-    col_drvs[5]                                |(no matching pin)                          
-    seg_drvs[2]                                |(no matching pin)                          
-    col_drvs[3]                                |(no matching pin)                          
-    col_drvs[0]                                |(no matching pin)                          
-    col_drvs[1]                                |(no matching pin)      
-
-## ws2812
-
-        tritonRoute_violations :                    0
-              Short_violations :                    0
-             MetSpc_violations :                    0
-            OffGrid_violations :                    0
-            MinHole_violations :                    0
-              Other_violations :                    0
-              Magic_violations :                   13
-            antenna_violations :                    4
-              lvs_total_errors :                    0
-## spinet6
-
-        tritonRoute_violations :                    0
-              Short_violations :                    0
-             MetSpc_violations :                    0
-            OffGrid_violations :                    0
-            MinHole_violations :                    0
-              Other_violations :                    0
-              Magic_violations :                   40
-            antenna_violations :                    1
-              lvs_total_errors :                    0
-## 7seg
-
-        tritonRoute_violations :                    0
-              Short_violations :                    0
-             MetSpc_violations :                    0
-            OffGrid_violations :                    0
-            MinHole_violations :                    0
-              Other_violations :                    0
-              Magic_violations :                    6
-            antenna_violations :                    0
-              lvs_total_errors :                    0
-## vgaclock
-
-        tritonRoute_violations :                    0
-              Short_violations :                    0
-             MetSpc_violations :                    0
-            OffGrid_violations :                    0
-            MinHole_violations :                    0
-              Other_violations :                    0
-              Magic_violations :                   10
-            antenna_violations :                    0
-              lvs_total_errors :                    0
-
-
-## freqcnt
-
-        tritonRoute_violations :                    0
-              Short_violations :                    0
-             MetSpc_violations :                    0
-            OffGrid_violations :                    0
-            MinHole_violations :                    0
-              Other_violations :                    0
-              Magic_violations :                 4146
-            antenna_violations :                   24
-              lvs_total_errors :                    6
-
 # Current results for top level macro 
 
 ## with auto placing macros
@@ -139,3 +64,77 @@ Magic violations:
     All nwells must contain metal-connected N+ taps (nwell.4)
     Metal1 > 3um spacing to unrelated m1 < 0.28um (met1.3b)
     Metal2 > 3um spacing to unrelated m2 < 0.28um (met2.3b)
+
+# Current results for submodules
+
+All the DRC errors reported are of the type
+
+* All nwells must contain metal-connected N+ taps (nwell.4)
+* Min area of metal1 holes > 0.14um^2 (met1.7)
+
+## ws2812
+
+        tritonRoute_violations :                    0
+              Short_violations :                    0
+             MetSpc_violations :                    0
+            OffGrid_violations :                    0
+            MinHole_violations :                    0
+              Other_violations :                    0
+              Magic_violations :                   13
+            antenna_violations :                    4
+              lvs_total_errors :                    0
+## vga_clock
+
+        tritonRoute_violations :                    0
+              Short_violations :                    0
+             MetSpc_violations :                    0
+            OffGrid_violations :                    0
+            MinHole_violations :                    0
+              Other_violations :                    0
+              Magic_violations :                   10
+            antenna_violations :                    0
+              lvs_total_errors :                    0
+## seven_segment_seconds
+
+        tritonRoute_violations :                    0
+              Short_violations :                    0
+             MetSpc_violations :                    0
+            OffGrid_violations :                    0
+            MinHole_violations :                    0
+              Other_violations :                    0
+              Magic_violations :                    6
+            antenna_violations :                    0
+              lvs_total_errors :                    0
+## spinet5
+
+        tritonRoute_violations :                    0
+              Short_violations :                    0
+             MetSpc_violations :                    0
+            OffGrid_violations :                    0
+            MinHole_violations :                    0
+              Other_violations :                    0
+              Magic_violations :                   32
+            antenna_violations :                    1
+              lvs_total_errors :                    0
+## asic_freq
+
+        tritonRoute_violations :                    0
+              Short_violations :                    0
+             MetSpc_violations :                    0
+            OffGrid_violations :                    0
+            MinHole_violations :                    0
+              Other_violations :                    0
+              Magic_violations :                   37
+            antenna_violations :                    6
+              lvs_total_errors :                    0
+## watch_hhmm
+
+        tritonRoute_violations :                    0
+              Short_violations :                    0
+             MetSpc_violations :                    0
+            OffGrid_violations :                    0
+            MinHole_violations :                    0
+              Other_violations :                    0
+              Magic_violations :                    5
+            antenna_violations :                    0
+              lvs_total_errors :                    0
