@@ -18,6 +18,8 @@ You will also need cocotb and iverilog installed.
 ## Context 1: add to multi-project-harness
 
 * add design as a submodule
+* add sources to includes.v
+* add sources to Makefile for cocotb test
 * add a test to the test_harness.py
 
 ## Context 2: Caravel

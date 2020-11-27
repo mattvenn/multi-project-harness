@@ -120,7 +120,6 @@ async def test_oeb(dut):
     await reset(dut)
 
     for io in range(NUMBER_OF_PINS):
-        # activate design 1
         if io < 32:
             await wishbone_write(dut, ADDR_OEB0, 1 << io )
             await wishbone_write(dut, ADDR_OEB1, 0)
@@ -327,8 +326,8 @@ async def test_project_6(dut):
 
     await reset(dut)
 
-    # activate design 6
-    project_number = 6
+    # activate design 5
+    project_number = 5
     await wishbone_write(dut, ADDR_PROJECT, project_number)
     assert dut.active_project == project_number
 
@@ -342,4 +341,4 @@ async def test_project_6(dut):
     dut.io_in[1] <= 0
 
     # wait some cycles
-    await ClockCycles(dut.wb_clk_i, 10)
+    await ClockCycles(dut.wb_clk_i, 1000)

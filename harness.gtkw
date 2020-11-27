@@ -1,22 +1,23 @@
 [*]
 [*] GTKWave Analyzer v3.3.108 (w)1999-2020 BSI
-[*] Thu Nov 26 13:22:56 2020
+[*] Fri Nov 27 12:36:37 2020
 [*]
 [dumpfile] "/home/matt/work/asic-workshop/multi-project-harness/seven_segment_seconds.vcd"
-[dumpfile_mtime] "Thu Nov 26 13:22:00 2020"
-[dumpfile_size] 150623
+[dumpfile_mtime] "Fri Nov 27 12:34:40 2020"
+[dumpfile_size] 416430
 [savefile] "/home/matt/work/asic-workshop/multi-project-harness/harness.gtkw"
 [timestart] 0
-[size] 1916 1036
+[size] 2335 1418
 [pos] -1 -1
-*-30.000000 962000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-31.000000 6780000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] multi_project_harness.
 [treeopen] multi_project_harness.proj_4.
 [treeopen] multi_project_harness.proj_4.f_meter.
+[treeopen] multi_project_harness.proj_5.
 [sst_width] 272
 [signals_width] 632
 [sst_expanded] 1
-[sst_vpaned_height] 455
+[sst_vpaned_height] 665
 @28
 multi_project_harness.wb_clk_i
 @800200
@@ -44,9 +45,11 @@ multi_project_harness.wbs_we_i
 multi_project_harness.wbs_adr_i[31:0]
 @1000200
 -wishbone
-@800023
+@22
+multi_project_harness.active_project[7:0]
+@c00022
 multi_project_harness.reg_oeb[37:0]
-@29
+@28
 (0)multi_project_harness.reg_oeb[37:0]
 (1)multi_project_harness.reg_oeb[37:0]
 (2)multi_project_harness.reg_oeb[37:0]
@@ -85,7 +88,7 @@ multi_project_harness.reg_oeb[37:0]
 (35)multi_project_harness.reg_oeb[37:0]
 (36)multi_project_harness.reg_oeb[37:0]
 (37)multi_project_harness.reg_oeb[37:0]
-@1001201
+@1401200
 -group_end
 @c00200
 -digit
@@ -102,7 +105,7 @@ multi_project_harness.proj_0.second_counter[23:0]
 multi_project_harness.proj_0.digit[3:0]
 @1401200
 -digit
-@800200
+@c00200
 -freq_cnt
 @22
 multi_project_harness.proj_4.oc[31:0]
@@ -118,7 +121,32 @@ multi_project_harness.proj_4.b2bcd_trig_out
 multi_project_harness.proj_4.f_meter_value[31:0]
 @22
 multi_project_harness.proj_4.b2bcd_bcd_out[39:0]
-@1000200
+@1401200
 -freq_cnt
+@c00201
+-asic_watch
+@28
+multi_project_harness.proj_5.clk_i
+multi_project_harness.proj_5.rstn_i
+@22
+multi_project_harness.proj_5.inst_div32768.count_int[14:0]
+@28
+multi_project_harness.proj_5.inst_div32768.clk_o
+multi_project_harness.proj_5.clk1h_int
+multi_project_harness.proj_5.clk1m_int
+multi_project_harness.proj_5.clk2s_int
+multi_project_harness.proj_5.clk10m_int
+@22
+multi_project_harness.proj_5.cfg_hhxx[4:0]
+@28
+multi_project_harness.proj_5.cfg_xxmx[2:0]
+@22
+multi_project_harness.proj_5.cfg_xxxm[3:0]
+multi_project_harness.proj_5.segment_hxxx[6:0]
+multi_project_harness.proj_5.segment_xhxx[6:0]
+multi_project_harness.proj_5.segment_xxmx[6:0]
+multi_project_harness.proj_5.segment_xxxm[6:0]
+@1401201
+-asic_watch
 [pattern_trace] 1
 [pattern_trace] 0
