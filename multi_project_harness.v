@@ -107,6 +107,20 @@ module multi_project_harness #(
     seven_segment_seconds proj_0 (.clk(clk), .reset(reset | la_data_in[0]), .led_out(project_io_out[0][14:8]), .compare_in(wbs_dat_i[23:0]), .update_compare(seven_seg_update));
     `endif
 
+    // project 8
+    // apaj
+    `ifndef FORMAL
+    mm2hdmi proj_8 (
+	.clock(clk),
+	.reset(reset),
+	.io_data(wbs_dat_i[23:8]),
+	.io_newData(wbs_dat_i[24]),
+	.io_red(wbs_dat_i[32:25]),
+	.io_vSync(wbs_dat_i[33]),
+	.io_hSync(wbs_dat_i[34])
+    );
+    `endif
+
     // project 1
     // ws2812 needs led_num, rgb, write connected to wb
     wire ws2812_write = wb_valid & wb_wstrb & (wbs_adr_i == address_ws2812);
