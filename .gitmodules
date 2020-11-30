@@ -19,3 +19,6 @@
 [submodule "TPM2137"]
 	path = TPM2137
 	url = https://github.com/q3k/TPM2137
+[submodule "mm2hdmi"]
+	path = mm2hdmi
+	url = https://github.com/nanoluka/mm2hdmi.git

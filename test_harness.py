@@ -353,3 +353,38 @@ async def test_project_6(dut):
     # wait some cycles
     await ClockCycles(dut.wb_clk_i, 1000)
 
+@cocotb.test()
+async def test_project_8(dut):
+    clock = Clock(dut.wb_clk_i, 10, units="us")
+    cocotb.fork(clock.start())
+
+    await reset(dut)
+
+    project_number = 8
+    await wishbone_write(dut, ADDR_PROJECT, project_number)
+    assert dut.active_project == project_number
+
+    dut.io_reset = 0
+    dut.io_data = 1
+    dut.io_newData = 1
+
+    await ClockCycles(dut.wb_clk_i, 1)
+
+    dut.io_newData = 0
+    
+    await ClockCycles(dut.wb_clk_i, 16)
+
+    assert dut.io_hSync == True
+
+    await ClockCycles(dut.wb_clk_i, 496)
+
+    assert dut.io_vSync == True
+
+    await ClockCycles(dut.wb_clk_i, 1000) 
+    
+
+    await ClockCycles(dut.wb_clk_i, 10)
+
+    
+
+
