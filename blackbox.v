@@ -56,11 +56,25 @@ endmodule
 
 (* blackbox *)
 module watch_hhmm (
-    input wire clk_i, //32.768 KHz
+    //input wire clk_system_i, //  10 MHz
+    input wire sysclk_i, // 32.768 KHz shared with SoC
+    input wire smode_i, // safe mode
+    input wire sclk_i,// safe clock GPIO 32.768 KHz
     input wire rstn_i, // active low
+    input wire dvalid_i, // Data from wishbone is valid
+    input wire [11:0] cfg_i, // initial values for counters
     output wire [6:0] segment_hxxx,
     output wire [6:0] segment_xhxx,
     output wire [6:0] segment_xxmx,
     output wire [6:0] segment_xxxm
+);
+endmodule
+
+(* blackbox *)
+module top(
+    input uart,
+    input clk_10,
+    output led_green,
+    output led_red
 );
 endmodule

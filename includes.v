@@ -15,3 +15,4 @@
 `include "multi_project_harness/ASIC_watch/submodules/crystal2hz.v"
 `include "multi_project_harness/ASIC_watch/submodules/segment7.v"
 `include "multi_project_harness/ASIC_watch/hdl/watch_hhmm.v"
+`include "multi_project_harness/TPM2137/generate/challenge.v"
