@@ -115,9 +115,9 @@ module multi_project_harness #(
 	.reset(reset),
 	.io_data(wbs_dat_i[23:8]),
 	.io_newData(wbs_dat_i[24]),
-	.io_red(wbs_dat_i[32:25]),
-	.io_vSync(wbs_dat_i[33]),
-	.io_hSync(wbs_dat_i[34])
+	.io_red(wbs_dat_o[15:8]),
+	.io_vSync(wbs_dat_o[16]),
+	.io_hSync(wbs_dat_o[17])
     );
     `endif
 
