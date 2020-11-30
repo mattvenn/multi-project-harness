@@ -22,6 +22,7 @@ module multi_project_harness #(
     parameter address_7seg   = 32'h30000200,
     // h30000300 reserved for proj_3: spinet
     parameter address_freq   = 32'h30000400,
+    parameter address_watch   = 32'h30000500,
     parameter num_projects   = 6
 ) (
     inout wire vdda1,   // User area 1 3.3V supply
@@ -178,13 +179,24 @@ module multi_project_harness #(
 
      // project 5
     `ifndef FORMAL
+    wire watch_write = wb_valid & wb_wstrb & (wbs_adr_i == address_watch);
+    reg rstn_watch;
+
+    always @(posedge clk) begin
+        rstn_watch <= ~(reset | la_data_in[0]);
+    end
+
     watch_hhmm proj_5 (
-        .clk_i        ( project_io_in[5][36]     ),
-        .rstn_i       ( ~(reset | la_data_in[0]) ),
-        .segment_hxxx ( project_io_out[5][14:8]  ),
-        .segment_xhxx ( project_io_out[5][21:15] ),
-        .segment_xxmx ( project_io_out[5][28:22] ),
-        .segment_xxxm ( project_io_out[5][35:29] )
+        .sysclk_i     (clk),
+        .smode_i      (project_io_in[5][36]),
+        .sclk_i       (project_io_in[5][37]),
+        .dvalid_i     (watch_write),
+        .cfg_i        (wbs_dat_i[11:0]),
+        .rstn_i       (rstn_watch),
+        .segment_hxxx (project_io_out[5][14:8]),
+        .segment_xhxx (project_io_out[5][21:15]),
+        .segment_xxmx (project_io_out[5][28:22]),
+        .segment_xxxm (project_io_out[5][35:29])
     );
     `endif
 
@@ -228,6 +240,9 @@ module multi_project_harness #(
                     wbs_ack <= 1;
                 end
                 address_7seg: begin
+                    wbs_ack <= 1;
+                end
+                address_watch: begin
                     wbs_ack <= 1;
                 end
             endcase
