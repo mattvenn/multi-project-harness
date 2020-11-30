@@ -370,15 +370,15 @@ async def test_project_8(dut):
 
     await ClockCycles(dut.wb_clk_i, 1)
 
-    dut.io_newData = 0
+    dut.wbs_dat_i[24] = 0
     
     await ClockCycles(dut.wb_clk_i, 16)
 
-    assert dut.io_hSync == True
+    assert dut.wbs_dat_o[16] == True
 
     await ClockCycles(dut.wb_clk_i, 496)
 
-    assert dut.io_vSync == True
+    assert dut.wbs_dat_o[17] == True
 
     await ClockCycles(dut.wb_clk_i, 1000) 
     
