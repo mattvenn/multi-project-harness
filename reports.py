@@ -12,7 +12,7 @@ lef_dir = "../../lef/mph/"
 
 designs = ["ws2812", "vga_clock", "seven_segment_seconds", "spinet5", "asic_freq", "watch_hhmm", "challenge"]
 
-def report():
+def report(designs):
     for design in designs:
         run_dir = os.path.join(openlane_designs, design, 'runs/*')
         list_of_files = glob.glob(run_dir)
@@ -50,6 +50,10 @@ def report():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="View Events")
     parser.add_argument('--copy-files', help="copy the gds and lef files", action='store_const', const=True)
+    parser.add_argument('--design', help="only run checks on specific design", action='store')
     args = parser.parse_args()
     
-    report()
+    if args.design is not None:
+        report([args.design])
+    else:
+        report(designs)
