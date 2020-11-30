@@ -188,7 +188,7 @@ module multi_project_harness #(
     `ifndef FORMAL
     wire watch_write = wb_valid & wb_wstrb & (wbs_adr_i == address_watch);
     reg rstn_watch;
-    
+
     always @(posedge clk) begin
         rstn_watch <= ~(reset | la_data_in[0]);
     end
@@ -247,6 +247,9 @@ module multi_project_harness #(
                     wbs_ack <= 1;
                 end
                 address_7seg: begin
+                    wbs_ack <= 1;
+                end
+                address_watch: begin
                     wbs_ack <= 1;
                 end
             endcase
