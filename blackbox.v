@@ -71,7 +71,7 @@ module watch_hhmm (
 endmodule
 
 (* blackbox *)
-module top(
+module challenge(
     input uart,
     input clk_10,
     output led_green,

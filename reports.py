@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import os
+import math
 import glob
 import csv
 import sys
@@ -30,7 +31,11 @@ def report(designs):
                 for key, value in row.items():
                     if "violation" in key or "error" in key:
                         print("%30s : %20s" % (key, value))
-
+                    if "AREA" in key:
+                        area = float(value)
+        
+        print()
+        print("width x height %d um" % (1000 * math.sqrt(area)))
       
         # what drc is broken?
         print()
