@@ -12,11 +12,11 @@ set ::env(GLB_RT_MAXLAYER) 5
 # 0.4 40  35 1
 # 0.3 50  32 2
 # 0.5 50  32 1
-# 0.5 60
+# 0.5 60  14 5
 
 
-set ::env(PL_TARGET_DENSITY) 0.5
-set ::env(FP_CORE_UTIL) 60
+set ::env(PL_TARGET_DENSITY) 0.4
+set ::env(FP_CORE_UTIL) 50
 
 # Fill this
 # 50mhz
