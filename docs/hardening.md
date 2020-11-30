@@ -67,12 +67,7 @@ Magic violations:
 
 # Current results for submodules
 
-All the DRC errors reported are of the type
-
-* All nwells must contain metal-connected N+ taps (nwell.4)
-* Min area of metal1 holes > 0.14um^2 (met1.7)
-
-## ws2812
+## ws2812 : DESIGN=ws2812 RUN_DATE=30-11_11-18
 
         tritonRoute_violations :                    0
               Short_violations :                    0
@@ -80,10 +75,13 @@ All the DRC errors reported are of the type
             OffGrid_violations :                    0
             MinHole_violations :                    0
               Other_violations :                    0
-              Magic_violations :                   13
-            antenna_violations :                    4
+              Magic_violations :                   14
+            antenna_violations :                    0
               lvs_total_errors :                    0
-## vga_clock
+
+* All nwells must contain metal-connected N+ taps (nwell.4)
+
+## vga_clock : DESIGN=vga_clock RUN_DATE=27-11_14-37
 
         tritonRoute_violations :                    0
               Short_violations :                    0
@@ -94,7 +92,10 @@ All the DRC errors reported are of the type
               Magic_violations :                   10
             antenna_violations :                    0
               lvs_total_errors :                    0
-## seven_segment_seconds
+
+* All nwells must contain metal-connected N+ taps (nwell.4)
+
+## seven_segment_seconds : DESIGN=seven_segment_seconds RUN_DATE=27-11_14-39
 
         tritonRoute_violations :                    0
               Short_violations :                    0
@@ -105,7 +106,10 @@ All the DRC errors reported are of the type
               Magic_violations :                    6
             antenna_violations :                    0
               lvs_total_errors :                    0
-## spinet5
+
+* All nwells must contain metal-connected N+ taps (nwell.4)
+
+## spinet5 : DESIGN=spinet5 RUN_DATE=30-11_11-37
 
         tritonRoute_violations :                    0
               Short_violations :                    0
@@ -116,7 +120,10 @@ All the DRC errors reported are of the type
               Magic_violations :                   32
             antenna_violations :                    1
               lvs_total_errors :                    0
-## asic_freq
+
+* All nwells must contain metal-connected N+ taps (nwell.4)
+
+## asic_freq : DESIGN=asic_freq RUN_DATE=30-11_11-49
 
         tritonRoute_violations :                    0
               Short_violations :                    0
@@ -124,10 +131,13 @@ All the DRC errors reported are of the type
             OffGrid_violations :                    0
             MinHole_violations :                    0
               Other_violations :                    0
-              Magic_violations :                   37
-            antenna_violations :                    6
+              Magic_violations :                   48
+            antenna_violations :                    2
               lvs_total_errors :                    0
-## watch_hhmm
+
+* All nwells must contain metal-connected N+ taps (nwell.4)
+
+## watch_hhmm : DESIGN=watch_hhmm RUN_DATE=27-11_14-41
 
         tritonRoute_violations :                    0
               Short_violations :                    0
@@ -138,3 +148,20 @@ All the DRC errors reported are of the type
               Magic_violations :                    5
             antenna_violations :                    0
               lvs_total_errors :                    0
+
+* All nwells must contain metal-connected N+ taps (nwell.4)
+
+## challenge : DESIGN=challenge RUN_DATE=30-11_10-45
+
+        tritonRoute_violations :                    0
+              Short_violations :                    0
+             MetSpc_violations :                    0
+            OffGrid_violations :                    0
+            MinHole_violations :                    0
+              Other_violations :                    0
+              Magic_violations :                    7
+            antenna_violations :                    0
+              lvs_total_errors :                    0
+
+* All nwells must contain metal-connected N+ taps (nwell.4)
+
