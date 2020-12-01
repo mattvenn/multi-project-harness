@@ -23,7 +23,7 @@ module multi_project_harness #(
     // h30000300 reserved for proj_3: spinet
     parameter address_freq   = 32'h30000400,
     parameter address_watch   = 32'h30000500,
-    parameter address_mm2hdmi = 32'h30000600,
+    parameter address_mm2hdmi = 32'h30000700,
     parameter num_projects   = 8
 ) (
     inout wire vdda1,   // User area 1 3.3V supply
@@ -215,11 +215,11 @@ module multi_project_harness #(
     mm2hdmi proj_7 (
     .clock(clk),
     .reset(reset),
-    .io_data(project_io_in[23:8]),
-    .io_newData(project_io_in[24]),
-    .io_red(project_io_out[15:8]),
-    .io_hSync(project_io_out[16]),
-    .io_vSync(project_io_out[17])
+    .io_data(project_io_in[7][23:8]),
+    .io_newData(project_io_in[7][24]),
+    .io_red(project_io_out[7][32:25]),
+    .io_hSync(project_io_out[7][33]),
+    .io_vSync(project_io_out[7][34])
     );
     `endif    
 
