@@ -213,8 +213,8 @@ module multi_project_harness #(
     // project 7
     `ifndef FORMAL
     mm2hdmi proj_7 (
-    .clock(clk),
-    .reset(reset),
+    .clock(project_io_in[7][35]),
+    .reset(reset | project_io_in[7][36]),
     .io_data(project_io_in[7][23:8]),
     .io_newData(project_io_in[7][24]),
     .io_red(project_io_out[7][32:25]),

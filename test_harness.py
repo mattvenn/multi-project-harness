@@ -356,29 +356,29 @@ async def test_project_6(dut):
 
 @cocotb.test()
 async def test_project_7(dut):
-    clock = Clock(dut.wb_clk_i, 10, units="us")
-    cocotb.fork(clock.start())
-
+    # drive a 5 MHz clock on gpio35
+    dut_clk = Clock(dut.io_in[35], 200, units="ns")
+    cocotb.fork(dut_clk.start())
     await reset(dut)
 
     project_number = 8
-    await wishbone_write(dut, ADDR_PROJECT, project_number)
     assert dut.active_project == project_number
 
-    dut.project_io_in[23:8] = 1
-    dut.project_io_in[24] = 1
+    dut.io_in[23:8] = 1
+    dut.io_in[24] = 1
 
-    await ClockCycles(dut.wb_clk_i, 1)
+    await ClockCycles(dut_clk, 1)
 
-    dut.project_io_in[24] = 0
-    
-    await ClockCycles(dut.wb_clk_i, 16)
+    for i in range(32):
+        dut.io_in[24] = 1
+        await ClockCycles(dut_clk, 1)
 
-    assert dut.project_io_out[16] == True
+        dut.io_in[24] = 0
+        await ClockCycles(dut_clk, 16)
 
-    await ClockCycles(dut.wb_clk_i, 496)
+        assert dut.io_out[33] == True #hSync
 
-    assert dut.project_io_out[17] == True
+    assert dut.dut.io_out[34] == True #vSync
 
-    await ClockCycles(dut.wb_clk_i, 1000) 
+    await ClockCycles(dut_clk, 100) 
 
