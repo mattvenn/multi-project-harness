@@ -4,7 +4,7 @@ from cocotb.triggers import FallingEdge, RisingEdge, ClockCycles, with_timeout, 
 from cocotb.result import ReturnValue
 from collections import namedtuple
 
-NUMBER_OF_PROJECTS = 7
+NUMBER_OF_PROJECTS = 8
 NUMBER_OF_PINS = 38
 
 ADDR_PROJECT = 0x30000000
@@ -12,6 +12,7 @@ ADDR_OEB0    = 0x30000004
 ADDR_OEB1    = 0x30000008
 ADDR_WS2812  = 0x30000100
 ADDR_7SEG    = 0x30000200
+ADDR_MM2HDMI = 0x30000600
 
 ADDR_FREQ    = 0x30000400
 
@@ -354,7 +355,7 @@ async def test_project_6(dut):
     await ClockCycles(dut.wb_clk_i, 1000)
 
 @cocotb.test()
-async def test_project_8(dut):
+async def test_project_7(dut):
     clock = Clock(dut.wb_clk_i, 10, units="us")
     cocotb.fork(clock.start())
 
@@ -364,27 +365,20 @@ async def test_project_8(dut):
     await wishbone_write(dut, ADDR_PROJECT, project_number)
     assert dut.active_project == project_number
 
-    dut.io_reset = 0
-    dut.io_data = 1
-    dut.io_newData = 1
+    dut.project_io_in[23:8] = 1
+    dut.project_io_in[24] = 1
 
     await ClockCycles(dut.wb_clk_i, 1)
 
-    dut.wbs_dat_i[24] = 0
+    dut.project_io_in[24] = 0
     
     await ClockCycles(dut.wb_clk_i, 16)
 
-    assert dut.wbs_dat_o[16] == True
+    assert dut.project_io_out[16] == True
 
     await ClockCycles(dut.wb_clk_i, 496)
 
-    assert dut.wbs_dat_o[17] == True
+    assert dut.project_io_out[17] == True
 
     await ClockCycles(dut.wb_clk_i, 1000) 
-    
-
-    await ClockCycles(dut.wb_clk_i, 10)
-
-    
-
 
