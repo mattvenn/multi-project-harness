@@ -118,22 +118,25 @@ module multi_project_harness #(
 
     // project 2
     `ifndef FORMAL
-    vga_clock             proj_2 (.clk(clk), .reset_n(!(reset | la_data_in[0])), .adj_hrs(project_io_in[2][8]), .adj_min(project_io_in[2][9]), .adj_sec(project_io_in[2][10]), .hsync(project_io_out[2][11]), .vsync(project_io_out[2][12]), .rrggbb(project_io_out[2][18:13]));
+//    vga_clock             proj_2 (.clk(clk), .reset_n(!(reset | la_data_in[0])), .adj_hrs(project_io_in[2][8]), .adj_min(project_io_in[2][9]), .adj_sec(project_io_in[2][10]), .hsync(project_io_out[2][11]), .vsync(project_io_out[2][12]), .rrggbb(project_io_out[2][18:13]));
     `endif
 
     // project 3
     `ifndef FORMAL
+    /*
 	spinet5 proj_3 (
 		.clk(clk),
 		.rst(reset | la_data_in[0]),
 		.io_in(project_io_in[3]),
 		.io_out(project_io_out[3]));
     `endif
+    */
 
     // project 4
     wire [31:0] cnt;
     wire [31:0] cnt_cont;
     `ifndef FORMAL
+    /*
     asic_freq proj_4(
         .clk(clk),
         .rst(reset | la_data_in[0]),
@@ -180,6 +183,7 @@ module multi_project_harness #(
         .seg_drvs(project_io_out[4][24:17])  // 8 x segment drivers
     );
     `endif
+    */
 
      // project 5
     `ifndef FORMAL
@@ -189,7 +193,7 @@ module multi_project_harness #(
     always @(posedge clk) begin
         rstn_watch <= ~(reset | la_data_in[0]);
     end
-
+/*
     watch_hhmm proj_5 (
         .sysclk_i     (clk),
         .smode_i      (project_io_in[5][36]),
@@ -221,7 +225,7 @@ module multi_project_harness #(
     .io_vSync(project_io_out[7][34])
     );
     `endif    
-
+*/
     // wishbone MUX signals
     wire wb_valid;
     wire [3:0] wb_wstrb;

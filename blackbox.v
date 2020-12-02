@@ -17,6 +17,7 @@ module ws2812                (
 
     output reg data);
 endmodule
+/*
 
 (* blackbox *)
 module vga_clock            (
@@ -92,3 +93,4 @@ module MM2hdmi(
   output        io_hSync
 );
 endmodule
+*/
