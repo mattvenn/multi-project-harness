@@ -354,13 +354,13 @@ async def test_project_6(dut):
 
 @cocotb.test()
 async def test_project_7(dut):
-    clock = Clock(dut.wb_clk_i, 10, units="us")
     # drive a 5 MHz clock on gpio35
     dut_clk = Clock(dut.io_in[35], 200, units="ns")
     cocotb.fork(dut_clk.start())
     await reset(dut)
 
-    project_number = 8
+    project_number = 7
+    await wishbone_write(dut, ADDR_PROJECT, project_number)
     assert dut.active_project == project_number
 
     dut.io_in[23:8] = 1
