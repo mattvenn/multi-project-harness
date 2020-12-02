@@ -23,7 +23,6 @@ module multi_project_harness #(
     // h30000300 reserved for proj_3: spinet
     parameter address_freq   = 32'h30000400,
     parameter address_watch   = 32'h30000500,
-    parameter address_mm2hdmi = 32'h30000700,
     parameter num_projects   = 8
 ) (
     inout wire vdda1,   // User area 1 3.3V supply
@@ -266,9 +265,6 @@ module multi_project_harness #(
                     wbs_ack <= 1;
                 end
                 address_watch: begin
-                    wbs_ack <= 1;
-                end
-                address_mm2hdmi: begin
                     wbs_ack <= 1;
                 end
             endcase

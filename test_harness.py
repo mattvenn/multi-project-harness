@@ -12,8 +12,6 @@ ADDR_OEB0    = 0x30000004
 ADDR_OEB1    = 0x30000008
 ADDR_WS2812  = 0x30000100
 ADDR_7SEG    = 0x30000200
-ADDR_MM2HDMI = 0x30000700
-
 ADDR_FREQ    = 0x30000400
 
 
@@ -356,6 +354,7 @@ async def test_project_6(dut):
 
 @cocotb.test()
 async def test_project_7(dut):
+    clock = Clock(dut.wb_clk_i, 10, units="us")
     # drive a 5 MHz clock on gpio35
     dut_clk = Clock(dut.io_in[35], 200, units="ns")
     cocotb.fork(dut_clk.start())
