@@ -23,7 +23,7 @@ module multi_project_harness #(
     // h30000300 reserved for proj_3: spinet
     parameter address_freq   = 32'h30000400,
     parameter address_watch   = 32'h30000500,
-    parameter num_projects   = 7
+    parameter num_projects   = 8
 ) (
     inout wire vdda1,   // User area 1 3.3V supply
     inout wire vdda2,   // User area 2 3.3V supply
@@ -84,6 +84,7 @@ module multi_project_harness #(
                     active_project == 4 ? project_io_out[4] :
                     active_project == 5 ? project_io_out[5] :
                     active_project == 6 ? project_io_out[6] :
+                    active_project == 7 ? project_io_out[7] :
                                         {`MPRJ_IO_PADS {1'b0}};
 
     // each project sets own oeb via wishbone
@@ -97,6 +98,7 @@ module multi_project_harness #(
     assign project_io_in[4] = active_project == 4 ? io_in : {`MPRJ_IO_PADS {1'b0}};
     assign project_io_in[5] = active_project == 5 ? io_in : {`MPRJ_IO_PADS {1'b0}};
     assign project_io_in[6] = active_project == 6 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign project_io_in[7] = active_project == 7 ? io_in : {`MPRJ_IO_PADS {1'b0}};
 
 
     // instantiate all the modules
@@ -206,6 +208,19 @@ module multi_project_harness #(
     `ifndef FORMAL
     challenge proj_6 (.uart(project_io_in[6][8]), .clk_10(clk), .led_green(project_io_out[6][9]), .led_red(project_io_out[6][10]));
     `endif
+
+    // project 7
+    `ifndef FORMAL
+    MM2hdmi proj_7 (
+    .clock(project_io_in[7][35]),
+    .reset(reset | project_io_in[7][36]),
+    .io_data(project_io_in[7][23:8]),
+    .io_newData(project_io_in[7][24]),
+    .io_red(project_io_out[7][32:25]),
+    .io_hSync(project_io_out[7][33]),
+    .io_vSync(project_io_out[7][34])
+    );
+    `endif    
 
     // wishbone MUX signals
     wire wb_valid;

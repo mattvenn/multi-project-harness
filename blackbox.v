@@ -78,3 +78,17 @@ module challenge(
     output led_red
 );
 endmodule
+
+(* blackbox *)
+module MM2hdmi(
+  input         clock,
+  input         reset,
+  input  [15:0] io_data,
+  input         io_newData,
+  output [7:0]  io_red,
+  output [7:0]  io_blue,
+  output [7:0]  io_green,
+  output        io_vSync,
+  output        io_hSync
+);
+endmodule
