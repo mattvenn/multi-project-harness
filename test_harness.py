@@ -366,22 +366,45 @@ async def test_project_7(dut):
     await wishbone_write(dut, ADDR_PROJECT, project_number)
     assert dut.active_project == project_number
 
+    await ClockCycles(dut.proj_7.clock, 150)
+
     for i in range(8,24):
         dut.io_in[i] <= 1
-    dut.io_in[24] <= 1
+    dut.io_in[36] <= 0
+    dut.io_in[24] <= 0
 
-    await ClockCycles(dut.proj_7.clock, 1)
+    await ClockCycles(dut.proj_7.clock, 20)
+    dut.io_in[36] <= 1
+    await ClockCycles(dut.proj_7.clock, 20)
+    dut.io_in[36] <= 0
 
-    for i in range(32):
+
+    for i in range(100):
         dut.io_in[24] <= 1
-        await ClockCycles(dut.proj_7.clock, 1)
-
+        await ClockCycles(dut.proj_7.clock, 1) #1 / 19
         dut.io_in[24] <= 0
-        await ClockCycles(dut.proj_7.clock, 16)
-
+        await ClockCycles(dut.proj_7.clock, 1) #2 / 20
         assert dut.io_out[33] == True #hSync
+        if i == 31 or i == 63 or i == 95:
+            assert dut.io_out[34] == True #vSync
+    
+        for i in range(15):
+            await ClockCycles(dut.proj_7.clock, 1) #3-18 / 21-36
+            assert dut.io_out[33] == False #hSync    
 
-    assert dut.io_out[34] == True #vSync
+
+    #await ClockCycles(dut.proj_7.clock, 1)
+
+    #for i in range(32):
+        #dut.io_in[24] <= 1
+        #await ClockCycles(dut.proj_7.clock, 1)
+
+        #dut.io_in[24] <= 0
+        #await ClockCycles(dut.proj_7.clock, 15)
+
+        #assert dut.io_out[33] == True #hSync
+
+    #assert dut.io_out[34] == True #vSync
 
 
     await ClockCycles(dut.proj_7.clock, 100)
