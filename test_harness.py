@@ -4,7 +4,7 @@ from cocotb.triggers import FallingEdge, RisingEdge, ClockCycles, with_timeout, 
 from cocotb.result import ReturnValue
 from collections import namedtuple
 
-NUMBER_OF_PROJECTS = 7
+NUMBER_OF_PROJECTS = 8
 NUMBER_OF_PINS = 38
 
 ADDR_PROJECT = 0x30000000
@@ -12,7 +12,6 @@ ADDR_OEB0    = 0x30000004
 ADDR_OEB1    = 0x30000008
 ADDR_WS2812  = 0x30000100
 ADDR_7SEG    = 0x30000200
-
 ADDR_FREQ    = 0x30000400
 
 
@@ -353,3 +352,36 @@ async def test_project_6(dut):
     # wait some cycles
     await ClockCycles(dut.wb_clk_i, 1000)
 
+@cocotb.test()
+async def test_project_7(dut):
+    # wb clock
+    clock = Clock(dut.wb_clk_i, 10, units="us")
+    cocotb.fork(clock.start())
+    # drive a 5 MHz clock on gpio35
+    dut_clk = Clock(dut.io_in[35], 200, units="ns")
+    cocotb.fork(dut_clk.start())
+    await reset(dut)
+
+    project_number = 7
+    await wishbone_write(dut, ADDR_PROJECT, project_number)
+    assert dut.active_project == project_number
+
+    for i in range(8,24):
+        dut.io_in[i] <= 1
+    dut.io_in[24] <= 1
+
+    await ClockCycles(dut.proj_7.clock, 1)
+
+    for i in range(32):
+        dut.io_in[24] <= 1
+        await ClockCycles(dut.proj_7.clock, 1)
+
+        dut.io_in[24] <= 0
+        await ClockCycles(dut.proj_7.clock, 16)
+
+        assert dut.io_out[33] == True #hSync
+
+    assert dut.io_out[34] == True #vSync
+
+
+    await ClockCycles(dut.proj_7.clock, 100)
