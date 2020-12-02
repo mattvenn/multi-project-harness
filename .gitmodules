@@ -18,4 +18,4 @@
 	url=https://github.com/GuillemCabo/ASIC_watch.git
 [submodule "TPM2137"]
 	path = TPM2137
-	url = https://github.com/q3k/TPM2137
+	url = https://github.com/mattvenn/TPM2137
