@@ -2,7 +2,8 @@
 set ::env(DESIGN_NAME) multi_project_harness
 
 # make the project harness include blackbox.v
-set ::env(SYNTH_DEFINES) "BLACKBOX NO_PROJ2 NO_PROJ3 NO_PROJ4 NO_PROJ5 NO_PROJ6 NO_PROJ7"
+set ::env(SYNTH_DEFINES) "BLACKBOX" 
+# NO_PROJ0 NO_PROJ1 NO_PROJ2 NO_PROJ3 NO_PROJ4 NO_PROJ5 NO_PROJ6"
 
 # Change if needed
 set ::env(VERILOG_FILES) $::env(DESIGN_DIR)/mpw-multi-project-harness/multi_project_harness.v
@@ -25,12 +26,12 @@ set ::env(DIODE_INSERTION_STRATEGY) 0
 set ::env(MACRO_PLACEMENT_CFG) $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/macro_placement.cfg
 set ::env(EXTRA_LEFS) [glob $::env(DESIGN_DIR)/macros/lef/*.lef]
 set ::env(EXTRA_GDS_FILES) [glob $::env(DESIGN_DIR)/macros/gds/*.gds]
-set ::env(FP_HORIZONTAL_HALO) 25
-set ::env(FP_VERTICAL_HALO) 20
+set ::env(FP_HORIZONTAL_HALO) 10
+set ::env(FP_VERTICAL_HALO) 10
 
 set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 400 600"
-set ::env(PL_TARGET_DENSITY) 0.3
+set ::env(DIE_AREA) "0 0 1200 1500"
+set ::env(PL_TARGET_DENSITY) 0.8
 
 # CORE_UTIL not used if FP_SIZING is absolute
 #set ::env(FP_CORE_UTIL) 35
