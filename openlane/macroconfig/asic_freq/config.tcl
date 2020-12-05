@@ -13,7 +13,7 @@ set ::env(GLB_RT_MAXLAYER) 5
 # 0.3 40  42 6
 # 0.5 50  37 12
 
-set ::env(PL_TARGET_DENSITY) 0.3
+set ::env(PL_TARGET_DENSITY) 0.35
 set ::env(FP_CORE_UTIL) 30
 
 # Fill this

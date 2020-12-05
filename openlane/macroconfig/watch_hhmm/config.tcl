@@ -13,6 +13,9 @@ set ::env(GLB_RT_MAXLAYER) 5
 set ::env(CLOCK_PERIOD) "2000"
 set ::env(CLOCK_PORT) "clk_i"
 
+set ::env(PL_TARGET_DENSITY) 0.35
+set ::env(FP_CORE_UTIL) 30
+
 set filename $::env(DESIGN_DIR)/$::env(PDK)_$::env(STD_CELL_LIBRARY)_config.tcl
 if { [file exists $filename] == 1} {
 	source $filename
