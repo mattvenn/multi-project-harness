@@ -8,9 +8,12 @@ set ::env(DESIGN_IS_CORE) 0
 set ::env(FP_PDN_CORE_RING) 0
 set ::env(GLB_RT_MAXLAYER) 5
 
+#set ::env(GLB_RT_MAX_DIODE_INS_ITERS) 10
+#set ::env(DIODE_INSERTION_STRATEGY) 2
+
 
 set ::env(FP_CORE_UTIL) 25
-set ::env(PL_TARGET_DENSITY) [ expr ($::env(FP_CORE_UTIL)+5) / 100.0 ]
+set ::env(PL_TARGET_DENSITY) [ expr ($::env(FP_CORE_UTIL)+7) / 100.0 ]
 
 # Fill this
 # 50mhz

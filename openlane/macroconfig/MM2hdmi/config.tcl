@@ -8,6 +8,10 @@ set ::env(DESIGN_IS_CORE) 0
 set ::env(FP_PDN_CORE_RING) 0
 set ::env(GLB_RT_MAXLAYER) 5
 
+# the design is very small so make it tall and thin so it overlaps the power straps
+set ::env(FP_SIZING) absolute
+set ::env(DIE_AREA) "0 0 100 200"
+
 # Fill this
 set ::env(CLOCK_PERIOD) "10"
 set ::env(CLOCK_PORT) "clock"

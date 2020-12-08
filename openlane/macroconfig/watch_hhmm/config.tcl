@@ -26,8 +26,8 @@ set ::env(GLB_RT_MAXLAYER) 5
 set ::env(CLOCK_TREE_SYNTH) 0
 set ::env(CLOCK_PORT) ""
 
-set ::env(FP_CORE_UTIL) 25
-set ::env(PL_TARGET_DENSITY) [ expr ($::env(FP_CORE_UTIL)+5) / 100.0 ]
+set ::env(FP_CORE_UTIL) 22
+set ::env(PL_TARGET_DENSITY) [ expr ($::env(FP_CORE_UTIL)+7) / 100.0 ]
 
 set filename $::env(DESIGN_DIR)/$::env(PDK)_$::env(STD_CELL_LIBRARY)_config.tcl
 if { [file exists $filename] == 1} {
