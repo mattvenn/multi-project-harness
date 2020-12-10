@@ -1,197 +1,33 @@
 [*]
-[*] GTKWave Analyzer v3.3.108 (w)1999-2020 BSI
-[*] Mon Nov 30 10:31:38 2020
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Thu Dec 10 18:55:14 2020
 [*]
-[dumpfile] "/home/matt/work/asic-workshop/multi-project-harness/seven_segment_seconds.vcd"
-[dumpfile_mtime] "Mon Nov 30 10:31:09 2020"
-[dumpfile_size] 37848
-[savefile] "/home/matt/work/asic-workshop/multi-project-harness/harness.gtkw"
+[dumpfile] "/home/matt/work/asic-workshop/mpw-multi-project-harness/harness.vcd"
+[dumpfile_mtime] "Thu Dec 10 18:54:42 2020"
+[dumpfile_size] 4959
+[savefile] "/home/matt/work/asic-workshop/mpw-multi-project-harness/harness.gtkw"
 [timestart] 0
-[size] 2225 1349
+[size] 1867 1018
 [pos] -1 -1
-*-28.000000 128000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[treeopen] multi_project_harness.
-[treeopen] multi_project_harness.proj_4.
-[treeopen] multi_project_harness.proj_4.f_meter.
-[treeopen] multi_project_harness.proj_5.
+*-28.000000 370000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] user_project_wrapper.
+[treeopen] user_project_wrapper.proj_0.
 [sst_width] 272
 [signals_width] 632
 [sst_expanded] 1
 [sst_vpaned_height] 576
+@22
+user_project_wrapper.mprj.active_project[7:0]
 @28
-multi_project_harness.wb_clk_i
-@800200
--wishbone
-@28
-multi_project_harness.wb_rst_i
-multi_project_harness.wbs_ack
-multi_project_harness.wbs_ack_o
-multi_project_harness.wbs_cyc_i
-@22
-multi_project_harness.wbs_dat_i[31:0]
-@c00022
-multi_project_harness.wbs_sel_i[3:0]
-@28
-(0)multi_project_harness.wbs_sel_i[3:0]
-(1)multi_project_harness.wbs_sel_i[3:0]
-(2)multi_project_harness.wbs_sel_i[3:0]
-(3)multi_project_harness.wbs_sel_i[3:0]
-@1401200
--group_end
-@28
-multi_project_harness.wbs_stb_i
-multi_project_harness.wbs_we_i
-@22
-multi_project_harness.wbs_adr_i[31:0]
-@1000200
--wishbone
-@22
-multi_project_harness.active_project[7:0]
-@c00022
-multi_project_harness.reg_oeb[37:0]
-@28
-(0)multi_project_harness.reg_oeb[37:0]
-(1)multi_project_harness.reg_oeb[37:0]
-(2)multi_project_harness.reg_oeb[37:0]
-(3)multi_project_harness.reg_oeb[37:0]
-(4)multi_project_harness.reg_oeb[37:0]
-(5)multi_project_harness.reg_oeb[37:0]
-(6)multi_project_harness.reg_oeb[37:0]
-(7)multi_project_harness.reg_oeb[37:0]
-(8)multi_project_harness.reg_oeb[37:0]
-(9)multi_project_harness.reg_oeb[37:0]
-(10)multi_project_harness.reg_oeb[37:0]
-(11)multi_project_harness.reg_oeb[37:0]
-(12)multi_project_harness.reg_oeb[37:0]
-(13)multi_project_harness.reg_oeb[37:0]
-(14)multi_project_harness.reg_oeb[37:0]
-(15)multi_project_harness.reg_oeb[37:0]
-(16)multi_project_harness.reg_oeb[37:0]
-(17)multi_project_harness.reg_oeb[37:0]
-(18)multi_project_harness.reg_oeb[37:0]
-(19)multi_project_harness.reg_oeb[37:0]
-(20)multi_project_harness.reg_oeb[37:0]
-(21)multi_project_harness.reg_oeb[37:0]
-(22)multi_project_harness.reg_oeb[37:0]
-(23)multi_project_harness.reg_oeb[37:0]
-(24)multi_project_harness.reg_oeb[37:0]
-(25)multi_project_harness.reg_oeb[37:0]
-(26)multi_project_harness.reg_oeb[37:0]
-(27)multi_project_harness.reg_oeb[37:0]
-(28)multi_project_harness.reg_oeb[37:0]
-(29)multi_project_harness.reg_oeb[37:0]
-(30)multi_project_harness.reg_oeb[37:0]
-(31)multi_project_harness.reg_oeb[37:0]
-(32)multi_project_harness.reg_oeb[37:0]
-(33)multi_project_harness.reg_oeb[37:0]
-(34)multi_project_harness.reg_oeb[37:0]
-(35)multi_project_harness.reg_oeb[37:0]
-(36)multi_project_harness.reg_oeb[37:0]
-(37)multi_project_harness.reg_oeb[37:0]
-@1401200
--group_end
-@22
-multi_project_harness.io_in[37:0]
-multi_project_harness.io_oeb[37:0]
-@800023
-multi_project_harness.io_out[37:0]
-@29
-(0)multi_project_harness.io_out[37:0]
-(1)multi_project_harness.io_out[37:0]
-(2)multi_project_harness.io_out[37:0]
-(3)multi_project_harness.io_out[37:0]
-(4)multi_project_harness.io_out[37:0]
-(5)multi_project_harness.io_out[37:0]
-(6)multi_project_harness.io_out[37:0]
-(7)multi_project_harness.io_out[37:0]
-(8)multi_project_harness.io_out[37:0]
-(9)multi_project_harness.io_out[37:0]
-(10)multi_project_harness.io_out[37:0]
-(11)multi_project_harness.io_out[37:0]
-(12)multi_project_harness.io_out[37:0]
-(13)multi_project_harness.io_out[37:0]
-(14)multi_project_harness.io_out[37:0]
-(15)multi_project_harness.io_out[37:0]
-(16)multi_project_harness.io_out[37:0]
-(17)multi_project_harness.io_out[37:0]
-(18)multi_project_harness.io_out[37:0]
-(19)multi_project_harness.io_out[37:0]
-(20)multi_project_harness.io_out[37:0]
-(21)multi_project_harness.io_out[37:0]
-(22)multi_project_harness.io_out[37:0]
-(23)multi_project_harness.io_out[37:0]
-(24)multi_project_harness.io_out[37:0]
-(25)multi_project_harness.io_out[37:0]
-(26)multi_project_harness.io_out[37:0]
-(27)multi_project_harness.io_out[37:0]
-(28)multi_project_harness.io_out[37:0]
-(29)multi_project_harness.io_out[37:0]
-(30)multi_project_harness.io_out[37:0]
-(31)multi_project_harness.io_out[37:0]
-(32)multi_project_harness.io_out[37:0]
-(33)multi_project_harness.io_out[37:0]
-(34)multi_project_harness.io_out[37:0]
-(35)multi_project_harness.io_out[37:0]
-(36)multi_project_harness.io_out[37:0]
-(37)multi_project_harness.io_out[37:0]
-@1001201
--group_end
-@c00200
--digit
-@22
-multi_project_harness.active_project[7:0]
-@28
-multi_project_harness.proj_0.reset
-@22
-multi_project_harness.proj_0.compare_in[23:0]
-multi_project_harness.proj_0.compare[23:0]
-@24
-multi_project_harness.proj_0.second_counter[23:0]
-@22
-multi_project_harness.proj_0.digit[3:0]
-@1401200
--digit
-@c00200
--freq_cnt
-@22
-multi_project_harness.proj_4.oc[31:0]
-@28
-multi_project_harness.proj_4.tx
-@24
-multi_project_harness.proj_4.f_meter.value[31:0]
-multi_project_harness.proj_4.f_meter.U$$2.counter[31:0]
-@28
-multi_project_harness.proj_4.f_meter.U$$2.latch
-multi_project_harness.proj_4.b2bcd_trig_out
-@24
-multi_project_harness.proj_4.f_meter_value[31:0]
-@22
-multi_project_harness.proj_4.b2bcd_bcd_out[39:0]
-@1401200
--freq_cnt
-@c00200
--asic_watch
-@28
-multi_project_harness.proj_5.rstn_i
-@22
-multi_project_harness.proj_5.inst_div32768.count_int[14:0]
-@28
-multi_project_harness.proj_5.inst_div32768.clk_o
-multi_project_harness.proj_5.clk1h_int
-multi_project_harness.proj_5.clk1m_int
-multi_project_harness.proj_5.clk2s_int
-multi_project_harness.proj_5.clk10m_int
-@22
-multi_project_harness.proj_5.cfg_hhxx[4:0]
-@28
-multi_project_harness.proj_5.cfg_xxmx[2:0]
-@22
-multi_project_harness.proj_5.cfg_xxxm[3:0]
-multi_project_harness.proj_5.segment_hxxx[6:0]
-multi_project_harness.proj_5.segment_xhxx[6:0]
-multi_project_harness.proj_5.segment_xxmx[6:0]
-multi_project_harness.proj_5.segment_xxxm[6:0]
-@1401200
--asic_watch
+user_project_wrapper.proj_0.clk
+@800201
+-proj 0
+@25
+user_project_wrapper.proj_0.compare[23:0]
+@23
+user_project_wrapper.proj_0.digit[3:0]
+user_project_wrapper.proj_0.led_out[6:0]
+@1000201
+-proj 0
 [pattern_trace] 1
 [pattern_trace] 0

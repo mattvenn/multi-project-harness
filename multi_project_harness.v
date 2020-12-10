@@ -64,8 +64,12 @@ module multi_project_harness #(
     output wire  [`MPRJ_IO_PADS-1:0] proj0_io_in,
     input wire [`MPRJ_IO_PADS-1:0] proj0_io_out,
 
+    output wire proj1_wb_update,
+    output wire proj1_clk,
+    output wire proj1_reset,
     input wire  [`MPRJ_IO_PADS-1:0] proj1_io_in,
     output wire [`MPRJ_IO_PADS-1:0] proj1_io_out,
+
     input wire  [`MPRJ_IO_PADS-1:0] proj2_io_in,
     output wire [`MPRJ_IO_PADS-1:0] proj2_io_out,
     input wire  [`MPRJ_IO_PADS-1:0] proj3_io_in,
@@ -136,16 +140,19 @@ module multi_project_harness #(
     //seven_segment_seconds proj_0 (.clk(clk), .reset(reset | la_data_in[0]), .led_out(project_io_out[0][14:8]), .compare_in(wbs_dat_i[23:0]), .update_compare(seven_seg_update));
     `endif
     `endif
-/*
+
     // project 1
     // ws2812 needs led_num, rgb, write connected to wb
-    wire ws2812_write = wb_valid & wb_wstrb & (wbs_adr_i == address_ws2812);
+    assign proj1_clk = clk;
+    assign proj1_reset = reset | la_data_in[0];
+    assign proj1_wb_update = wb_valid & wb_wstrb & (wbs_adr_i == address_ws2812);
     `ifndef NO_PROJ1
     `ifndef FORMAL
-    ws2812                proj_1 (.clk(clk), .reset(reset | la_data_in[0]), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(ws2812_write), .data(project_io_out[1][8]));
+//    ws2812                proj_1 (.clk(clk), .reset(reset | la_data_in[0]), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(ws2812_write), .data(project_io_out[1][8]));
     `endif
     `endif
 
+/*
     // project 2
     `ifndef NO_PROJ2
     `ifndef FORMAL

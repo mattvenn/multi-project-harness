@@ -105,7 +105,7 @@ async def test_wb_access(dut):
     for project_number in range(NUMBER_OF_PROJECTS):
         # activate design 1
         await wishbone_write(dut, ADDR_PROJECT, project_number)
-        assert dut.active_project == project_number
+        assert dut.mprj.active_project == project_number
 
         # check active design
         active_project = await wishbone_read(dut, ADDR_PROJECT)
@@ -125,7 +125,7 @@ async def test_oeb(dut):
         else:
             await wishbone_write(dut, ADDR_OEB0, 0)
             await wishbone_write(dut, ADDR_OEB1, 1 << (io - 32))
-        assert dut.reg_oeb == 1 << io
+        assert dut.mprj.reg_oeb == 1 << io
 
 
 @cocotb.test()
@@ -166,7 +166,7 @@ async def test_project_1(dut):
     # activate design 1
     project_number = 1
     await wishbone_write(dut, ADDR_PROJECT, project_number)
-    assert dut.active_project == project_number
+    assert dut.mprj.active_project == project_number
 
     # use external gpio as reset
     dut.la_data_in[0] <= 1

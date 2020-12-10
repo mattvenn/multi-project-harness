@@ -111,7 +111,15 @@ module user_project_wrapper #(
     .proj0_clk          (proj0_clk),
     .proj0_reset        (proj0_reset),
     .proj0_io_in        (proj0_io_in),
-    .proj0_io_out       (proj0_io_out)
+    .proj0_io_out       (proj0_io_out),
+
+    .proj1_wb_update    (proj1_wb_update),
+    .proj1_clk          (proj1_clk),
+    .proj1_reset        (proj1_reset),
+    .proj1_io_in        (proj1_io_in),
+    .proj1_io_out       (proj1_io_out)
+
+
     );
 
     wire [`MPRJ_IO_PADS-1:0] proj0_io_in;
@@ -119,7 +127,16 @@ module user_project_wrapper #(
     wire proj0_wb_update;
     wire proj0_clk;
     wire proj0_reset;
+
     seven_segment_seconds proj_0 (.clk(proj0_clk), .reset(proj0_reset), .led_out(proj0_io_out[14:8]), .compare_in(wbs_dat_i[23:0]), .update_compare(proj0_wb_update));
+
+    wire [`MPRJ_IO_PADS-1:0] proj1_io_in;
+    wire [`MPRJ_IO_PADS-1:0] proj1_io_out;
+    wire proj1_wb_update;
+    wire proj1_clk;
+    wire proj1_reset;
+
+    ws2812                proj_1 (.clk(proj1_clk), .reset(proj1_reset), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(proj1_wb_update), .data(proj1_io_out[8]));
 
 endmodule	// user_project_wrapper
 `default_nettype wire
