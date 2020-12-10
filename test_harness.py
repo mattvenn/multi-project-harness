@@ -139,7 +139,7 @@ async def test_project_0(dut):
     # activate design 0
     project_number = 0
     await wishbone_write(dut, ADDR_PROJECT, project_number)
-    assert dut.active_project == project_number
+    assert dut.mprj.active_project == project_number
 
     # use logic analyser as reset
     dut.la_data_in[0] <= 1

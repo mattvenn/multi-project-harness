@@ -54,7 +54,31 @@ module multi_project_harness #(
     // IOs - avoid using 0-7 as they are dual purpose and maybe connected to other things
     input  wire [`MPRJ_IO_PADS-1:0] io_in,
     output wire [`MPRJ_IO_PADS-1:0] io_out,
-    output wire [`MPRJ_IO_PADS-1:0] io_oeb // active low!
+    output wire [`MPRJ_IO_PADS-1:0] io_oeb, // active low!
+
+    // then we need all the separate projects ios here
+    // proj 0
+    output wire proj0_wb_update,
+    output wire proj0_clk,
+    output wire proj0_reset,
+    output wire  [`MPRJ_IO_PADS-1:0] proj0_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj0_io_out,
+
+    input wire  [`MPRJ_IO_PADS-1:0] proj1_io_in,
+    output wire [`MPRJ_IO_PADS-1:0] proj1_io_out,
+    input wire  [`MPRJ_IO_PADS-1:0] proj2_io_in,
+    output wire [`MPRJ_IO_PADS-1:0] proj2_io_out,
+    input wire  [`MPRJ_IO_PADS-1:0] proj3_io_in,
+    output wire [`MPRJ_IO_PADS-1:0] proj3_io_out,
+    input wire  [`MPRJ_IO_PADS-1:0] proj4_io_in,
+    output wire [`MPRJ_IO_PADS-1:0] proj4_io_out,
+    input wire  [`MPRJ_IO_PADS-1:0] proj5_io_in,
+    output wire [`MPRJ_IO_PADS-1:0] proj5_io_out,
+    input wire  [`MPRJ_IO_PADS-1:0] proj6_io_in,
+    output wire [`MPRJ_IO_PADS-1:0] proj6_io_out,
+    input wire  [`MPRJ_IO_PADS-1:0] proj7_io_in,
+    output wire [`MPRJ_IO_PADS-1:0] proj7_io_out
+
     );
 
     // couple of aliases
@@ -70,47 +94,49 @@ module multi_project_harness #(
     `endif
 
     // make all the possible connecting wires
-    wire [`MPRJ_IO_PADS-1:0] project_io_in  [num_projects-1:0];
-    wire [`MPRJ_IO_PADS-1:0] project_io_out [num_projects-1:0];
+    //wire [`MPRJ_IO_PADS-1:0] project_io_in  [num_projects-1:0];
+    //wire [`MPRJ_IO_PADS-1:0] project_io_out [num_projects-1:0];
 
     reg [7:0] active_project; // which design is active
     reg [`MPRJ_IO_PADS-1:0] reg_oeb;
 
     // mux project outputs
-    assign io_out = active_project == 0 ? project_io_out[0] :
-                    active_project == 1 ? project_io_out[1] :
-                    active_project == 2 ? project_io_out[2] :
-                    active_project == 3 ? project_io_out[3] :
-                    active_project == 4 ? project_io_out[4] :
-                    active_project == 5 ? project_io_out[5] :
-                    active_project == 6 ? project_io_out[6] :
-                    active_project == 7 ? project_io_out[7] :
+    assign io_out = active_project == 0 ? proj0_io_out:
+                    active_project == 1 ? proj1_io_out:
+                    active_project == 2 ? proj2_io_out:
+                    active_project == 3 ? proj3_io_out:
+                    active_project == 4 ? proj4_io_out:
+                    active_project == 5 ? proj5_io_out:
+                    active_project == 6 ? proj6_io_out:
+                    active_project == 7 ? proj7_io_out:
                                         {`MPRJ_IO_PADS {1'b0}};
 
     // each project sets own oeb via wishbone
     assign io_oeb = reg_oeb;
 
     // inputs get set to 0 if not selected
-    assign project_io_in[0] = active_project == 0 ? io_in : {`MPRJ_IO_PADS {1'b0}};
-    assign project_io_in[1] = active_project == 1 ? io_in : {`MPRJ_IO_PADS {1'b0}};
-    assign project_io_in[2] = active_project == 2 ? io_in : {`MPRJ_IO_PADS {1'b0}};
-    assign project_io_in[3] = active_project == 3 ? io_in : {`MPRJ_IO_PADS {1'b0}};
-    assign project_io_in[4] = active_project == 4 ? io_in : {`MPRJ_IO_PADS {1'b0}};
-    assign project_io_in[5] = active_project == 5 ? io_in : {`MPRJ_IO_PADS {1'b0}};
-    assign project_io_in[6] = active_project == 6 ? io_in : {`MPRJ_IO_PADS {1'b0}};
-    assign project_io_in[7] = active_project == 7 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign proj0_io_in = active_project == 0 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign proj1_io_in = active_project == 1 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign proj2_io_in = active_project == 2 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign proj3_io_in = active_project == 3 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign proj4_io_in = active_project == 4 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign proj5_io_in = active_project == 5 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign proj6_io_in = active_project == 6 ? io_in : {`MPRJ_IO_PADS {1'b0}};
+    assign proj7_io_in = active_project == 7 ? io_in : {`MPRJ_IO_PADS {1'b0}};
 
 
     // instantiate all the modules
 
     // project 0
-    wire seven_seg_update = wb_valid & wb_wstrb & (wbs_adr_i == address_7seg);
+    assign proj0_wb_update = wb_valid & wb_wstrb & (wbs_adr_i == address_7seg);
+    assign proj0_clk = clk;
+    assign proj0_reset = reset | la_data_in[0];
     `ifndef NO_PROJ0
     `ifndef FORMAL
-    seven_segment_seconds proj_0 (.clk(clk), .reset(reset | la_data_in[0]), .led_out(project_io_out[0][14:8]), .compare_in(wbs_dat_i[23:0]), .update_compare(seven_seg_update));
+    //seven_segment_seconds proj_0 (.clk(clk), .reset(reset | la_data_in[0]), .led_out(project_io_out[0][14:8]), .compare_in(wbs_dat_i[23:0]), .update_compare(seven_seg_update));
     `endif
     `endif
-
+/*
     // project 1
     // ws2812 needs led_num, rgb, write connected to wb
     wire ws2812_write = wb_valid & wb_wstrb & (wbs_adr_i == address_ws2812);
@@ -232,6 +258,7 @@ module multi_project_harness #(
     );
     `endif    
     `endif    
+    */
 
     // wishbone MUX signals
     wire wb_valid;
@@ -293,12 +320,12 @@ module multi_project_harness #(
                 end
 
                 address_freq + 8'h18: begin
-                    wbs_data_out <= cnt;
+//                    wbs_data_out <= cnt;
                     wbs_ack <= 1;
                 end
 
                 address_freq + 8'h1c: begin
-                    wbs_data_out <= cnt_cont;
+                    //wbs_data_out <= cnt_cont;
                     wbs_ack <= 1;
                 end
             endcase

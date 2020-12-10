@@ -1,6 +1,6 @@
 # cocotb setup
 MODULE = test_harness
-TOPLEVEL = multi_project_harness
+TOPLEVEL = user_project_wrapper
 PROJ_0_SOURCES = seven-segment-seconds/seven_segment_seconds.v
 PROJ_1_SOURCES = ws2812/ws2812.v
 PROJ_2_SOURCES = vga-clock/rtl/button_pulse.v vga-clock/rtl/digit.v vga-clock/rtl/VgaSyncGen.v vga-clock/rtl/fontROM.v vga-clock/rtl/vga_clock.v
@@ -11,7 +11,7 @@ PROJ_6_SOURCES = ASIC_watch/submodules/count10m.v ASIC_watch/submodules/count24h
 PROJ_7_SOURCES = TPM2137/generate/challenge.v
 PROJ_8_SOURCES = mm2hdmi/verilog/MM2hdmi.v
 
-VERILOG_SOURCES = multi_project_harness.v $(PROJ_0_SOURCES) $(PROJ_1_SOURCES) $(PROJ_2_SOURCES) $(PROJ_3_SOURCES) $(PROJ_4_SOURCES) $(PROJ_6_SOURCES) $(PROJ_7_SOURCES) $(PROJ_8_SOURCES)
+VERILOG_SOURCES = user_project_wrapper.v multi_project_harness.v $(PROJ_0_SOURCES) $(PROJ_1_SOURCES) $(PROJ_2_SOURCES) $(PROJ_3_SOURCES) $(PROJ_4_SOURCES) $(PROJ_6_SOURCES) $(PROJ_7_SOURCES) $(PROJ_8_SOURCES)
 
 include $(shell cocotb-config --makefiles)/Makefile.sim
 
