@@ -107,13 +107,6 @@ module multi_project_harness #(
     wire clk = wb_clk_i;
     wire reset = wb_rst_i;
 
-    `ifdef COCOTB_SIM
-        initial begin
-            $dumpfile ("harness.vcd");
-            $dumpvars (0, multi_project_harness);
-            #1;
-        end
-    `endif
 
     // make all the possible connecting wires
     //wire [`MPRJ_IO_PADS-1:0] project_io_in  [num_projects-1:0];
@@ -355,12 +348,12 @@ module multi_project_harness #(
                 end
 
                 address_freq + 8'h18: begin
-//                    wbs_data_out <= cnt;
+                    wbs_data_out <= cnt;
                     wbs_ack <= 1;
                 end
 
                 address_freq + 8'h1c: begin
-                    //wbs_data_out <= cnt_cont;
+                    wbs_data_out <= cnt_cont;
                     wbs_ack <= 1;
                 end
             endcase

@@ -1,21 +1,27 @@
 [*]
 [*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
-[*] Thu Dec 10 19:11:14 2020
+[*] Thu Dec 10 19:35:41 2020
 [*]
 [dumpfile] "/home/matt/work/asic-workshop/mpw-multi-project-harness/harness.vcd"
-[dumpfile_mtime] "Thu Dec 10 19:09:31 2020"
-[dumpfile_size] 34858741
+[dumpfile_mtime] "Thu Dec 10 19:33:23 2020"
+[dumpfile_size] 2881877
 [savefile] "/home/matt/work/asic-workshop/mpw-multi-project-harness/harness.gtkw"
-[timestart] 0
+[timestart] 55308000
 [size] 1867 1018
 [pos] -1 -1
-*-40.000000 370000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-20.000000 58726000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] user_project_wrapper.
 [treeopen] user_project_wrapper.proj_0.
-[sst_width] 272
+[sst_width] 502
 [signals_width] 632
 [sst_expanded] 1
 [sst_vpaned_height] 576
+@22
+user_project_wrapper.wbs_adr_i[31:0]
+@23
+user_project_wrapper.wbs_dat_i[31:0]
+@28
+user_project_wrapper.wbs_cyc_i
 @22
 user_project_wrapper.mprj.active_project[7:0]
 @28
@@ -31,9 +37,9 @@ user_project_wrapper.proj_0.led_out[6:0]
 -proj 0
 @22
 user_project_wrapper.mprj.io_oeb[37:0]
-@800023
+@c00022
 user_project_wrapper.mprj.io_out[37:0]
-@29
+@28
 (0)user_project_wrapper.mprj.io_out[37:0]
 (1)user_project_wrapper.mprj.io_out[37:0]
 (2)user_project_wrapper.mprj.io_out[37:0]
@@ -72,7 +78,16 @@ user_project_wrapper.mprj.io_out[37:0]
 (35)user_project_wrapper.mprj.io_out[37:0]
 (36)user_project_wrapper.mprj.io_out[37:0]
 (37)user_project_wrapper.mprj.io_out[37:0]
-@1001201
+@1401200
 -group_end
+@800200
+-proj 4
+@22
+user_project_wrapper.mprj.proj4_cnt[31:0]
+user_project_wrapper.mprj.proj4_cnt_cont[31:0]
+@28
+user_project_wrapper.mprj.proj4_wb_update
+@1000200
+-proj 4
 [pattern_trace] 1
 [pattern_trace] 0

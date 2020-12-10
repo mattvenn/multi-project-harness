@@ -139,6 +139,14 @@ module user_project_wrapper #(
 
     );
 
+    `ifdef COCOTB_SIM
+        initial begin
+            $dumpfile ("user_project_wrapper.vcd");
+            $dumpvars (0, user_project_wrapper);
+            #1;
+        end
+    `endif
+
     wire [`MPRJ_IO_PADS-1:0] proj0_io_in;
     wire [`MPRJ_IO_PADS-1:0] proj0_io_out;
     wire proj0_wb_update;
