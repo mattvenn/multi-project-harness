@@ -105,34 +105,39 @@ module multi_project_harness #(
 
     // project 0
     wire seven_seg_update = wb_valid & wb_wstrb & (wbs_adr_i == address_7seg);
+    `ifndef NO_PROJ0
     `ifndef FORMAL
     seven_segment_seconds proj_0 (.clk(clk), .reset(reset | la_data_in[0]), .led_out(project_io_out[0][14:8]), .compare_in(wbs_dat_i[23:0]), .update_compare(seven_seg_update));
+    `endif
     `endif
 
     // project 1
     // ws2812 needs led_num, rgb, write connected to wb
     wire ws2812_write = wb_valid & wb_wstrb & (wbs_adr_i == address_ws2812);
+    `ifndef NO_PROJ1
     `ifndef FORMAL
     ws2812                proj_1 (.clk(clk), .reset(reset | la_data_in[0]), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(ws2812_write), .data(project_io_out[1][8]));
     `endif
+    `endif
 
     // project 2
+    `ifndef NO_PROJ2
     `ifndef FORMAL
     vga_clock             proj_2 (.clk(clk), .reset_n(!(reset | la_data_in[0])), .adj_hrs(project_io_in[2][8]), .adj_min(project_io_in[2][9]), .adj_sec(project_io_in[2][10]), .hsync(project_io_out[2][11]), .vsync(project_io_out[2][12]), .rrggbb(project_io_out[2][18:13]));
     `endif
+    `endif
 
     // project 3
+    `ifndef NO_PROJ3
     `ifndef FORMAL
-	spinet5 proj_3 (
-		.clk(clk),
-		.rst(reset | la_data_in[0]),
-		.io_in(project_io_in[3]),
-		.io_out(project_io_out[3]));
+	spinet5 proj_3 ( .clk(clk), .rst(reset | la_data_in[0]), .io_in(project_io_in[3]), .io_out(project_io_out[3]));
+    `endif
     `endif
 
     // project 4
     wire [31:0] cnt;
     wire [31:0] cnt_cont;
+    `ifndef NO_PROJ4
     `ifndef FORMAL
     asic_freq proj_4(
         .clk(clk),
@@ -180,8 +185,10 @@ module multi_project_harness #(
         .seg_drvs(project_io_out[4][24:17])  // 8 x segment drivers
     );
     `endif
+    `endif
 
      // project 5
+    `ifndef NO_PROJ5
     `ifndef FORMAL
     wire watch_write = wb_valid & wb_wstrb & (wbs_adr_i == address_watch);
     reg rstn_watch;
@@ -189,7 +196,6 @@ module multi_project_harness #(
     always @(posedge clk) begin
         rstn_watch <= ~(reset | la_data_in[0]);
     end
-
     watch_hhmm proj_5 (
         .sysclk_i     (clk),
         .smode_i      (project_io_in[5][36]),
@@ -203,13 +209,17 @@ module multi_project_harness #(
         .segment_xxxm (project_io_out[5][35:29])
     );
     `endif
+    `endif
 
      // project 6
+    `ifndef NO_PROJ6
     `ifndef FORMAL
     challenge proj_6 (.uart(project_io_in[6][8]), .clk_10(clk), .led_green(project_io_out[6][9]), .led_red(project_io_out[6][10]));
     `endif
+    `endif
 
     // project 7
+    `ifndef NO_PROJ7
     `ifndef FORMAL
     MM2hdmi proj_7 (
     .clock(project_io_in[7][35]),
@@ -220,6 +230,7 @@ module multi_project_harness #(
     .io_hSync(project_io_out[7][33]),
     .io_vSync(project_io_out[7][34])
     );
+    `endif    
     `endif    
 
     // wishbone MUX signals

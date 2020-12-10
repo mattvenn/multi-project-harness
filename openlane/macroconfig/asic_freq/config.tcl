@@ -2,19 +2,17 @@
 set ::env(DESIGN_NAME) asic_freq
 
 # Change if needed
-set ::env(VERILOG_FILES) [glob $::env(DESIGN_DIR)/src/*.v]
+set ::env(VERILOG_FILES) "$::env(DESIGN_DIR)/asicfreq/asic_freq.v"
 
 set ::env(DESIGN_IS_CORE) 0
 set ::env(FP_PDN_CORE_RING) 0
 set ::env(GLB_RT_MAXLAYER) 5
 
-# 0.4 50  37 6
-# 0.4 40  42 6
-# 0.3 40  42 6
-# 0.5 50  37 12
+set ::env(FP_CORE_UTIL) 29
+set ::env(PL_TARGET_DENSITY) [ expr ($::env(FP_CORE_UTIL)+9) / 100.0 ]
 
-set ::env(PL_TARGET_DENSITY) 0.35
-set ::env(FP_CORE_UTIL) 30
+set ::env(GLB_RT_MAX_DIODE_INS_ITERS) 10
+set ::env(DIODE_INSERTION_STRATEGY) 3
 
 # Fill this
 # 50Mhz
