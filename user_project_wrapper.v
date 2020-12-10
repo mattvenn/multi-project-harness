@@ -117,8 +117,12 @@ module user_project_wrapper #(
     .proj1_clk          (proj1_clk),
     .proj1_reset        (proj1_reset),
     .proj1_io_in        (proj1_io_in),
-    .proj1_io_out       (proj1_io_out)
+    .proj1_io_out       (proj1_io_out),
 
+    .proj2_clk          (proj2_clk),
+    .proj2_reset        (proj2_reset),
+    .proj2_io_in        (proj2_io_in),
+    .proj2_io_out       (proj2_io_out)
 
     );
 
@@ -137,6 +141,13 @@ module user_project_wrapper #(
     wire proj1_reset;
 
     ws2812                proj_1 (.clk(proj1_clk), .reset(proj1_reset), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(proj1_wb_update), .data(proj1_io_out[8]));
+
+    wire [`MPRJ_IO_PADS-1:0] proj2_io_in;
+    wire [`MPRJ_IO_PADS-1:0] proj2_io_out;
+    wire proj2_clk;
+    wire proj2_reset;
+
+    vga_clock             proj_2 (.clk(proj2_clk), .reset_n(!proj2_reset), .adj_hrs(proj2_io_in[8]), .adj_min(proj2_io_in[9]), .adj_sec(proj2_io_in[10]), .hsync(proj2_io_out[11]), .vsync(proj2_io_out[12]), .rrggbb(proj2_io_out[18:13]));
 
 endmodule	// user_project_wrapper
 `default_nettype wire

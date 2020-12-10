@@ -64,14 +64,19 @@ module multi_project_harness #(
     output wire  [`MPRJ_IO_PADS-1:0] proj0_io_in,
     input wire [`MPRJ_IO_PADS-1:0] proj0_io_out,
 
+    // proj 1
     output wire proj1_wb_update,
     output wire proj1_clk,
     output wire proj1_reset,
-    input wire  [`MPRJ_IO_PADS-1:0] proj1_io_in,
-    output wire [`MPRJ_IO_PADS-1:0] proj1_io_out,
+    output wire  [`MPRJ_IO_PADS-1:0] proj1_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj1_io_out,
 
-    input wire  [`MPRJ_IO_PADS-1:0] proj2_io_in,
-    output wire [`MPRJ_IO_PADS-1:0] proj2_io_out,
+    // proj 2
+    output wire proj2_clk,
+    output wire proj2_reset,
+    output wire  [`MPRJ_IO_PADS-1:0] proj2_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj2_io_out,
+
     input wire  [`MPRJ_IO_PADS-1:0] proj3_io_in,
     output wire [`MPRJ_IO_PADS-1:0] proj3_io_out,
     input wire  [`MPRJ_IO_PADS-1:0] proj4_io_in,
@@ -152,14 +157,16 @@ module multi_project_harness #(
     `endif
     `endif
 
-/*
     // project 2
+    assign proj2_clk = clk;
+    assign proj2_reset = reset | la_data_in[0];
     `ifndef NO_PROJ2
     `ifndef FORMAL
-    vga_clock             proj_2 (.clk(clk), .reset_n(!(reset | la_data_in[0])), .adj_hrs(project_io_in[2][8]), .adj_min(project_io_in[2][9]), .adj_sec(project_io_in[2][10]), .hsync(project_io_out[2][11]), .vsync(project_io_out[2][12]), .rrggbb(project_io_out[2][18:13]));
+//    vga_clock             proj_2 (.clk(clk), .reset_n(!(reset | la_data_in[0])), .adj_hrs(project_io_in[2][8]), .adj_min(project_io_in[2][9]), .adj_sec(project_io_in[2][10]), .hsync(project_io_out[2][11]), .vsync(project_io_out[2][12]), .rrggbb(project_io_out[2][18:13]));
     `endif
     `endif
 
+/*
     // project 3
     `ifndef NO_PROJ3
     `ifndef FORMAL

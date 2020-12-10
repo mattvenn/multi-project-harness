@@ -194,7 +194,7 @@ async def test_project_2(dut):
     # activate design 2
     project_number = 2
     await wishbone_write(dut, ADDR_PROJECT, project_number)
-    assert dut.active_project == project_number
+    assert dut.mprj.active_project == project_number
 
     # use external gpio as reset
     dut.la_data_in[0] <= 1
