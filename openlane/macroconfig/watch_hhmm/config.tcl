@@ -29,9 +29,6 @@ set ::env(CLOCK_PORT) ""
 set ::env(FP_CORE_UTIL) 22
 set ::env(PL_TARGET_DENSITY) [ expr ($::env(FP_CORE_UTIL)+7) / 100.0 ]
 
-set ::env(PL_TARGET_DENSITY) 0.35
-set ::env(FP_CORE_UTIL) 30
-
 set filename $::env(DESIGN_DIR)/$::env(PDK)_$::env(STD_CELL_LIBRARY)_config.tcl
 if { [file exists $filename] == 1} {
 	source $filename
