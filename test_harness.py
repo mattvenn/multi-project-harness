@@ -272,7 +272,7 @@ async def test_project_4(dut):
     # activate design 4
     project_number = 4
     await wishbone_write(dut, ADDR_PROJECT, project_number)
-    assert dut.active_project == project_number
+    assert dut.mprj.active_project == project_number
 
     # drive gpio25 which is the signal under test
     sut_clk = Clock(dut.io_in[25], T_sut_clk, units="ns")

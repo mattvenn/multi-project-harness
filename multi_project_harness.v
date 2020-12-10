@@ -83,6 +83,12 @@ module multi_project_harness #(
     output wire  [`MPRJ_IO_PADS-1:0] proj3_io_in,
     input wire [`MPRJ_IO_PADS-1:0] proj3_io_out,
 
+    // proj 4
+    output wire proj4_clk,
+    output wire proj4_reset,
+    input wire [31:0] proj4_cnt,
+    input wire [31:0] proj4_cnt_cont,
+    output wire proj4_wb_update,
     output wire  [`MPRJ_IO_PADS-1:0] proj4_io_in,
     input wire [`MPRJ_IO_PADS-1:0] proj4_io_out,
 
@@ -182,11 +188,16 @@ module multi_project_harness #(
     `endif
     `endif
 
-/*
 
     // project 4
     wire [31:0] cnt;
     wire [31:0] cnt_cont;
+    assign cnt = proj4_cnt;
+    assign cnt_cont = proj4_cnt_cont;
+    assign proj4_wb_update = (wb_valid & (&wb_wstrb) & ((wbs_adr_i >> 8) == (address_freq >> 8)));
+    assign proj4_clk = clk;
+    assign proj4_reset = reset | la_data_in[0];
+    /*
     `ifndef NO_PROJ4
     `ifndef FORMAL
     asic_freq proj_4(

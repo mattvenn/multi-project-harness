@@ -127,7 +127,15 @@ module user_project_wrapper #(
     .proj3_clk          (proj3_clk),
     .proj3_reset        (proj3_reset),
     .proj3_io_in        (proj3_io_in),
-    .proj3_io_out       (proj3_io_out)
+    .proj3_io_out       (proj3_io_out),
+
+    .proj4_clk          (proj4_clk),
+    .proj4_reset        (proj4_reset),
+    .proj4_io_in        (proj4_io_in),
+    .proj4_io_out       (proj4_io_out),
+    .proj4_cnt          (proj4_cnt),
+    .proj4_cnt_cont     (proj4_cnt_cont),
+    .proj4_wb_update    (proj4_wb_update)
 
     );
 
@@ -159,5 +167,59 @@ module user_project_wrapper #(
     wire proj3_clk;
     wire proj3_reset;
 	spinet5 proj_3 ( .clk(proj3_clk), .rst(proj3_reset), .io_in(proj3_io_in), .io_out(proj3_io_out));
+
+    wire [`MPRJ_IO_PADS-1:0] proj4_io_in;
+    wire [`MPRJ_IO_PADS-1:0] proj4_io_out;
+    wire proj4_clk;
+    wire proj4_reset;
+    wire [31:0] proj4_cnt;
+    wire [31:0] proj4_cnt_cont;
+    wire proj4_wb_update;
+
+    asic_freq proj_4(
+        .clk(proj4_clk),
+        .rst(proj4_reset),
+
+        // register write interface (ignores < 32 bit writes):
+        // 30000400:
+        //   write UART clock divider (min. value = 4),
+        // 30000404:
+        //   write frequency counter update period [sys_clks]
+        // 30000408
+        //   set 7-segment display mode,
+        //   0: show meas. freq., 1: show wishbone value
+        // 3000040C
+        //   set 7-segment display value:
+        //   digit7 ... digit0  (4 bit each)
+        // 30000410
+        //   set 7-segment display value:
+        //   digit8
+        // 30000414
+        //   set 7-segment decimal points:
+        //   dec_point8 ... dec_point0  (1 bit each)
+        // 30000418
+        //   read periodically reset freq. counter value
+        // 3000041C
+        //   read continuous freq. counter value
+        .addr(wbs_adr_i[5:2]),
+        .value(wbs_dat_i),
+        .strobe(proj4_wb_update),
+
+        // signal under test input
+        .samplee(proj4_io_in[25]),
+
+        // periodic counter output to wishbone
+        .o(proj4_cnt),
+
+        // continuous counter output to wishbone
+        .oc(proj4_cnt_cont),
+
+        // UART output to FTDI input
+        .tx(proj4_io_out[6]),
+
+        // 7 segment display outputs
+        .col_drvs(proj4_io_out[16:8]),  // 9 x column drivers
+        .seg_drvs(proj4_io_out[24:17])  // 8 x segment drivers
+    );
 endmodule	// user_project_wrapper
 `default_nettype wire
