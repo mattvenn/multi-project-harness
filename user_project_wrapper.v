@@ -122,7 +122,12 @@ module user_project_wrapper #(
     .proj2_clk          (proj2_clk),
     .proj2_reset        (proj2_reset),
     .proj2_io_in        (proj2_io_in),
-    .proj2_io_out       (proj2_io_out)
+    .proj2_io_out       (proj2_io_out),
+
+    .proj3_clk          (proj3_clk),
+    .proj3_reset        (proj3_reset),
+    .proj3_io_in        (proj3_io_in),
+    .proj3_io_out       (proj3_io_out)
 
     );
 
@@ -149,5 +154,10 @@ module user_project_wrapper #(
 
     vga_clock             proj_2 (.clk(proj2_clk), .reset_n(!proj2_reset), .adj_hrs(proj2_io_in[8]), .adj_min(proj2_io_in[9]), .adj_sec(proj2_io_in[10]), .hsync(proj2_io_out[11]), .vsync(proj2_io_out[12]), .rrggbb(proj2_io_out[18:13]));
 
+    wire [`MPRJ_IO_PADS-1:0] proj3_io_in;
+    wire [`MPRJ_IO_PADS-1:0] proj3_io_out;
+    wire proj3_clk;
+    wire proj3_reset;
+	spinet5 proj_3 ( .clk(proj3_clk), .rst(proj3_reset), .io_in(proj3_io_in), .io_out(proj3_io_out));
 endmodule	// user_project_wrapper
 `default_nettype wire

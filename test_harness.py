@@ -215,7 +215,7 @@ async def test_project_3(dut):
     # activate design 3
     project_number = 3
     await wishbone_write(dut, ADDR_PROJECT, project_number)
-    assert dut.active_project == project_number
+    assert dut.mprj.active_project == project_number
 
     # group SPI & ready signals for net nodes 0, 1
     SPIsigs = namedtuple('SPIsigs', 'mosi sclk ss miso txrdy rxrdy')

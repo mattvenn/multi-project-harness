@@ -77,16 +77,23 @@ module multi_project_harness #(
     output wire  [`MPRJ_IO_PADS-1:0] proj2_io_in,
     input wire [`MPRJ_IO_PADS-1:0] proj2_io_out,
 
-    input wire  [`MPRJ_IO_PADS-1:0] proj3_io_in,
-    output wire [`MPRJ_IO_PADS-1:0] proj3_io_out,
-    input wire  [`MPRJ_IO_PADS-1:0] proj4_io_in,
-    output wire [`MPRJ_IO_PADS-1:0] proj4_io_out,
-    input wire  [`MPRJ_IO_PADS-1:0] proj5_io_in,
-    output wire [`MPRJ_IO_PADS-1:0] proj5_io_out,
-    input wire  [`MPRJ_IO_PADS-1:0] proj6_io_in,
-    output wire [`MPRJ_IO_PADS-1:0] proj6_io_out,
-    input wire  [`MPRJ_IO_PADS-1:0] proj7_io_in,
-    output wire [`MPRJ_IO_PADS-1:0] proj7_io_out
+    // proj 3
+    output wire proj3_clk,
+    output wire proj3_reset,
+    output wire  [`MPRJ_IO_PADS-1:0] proj3_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj3_io_out,
+
+    output wire  [`MPRJ_IO_PADS-1:0] proj4_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj4_io_out,
+
+    output wire  [`MPRJ_IO_PADS-1:0] proj5_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj5_io_out,
+
+    output wire  [`MPRJ_IO_PADS-1:0] proj6_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj6_io_out,
+
+    output wire  [`MPRJ_IO_PADS-1:0] proj7_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj7_io_out
 
     );
 
@@ -166,13 +173,16 @@ module multi_project_harness #(
     `endif
     `endif
 
-/*
     // project 3
+    assign proj3_clk = clk;
+    assign proj3_reset = reset | la_data_in[0];
     `ifndef NO_PROJ3
     `ifndef FORMAL
-	spinet5 proj_3 ( .clk(clk), .rst(reset | la_data_in[0]), .io_in(project_io_in[3]), .io_out(project_io_out[3]));
+//	spinet5 proj_3 ( .clk(clk), .rst(reset | la_data_in[0]), .io_in(project_io_in[3]), .io_out(project_io_out[3]));
     `endif
     `endif
+
+/*
 
     // project 4
     wire [31:0] cnt;
