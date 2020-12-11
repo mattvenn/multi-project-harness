@@ -167,7 +167,9 @@ module user_project_wrapper #(
     wire proj0_clk;
     wire proj0_reset;
 
+    `ifndef NO_PROJ0
     seven_segment_seconds proj_0 (.clk(proj0_clk), .reset(proj0_reset), .led_out(proj0_io_out[14:8]), .compare_in(wbs_dat_i[23:0]), .update_compare(proj0_wb_update));
+    `endif
 
     wire [`MPRJ_IO_PADS-1:0] proj1_io_in;
     wire [`MPRJ_IO_PADS-1:0] proj1_io_out;
@@ -175,20 +177,27 @@ module user_project_wrapper #(
     wire proj1_clk;
     wire proj1_reset;
 
+    `ifndef NO_PROJ1
     ws2812                proj_1 (.clk(proj1_clk), .reset(proj1_reset), .led_num(wbs_dat_i[31:24]), .rgb_data(wbs_dat_i[23:0]), .write(proj1_wb_update), .data(proj1_io_out[8]));
+    `endif
 
     wire [`MPRJ_IO_PADS-1:0] proj2_io_in;
     wire [`MPRJ_IO_PADS-1:0] proj2_io_out;
     wire proj2_clk;
     wire proj2_reset;
 
-    vga_clock             proj_2 (.clk(proj2_clk), .reset_n(!proj2_reset), .adj_hrs(proj2_io_in[8]), .adj_min(proj2_io_in[9]), .adj_sec(proj2_io_in[10]), .hsync(proj2_io_out[11]), .vsync(proj2_io_out[12]), .rrggbb(proj2_io_out[18:13]));
+    `ifndef NO_PROJ2
+    vga_clock             proj_2 (.clk(proj2_clk), .reset_n(proj2_reset), .adj_hrs(proj2_io_in[8]), .adj_min(proj2_io_in[9]), .adj_sec(proj2_io_in[10]), .hsync(proj2_io_out[11]), .vsync(proj2_io_out[12]), .rrggbb(proj2_io_out[18:13]));
+    `endif
 
     wire [`MPRJ_IO_PADS-1:0] proj3_io_in;
     wire [`MPRJ_IO_PADS-1:0] proj3_io_out;
     wire proj3_clk;
     wire proj3_reset;
+
+    `ifndef NO_PROJ3
 	spinet5 proj_3 ( .clk(proj3_clk), .rst(proj3_reset), .io_in(proj3_io_in), .io_out(proj3_io_out));
+    `endif
 
     wire [`MPRJ_IO_PADS-1:0] proj4_io_in;
     wire [`MPRJ_IO_PADS-1:0] proj4_io_out;
@@ -198,6 +207,7 @@ module user_project_wrapper #(
     wire [31:0] proj4_cnt_cont;
     wire proj4_wb_update;
 
+    `ifndef NO_PROJ4
     asic_freq proj_4(
         .clk(proj4_clk),
         .rst(proj4_reset),
@@ -243,6 +253,7 @@ module user_project_wrapper #(
         .col_drvs(proj4_io_out[16:8]),  // 9 x column drivers
         .seg_drvs(proj4_io_out[24:17])  // 8 x segment drivers
     );
+    `endif
 
     wire [`MPRJ_IO_PADS-1:0] proj5_io_in;
     wire [`MPRJ_IO_PADS-1:0] proj5_io_out;
@@ -250,6 +261,7 @@ module user_project_wrapper #(
     wire proj5_reset;
     wire proj5_wb_update;
 
+    `ifndef NO_PROJ5
     watch_hhmm proj_5 (
         .sysclk_i     (proj5_clk),
         .smode_i      (proj5_io_in[36]),
@@ -262,17 +274,21 @@ module user_project_wrapper #(
         .segment_xxmx (proj5_io_out[28:22]),
         .segment_xxxm (proj5_io_out[35:29])
     );
+    `endif
 
     wire [`MPRJ_IO_PADS-1:0] proj6_io_in;
     wire [`MPRJ_IO_PADS-1:0] proj6_io_out;
     wire proj6_clk;
+    `ifndef NO_PROJ6
     challenge proj_6 (.uart(proj6_io_in[8]), .clk_10(proj6_clk), .led_green(proj6_io_out[9]), .led_red(proj6_io_out[10]));
+    `endif
 
 
     wire [`MPRJ_IO_PADS-1:0] proj7_io_in;
     wire [`MPRJ_IO_PADS-1:0] proj7_io_out;
     wire proj7_reset;
 
+    `ifndef NO_PROJ7
     MM2hdmi proj_7 (
     .clock(proj7_io_in[35]),
     .reset(proj7_reset),
@@ -282,5 +298,6 @@ module user_project_wrapper #(
     .io_hSync(proj7_io_out[33]),
     .io_vSync(proj7_io_out[34])
     );
+    `endif
 endmodule	// user_project_wrapper
 `default_nettype wire
