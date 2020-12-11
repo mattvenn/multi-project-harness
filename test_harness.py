@@ -316,7 +316,7 @@ async def test_project_5(dut):
     # activate design 5
     project_number = 5
     await wishbone_write(dut, ADDR_PROJECT, project_number)
-    assert dut.active_project == project_number
+    assert dut.mprj.active_project == project_number
 
     # use a gpio as a clock
     io_clock = Clock(dut.io_in[37], 10, units="us")
@@ -341,7 +341,7 @@ async def test_project_6(dut):
     # activate design 6
     project_number = 6
     await wishbone_write(dut, ADDR_PROJECT, project_number)
-    assert dut.active_project == project_number
+    assert dut.mprj.active_project == project_number
 
     await ClockCycles(dut.wb_clk_i, 10)
 
@@ -364,7 +364,7 @@ async def test_project_7(dut):
 
     project_number = 7
     await wishbone_write(dut, ADDR_PROJECT, project_number)
-    assert dut.active_project == project_number
+    assert dut.mprj.active_project == project_number
 
     await ClockCycles(dut.proj_7.clock, 150)
 

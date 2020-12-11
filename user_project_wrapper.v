@@ -135,7 +135,21 @@ module user_project_wrapper #(
     .proj4_io_out       (proj4_io_out),
     .proj4_cnt          (proj4_cnt),
     .proj4_cnt_cont     (proj4_cnt_cont),
-    .proj4_wb_update    (proj4_wb_update)
+    .proj4_wb_update    (proj4_wb_update),
+
+    .proj5_wb_update    (proj5_wb_update),
+    .proj5_clk          (proj5_clk),
+    .proj5_reset        (proj5_reset),
+    .proj5_io_in        (proj5_io_in),
+    .proj5_io_out       (proj5_io_out),
+
+    .proj6_clk          (proj6_clk),
+    .proj6_io_in        (proj6_io_in),
+    .proj6_io_out       (proj6_io_out),
+
+    .proj7_reset        (proj7_reset),
+    .proj7_io_in        (proj7_io_in),
+    .proj7_io_out       (proj7_io_out)
 
     );
 
@@ -228,6 +242,45 @@ module user_project_wrapper #(
         // 7 segment display outputs
         .col_drvs(proj4_io_out[16:8]),  // 9 x column drivers
         .seg_drvs(proj4_io_out[24:17])  // 8 x segment drivers
+    );
+
+    wire [`MPRJ_IO_PADS-1:0] proj5_io_in;
+    wire [`MPRJ_IO_PADS-1:0] proj5_io_out;
+    wire proj5_clk;
+    wire proj5_reset;
+    wire proj5_wb_update;
+
+    watch_hhmm proj_5 (
+        .sysclk_i     (proj5_clk),
+        .smode_i      (proj5_io_in[36]),
+        .sclk_i       (proj5_io_in[37]),
+        .dvalid_i     (proj5_wb_update),
+        .cfg_i        (wbs_dat_i[11:0]),
+        .rstn_i       (proj5_reset),
+        .segment_hxxx (proj5_io_out[14:8]),
+        .segment_xhxx (proj5_io_out[21:15]),
+        .segment_xxmx (proj5_io_out[28:22]),
+        .segment_xxxm (proj5_io_out[35:29])
+    );
+
+    wire [`MPRJ_IO_PADS-1:0] proj6_io_in;
+    wire [`MPRJ_IO_PADS-1:0] proj6_io_out;
+    wire proj6_clk;
+    challenge proj_6 (.uart(proj6_io_in[8]), .clk_10(proj6_clk), .led_green(proj6_io_out[9]), .led_red(proj6_io_out[10]));
+
+
+    wire [`MPRJ_IO_PADS-1:0] proj7_io_in;
+    wire [`MPRJ_IO_PADS-1:0] proj7_io_out;
+    wire proj7_reset;
+
+    MM2hdmi proj_7 (
+    .clock(proj7_io_in[35]),
+    .reset(proj7_reset),
+    .io_data(proj7_io_in[23:8]),
+    .io_newData(proj7_io_in[24]),
+    .io_red(proj7_io_out[32:25]),
+    .io_hSync(proj7_io_out[33]),
+    .io_vSync(proj7_io_out[34])
     );
 endmodule	// user_project_wrapper
 `default_nettype wire

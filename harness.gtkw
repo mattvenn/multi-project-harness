@@ -1,10 +1,10 @@
 [*]
 [*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
-[*] Thu Dec 10 19:35:41 2020
+[*] Fri Dec 11 09:52:52 2020
 [*]
-[dumpfile] "/home/matt/work/asic-workshop/mpw-multi-project-harness/harness.vcd"
-[dumpfile_mtime] "Thu Dec 10 19:33:23 2020"
-[dumpfile_size] 2881877
+[dumpfile] "/home/matt/work/asic-workshop/mpw-multi-project-harness/seven_segment_seconds.vcd"
+[dumpfile_mtime] "Fri Dec 11 09:52:47 2020"
+[dumpfile_size] 469013
 [savefile] "/home/matt/work/asic-workshop/mpw-multi-project-harness/harness.gtkw"
 [timestart] 55308000
 [size] 1867 1018
@@ -18,7 +18,6 @@
 [sst_vpaned_height] 576
 @22
 user_project_wrapper.wbs_adr_i[31:0]
-@23
 user_project_wrapper.wbs_dat_i[31:0]
 @28
 user_project_wrapper.wbs_cyc_i
@@ -89,5 +88,13 @@ user_project_wrapper.mprj.proj4_cnt_cont[31:0]
 user_project_wrapper.mprj.proj4_wb_update
 @1000200
 -proj 4
+@800200
+-proj 6
+@29
+user_project_wrapper.proj_6.clk_10
+user_project_wrapper.proj_6.led_green
+user_project_wrapper.proj_6.led_red
+@1000200
+-proj 6
 [pattern_trace] 1
 [pattern_trace] 0

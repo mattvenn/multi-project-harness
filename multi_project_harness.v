@@ -92,12 +92,20 @@ module multi_project_harness #(
     output wire  [`MPRJ_IO_PADS-1:0] proj4_io_in,
     input wire [`MPRJ_IO_PADS-1:0] proj4_io_out,
 
+    // proj 5
+    output wire proj5_wb_update,
+    output wire proj5_clk,
+    output wire proj5_reset,
     output wire  [`MPRJ_IO_PADS-1:0] proj5_io_in,
     input wire [`MPRJ_IO_PADS-1:0] proj5_io_out,
 
+    // proj 6
+    output wire proj6_clk,
     output wire  [`MPRJ_IO_PADS-1:0] proj6_io_in,
     input wire [`MPRJ_IO_PADS-1:0] proj6_io_out,
-
+    
+    // proj 7
+    output wire proj7_reset,
     output wire  [`MPRJ_IO_PADS-1:0] proj7_io_in,
     input wire [`MPRJ_IO_PADS-1:0] proj7_io_out
 
@@ -240,16 +248,19 @@ module multi_project_harness #(
     );
     `endif
     `endif
+    */
 
      // project 5
     `ifndef NO_PROJ5
     `ifndef FORMAL
-    wire watch_write = wb_valid & wb_wstrb & (wbs_adr_i == address_watch);
+    assign proj5_wb_update = wb_valid & wb_wstrb & (wbs_adr_i == address_watch);
+    assign proj5_clk = clk;
+    assign proj5_reset = rstn_watch;
     reg rstn_watch;
-
     always @(posedge clk) begin
         rstn_watch <= ~(reset | la_data_in[0]);
     end
+/*
     watch_hhmm proj_5 (
         .sysclk_i     (clk),
         .smode_i      (project_io_in[5][36]),
@@ -262,19 +273,25 @@ module multi_project_harness #(
         .segment_xxmx (project_io_out[5][28:22]),
         .segment_xxxm (project_io_out[5][35:29])
     );
+    */
     `endif
     `endif
+
 
      // project 6
+     assign proj6_clk = clk;
     `ifndef NO_PROJ6
     `ifndef FORMAL
-    challenge proj_6 (.uart(project_io_in[6][8]), .clk_10(clk), .led_green(project_io_out[6][9]), .led_red(project_io_out[6][10]));
+    //challenge proj_6 (.uart(project_io_in[6][8]), .clk_10(clk), .led_green(project_io_out[6][9]), .led_red(project_io_out[6][10]));
     `endif
     `endif
 
+
     // project 7
+    assign proj7_reset = reset | proj7_io_in[36];
     `ifndef NO_PROJ7
     `ifndef FORMAL
+    /*
     MM2hdmi proj_7 (
     .clock(project_io_in[7][35]),
     .reset(reset | project_io_in[7][36]),
@@ -284,9 +301,9 @@ module multi_project_harness #(
     .io_hSync(project_io_out[7][33]),
     .io_vSync(project_io_out[7][34])
     );
-    `endif    
-    `endif    
     */
+    `endif    
+    `endif    
 
     // wishbone MUX signals
     wire wb_valid;
