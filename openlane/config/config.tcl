@@ -1,42 +1,45 @@
-# User config
-set ::env(DESIGN_NAME) multi_project_harness
+set script_dir [file dirname [file normalize [info script]]]
 
-# make the project harness include blackbox.v
-set ::env(SYNTH_DEFINES) "BLACKBOX" 
-# NO_PROJ0 NO_PROJ1 NO_PROJ2 NO_PROJ3 NO_PROJ4 NO_PROJ5 NO_PROJ6"
+set ::env(DESIGN_NAME) user_project_wrapper
+set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
+
+set ::env(SYNTH_DEFINES) "NO_PROJ0 NO_PROJ1 NO_PROJ2 NO_PROJ3 NO_PROJ4 NO_PROJ5 NO_PROJ6 NO_PROJ7" 
+
+set ::env(PDN_CFG) $script_dir/pdn.tcl
+set ::env(FP_PDN_CORE_RING) 1
+set ::env(FP_SIZING) absolute
+set ::env(DIE_AREA) "0 0 2920 3520"
+
+set ::unit 2.4
+set ::env(FP_IO_VEXTEND) [expr 2*$::unit]
+set ::env(FP_IO_HEXTEND) [expr 2*$::unit]
+set ::env(FP_IO_VLENGTH) $::unit
+set ::env(FP_IO_HLENGTH) $::unit
+
+set ::env(FP_IO_VTHICKNESS_MULT) 4
+set ::env(FP_IO_HTHICKNESS_MULT) 4
 
 
-# Change if needed
-set ::env(VERILOG_FILES) $::env(DESIGN_DIR)/mpw-multi-project-harness/multi_project_harness.v
+set ::env(CLOCK_PORT) "user_clock2"
+set ::env(CLOCK_NET) "mprj.clk"
 
-set ::env(DESIGN_IS_CORE) 1
+set ::env(CLOCK_PERIOD) "10"
 
-# Fill this
-# 50Mhz
-set ::env(CLOCK_PERIOD) "20" 
-set ::env(CLOCK_PORT) "wb_clk_i"
-
-set ::env(PL_BASIC_PLACEMENT) 0
-set ::env(PL_SKIP_INITIAL_PLACEMENT) 1
+set ::env(PL_OPENPHYSYN_OPTIMIZATIONS) 0
 set ::env(DIODE_INSERTION_STRATEGY) 0
 
-# macro stuff
-set ::env(MACRO_PLACEMENT_CFG) $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/macro_placement.cfg
+# Need to fix a FastRoute bug for this to work, but it's good
+# for a sense of "isolation"
+set ::env(MAGIC_ZEROIZE_ORIGIN) 0
+set ::env(MAGIC_WRITE_FULL_LEF) 1
+
+set ::env(VERILOG_FILES) "\
+	$script_dir/../../verilog/rtl/defines.v \
+	$script_dir/../../verilog/rtl/user_project_wrapper.v"
+
+set ::env(VERILOG_FILES_BLACKBOX) "\
+	$script_dir/../../verilog/rtl/defines.v \
+	$script_dir/blackbox.v"
+
 set ::env(EXTRA_LEFS) [glob $::env(DESIGN_DIR)/macros/lef/*.lef]
 set ::env(EXTRA_GDS_FILES) [glob $::env(DESIGN_DIR)/macros/gds/*.gds]
-set ::env(FP_HORIZONTAL_HALO) 10
-set ::env(FP_VERTICAL_HALO) 10
-
-# was having lvs issues with cells in the extreme left and right not getting a vertical power line because the pitch was too wide
-set ::env(FP_PDN_VPITCH) 75
-
-# CORE_UTIL not used if FP_SIZING is absolute
-set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 1200 1500"
-set ::env(PL_TARGET_DENSITY) 0.8
-
-set filename $::env(DESIGN_DIR)/$::env(PDK)_$::env(STD_CELL_LIBRARY)_config.tcl
-if { [file exists $filename] == 1} {
-	source $filename
-}
-
