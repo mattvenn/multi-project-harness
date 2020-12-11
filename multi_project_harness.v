@@ -173,7 +173,7 @@ module multi_project_harness #(
 
     // project 2
     assign proj2_clk = clk;
-    assign proj2_reset = reset | la_data_in[0];
+    assign proj2_reset = !(reset | la_data_in[0]);
     `ifndef NO_PROJ2
     `ifndef FORMAL
 //    vga_clock             proj_2 (.clk(clk), .reset_n(!(reset | la_data_in[0])), .adj_hrs(project_io_in[2][8]), .adj_min(project_io_in[2][9]), .adj_sec(project_io_in[2][10]), .hsync(project_io_out[2][11]), .vsync(project_io_out[2][12]), .rrggbb(project_io_out[2][18:13]));
