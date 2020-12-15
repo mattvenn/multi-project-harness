@@ -14,20 +14,20 @@ set ::env(FP_DEF_TEMPATE) $script_dir/../../def/user_project_wrapper_empty.def
 
 apply_def_template
 
-#add_macro_placement proj_0 360  2420   N   
-#add_macro_placement proj_1 280  773   N   
-#add_macro_placement proj_2 2260 743    N   
-#add_macro_placement proj_3 908  760   N   
-#add_macro_placement proj_4 1460  2320   N   
-#add_macro_placement proj_5 1700  860  N   
-#add_macro_placement proj_6 2300  2400  N   
-#add_macro_placement proj_7 900 2400  N   
-add_macro_placement mprj   350  1600   N   
+add_macro_placement proj_0 430  2600   N   
+add_macro_placement proj_1 360  1700   N   
+add_macro_placement proj_2 2300 1700    N   
+add_macro_placement proj_3 1000  1700   N   
+add_macro_placement proj_4 1500  2500   N   
+add_macro_placement proj_5 1800  1800  N   
+add_macro_placement proj_6 2400  2600  N   
+add_macro_placement proj_7 1000 2600  N   
+add_macro_placement mprj   670  600   N   
 
 
 manual_macro_placement f
 
-set ::env(_SPACING) 1.6
+set ::env(_SPACING) 1.7
 set ::env(_WIDTH) 3
 
 set power_domains [list {vccd1 vssd1} {vccd2 vssd2} {vdda1 vssa1} {vdda2 vssa2}]
@@ -54,6 +54,7 @@ foreach domain $power_domains {
 	set ::env(_H_PDN_OFFSET) [expr $::env(_H_PDN_OFFSET)+6*$::env(_WIDTH)]
 }
 
+add_route_obs
 global_routing_or
 detailed_routing
 
@@ -72,5 +73,3 @@ run_magic_drc
 run_lvs; # requires run_magic_spice_export
 
 run_antenna_check
-
-generate_final_summary_report
