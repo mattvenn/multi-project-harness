@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 from PIL import Image, ImageFont, ImageDraw
 import re
-
-im = Image.new('RGB', (2920, 3520), (255,255,255))
+diewidth = 2920
+dieheight = 3520
+im = Image.new('RGB', (diewidth, dieheight), (255,255,255))
 draw = ImageDraw.Draw(im)
 
 with open("macro_placement.cfg") as macros:
@@ -19,6 +20,6 @@ with open("macro_placement.cfg") as macros:
             height = int(m.group(6))
             
         print(project, x1, y1, name, width, height)
-        draw.rectangle(((x1, y1), (x1+width, y1+height)), fill="black")
+        draw.rectangle(((x1, dieheight-y1), (x1+width, dieheight-(y1+height))), fill="black")
 
 im.save("macros.jpg")
