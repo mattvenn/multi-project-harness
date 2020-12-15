@@ -383,16 +383,16 @@ module multi_project_harness #(
     `ifdef FORMAL
         integer i;
         always @(*) begin
-            for(i = 0; i < num_projects; i ++) begin
                 // if project is selected
-                if(active_project == i) begin
-                    // ins and outs are connected
-                    assert(io_out == project_io_out[i]);
-                    assert(io_in == project_io_in[i]);
-                end else
+                case(active_project)
+                    0: begin
+                        // ins and outs are connected
+                        assert(io_out == proj0_io_out);
+                        assert(io_in == proj0_io_in);
+                    end
+                endcase
                     // all other project's ins are set to 0
-                    assert(project_io_in[i] == {`MPRJ_IO_PADS {1'b0}});
-            end
+                   // assert(proj0_io_in == {`MPRJ_IO_PADS {1'b0}});
         end
 
         // basic wishbone compliance
