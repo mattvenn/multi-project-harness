@@ -90,3 +90,95 @@ module MM2hdmi(
   output        io_hSync
 );
 endmodule
+
+(* blackbox *)
+module multi_project_harness #(
+    // address_active: write to this memory address to select the project
+    parameter address_active = 32'h30000000,
+    parameter address_oeb0   = 32'h30000004,
+    parameter address_oeb1   = 32'h30000008,
+    // each project gets 0x100 bytes memory space
+    parameter address_ws2812 = 32'h30000100,
+    parameter address_7seg   = 32'h30000200,
+    // h30000300 reserved for proj_3: spinet
+    parameter address_freq   = 32'h30000400,
+    parameter address_watch   = 32'h30000500,
+    parameter num_projects   = 8 )
+    (
+    // Wishbone Slave ports (WB MI A)
+    input wire wb_clk_i,             // clock
+    input wire wb_rst_i,             // reset
+    input wire wbs_stb_i,            // strobe - wb_valid data
+    input wire wbs_cyc_i,            // cycle - high when during a request
+    input wire wbs_we_i,             // write enable
+    input wire [3:0] wbs_sel_i,      // which byte to read/write
+    input wire [31:0] wbs_dat_i,     // data in
+    input wire [31:0] wbs_adr_i,     // address
+    output wire wbs_ack_o,           // ack
+    output wire [31:0] wbs_dat_o,    // data out
+
+    // Logic Analyzer Signals
+    input  wire [127:0] la_data_in,
+    output wire [127:0] la_data_out,
+    input  wire [127:0] la_oen,
+
+    // IOs - avoid using 0-7 as they are dual purpose and maybe connected to other things
+    input  wire [`MPRJ_IO_PADS-1:0] io_in,
+    output wire [`MPRJ_IO_PADS-1:0] io_out,
+    output wire [`MPRJ_IO_PADS-1:0] io_oeb, // active low!
+
+    // then we need all the separate projects ios here
+    // proj 0
+    output wire proj0_wb_update,
+    output wire proj0_clk,
+    output wire proj0_reset,
+    output wire  [`MPRJ_IO_PADS-1:0] proj0_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj0_io_out,
+
+    // proj 1
+    output wire proj1_wb_update,
+    output wire proj1_clk,
+    output wire proj1_reset,
+    output wire  [`MPRJ_IO_PADS-1:0] proj1_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj1_io_out,
+
+    // proj 2
+    output wire proj2_clk,
+    output wire proj2_reset,
+    output wire  [`MPRJ_IO_PADS-1:0] proj2_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj2_io_out,
+
+    // proj 3
+    output wire proj3_clk,
+    output wire proj3_reset,
+    output wire  [`MPRJ_IO_PADS-1:0] proj3_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj3_io_out,
+
+    // proj 4
+    output wire proj4_clk,
+    output wire proj4_reset,
+    input wire [31:0] proj4_cnt,
+    input wire [31:0] proj4_cnt_cont,
+    output wire proj4_wb_update,
+    output wire  [`MPRJ_IO_PADS-1:0] proj4_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj4_io_out,
+
+    // proj 5
+    output wire proj5_wb_update,
+    output wire proj5_clk,
+    output wire proj5_reset,
+    output wire  [`MPRJ_IO_PADS-1:0] proj5_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj5_io_out,
+
+    // proj 6
+    output wire proj6_clk,
+    output wire  [`MPRJ_IO_PADS-1:0] proj6_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj6_io_out,
+    
+    // proj 7
+    output wire proj7_reset,
+    output wire  [`MPRJ_IO_PADS-1:0] proj7_io_in,
+    input wire [`MPRJ_IO_PADS-1:0] proj7_io_out
+
+    );
+    endmodule
