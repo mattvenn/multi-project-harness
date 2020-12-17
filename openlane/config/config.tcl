@@ -29,8 +29,8 @@ set ::env(GLB_RT_OBS)  "met5 430   2600  148.800 159.520 ,
                         met4 1000  1700  333.390 344.110 ,
                         met5 1500  2500  389.335 400.055 ,
                         met4 1500  2500  389.335 400.055 ,
-                        met5 1800  1800  156.375 167.095 ,
-                        met4 1800  1800  156.375 167.095 ,
+                        met5 1920  1750  156.375 167.095 ,
+                        met4 1920  1750  156.375 167.095 ,
                         met5 2400  2600  156.720 173.820 ,
                         met4 2400  2600  156.720 173.820 ,
                         met5 1000  2600  100.000 200.000 ,
@@ -61,7 +61,7 @@ set ::env(VERILOG_FILES) "\
 
 set ::env(VERILOG_FILES_BLACKBOX) "\
 	$script_dir/../../verilog/rtl/defines.v \
-	$script_dir/blackbox.v"
+	$script_dir/../../verilog/rtl/multi_project_harness/blackbox.v"
 
 set ::env(EXTRA_LEFS) [glob $::env(DESIGN_DIR)/macros/lef/*.lef]
 set ::env(EXTRA_GDS_FILES) [glob $::env(DESIGN_DIR)/macros/gds/*.gds]

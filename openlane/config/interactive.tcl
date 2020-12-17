@@ -19,7 +19,7 @@ add_macro_placement proj_1 360  1700   N
 add_macro_placement proj_2 2300 1700    N   
 add_macro_placement proj_3 1000  1700   N   
 add_macro_placement proj_4 1500  2500   N   
-add_macro_placement proj_5 1800  1800  N   
+add_macro_placement proj_5 1920  1750  N   
 add_macro_placement proj_6 2400  2600  N   
 add_macro_placement proj_7 1000 2600  N   
 add_macro_placement mprj   670  600   N   
@@ -41,11 +41,13 @@ set ::env(_H_PITCH) 180
 set ::env(_V_PDN_OFFSET) 0
 set ::env(_H_PDN_OFFSET) 0
 
+set ::env(CONNECT_GRIDS) 1
 foreach domain $power_domains {
 	set ::env(_VDD_NET_NAME) [lindex $domain 0]
 	set ::env(_GND_NET_NAME) [lindex $domain 1]
 	gen_pdn
-
+	
+	set ::env(CONNECT_GRIDS) 0
 	set ::env(_V_OFFSET) \
 	[expr $::env(_V_OFFSET) + 2*($::env(_WIDTH)+$::env(_SPACING))]
 	set ::env(_H_OFFSET) \
@@ -58,6 +60,8 @@ add_route_obs
 global_routing_or
 detailed_routing
 
+write_powered_verilog -power vccd1 -ground vssd1
+set_netlist $::env(lvs_result_file_tag).powered.v
 run_magic
 run_magic_spice_export
 
@@ -65,6 +69,7 @@ save_views       -lef_path $::env(magic_result_file_tag).lef \
                  -def_path $::env(tritonRoute_result_file_tag).def \
                  -gds_path $::env(magic_result_file_tag).gds \
                  -mag_path $::env(magic_result_file_tag).mag \
+                 -verilog_path $::env(CURRENT_NETLIST) \
                  -save_path $save_path \
                  -tag $::env(RUN_TAG)
 
