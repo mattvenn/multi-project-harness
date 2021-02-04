@@ -1,0 +1,45 @@
+## date made
+
+-rw-r--r-- 1 matt matt 5600676 Feb  3 11:15 openlane/designs/ws2812/runs/03-02_10-14/results/magic/ws2812.gds
+-rw-r--r-- 1 matt matt 4127462 Feb  4 12:01 openlane/designs/vga_clock/runs/04-02_10-59/results/magic/vga_clock.gds
+-rw-r--r-- 1 matt matt 1881946 Feb  3 11:31 openlane/designs/seven_segment_seconds/runs/03-02_10-29/results/magic/seven_segment_seconds.gds
+-rw-r--r-- 1 matt matt 7751090 Feb  3 11:32 openlane/designs/spinet5/runs/03-02_10-30/results/magic/spinet5.gds
+-rw-r--r-- 1 matt matt 14133166 Feb  3 11:33 openlane/designs/asic_freq/runs/03-02_10-31/results/magic/asic_freq.gds
+-rw-r--r-- 1 matt matt 1851616 Feb  3 11:51 openlane/designs/watch_hhmm/runs/03-02_10-51/results/magic/watch_hhmm.gds
+-rw-r--r-- 1 matt matt 2126548 Feb  3 11:34 openlane/designs/challenge/runs/03-02_10-32/results/magic/challenge.gds
+-rw-r--r-- 1 matt matt 964714 Feb  3 11:35 openlane/designs/MM2hdmi/runs/03-02_10-34/results/magic/MM2hdmi.gds
+-rw-r--r-- 1 matt matt 13006118 Feb  4 11:14 openlane/designs/multi_project_harness/runs/04-02_10-09/results/magic/multi_project_harness.gds
+
+## openlane md5sum of gds
+
+721069ba3e0704b7b0aba667e06592ac  openlane/designs/ws2812/runs/03-02_10-14/results/magic/ws2812.gds
+8e38a8f555b28f8151d920c07aceac5f  openlane/designs/vga_clock/runs/04-02_10-59/results/magic/vga_clock.gds
+9c4e8d090f2285986507f1d791ae57a9  openlane/designs/seven_segment_seconds/runs/03-02_10-29/results/magic/seven_segment_seconds.gds
+7bb449e37a4207e63fcc05bf23b5dd89  openlane/designs/spinet5/runs/03-02_10-30/results/magic/spinet5.gds
+371c7bade3ee65b6cff0e3d6156452c5  openlane/designs/asic_freq/runs/03-02_10-31/results/magic/asic_freq.gds
+4785b071c4415a29145f20b88e550215  openlane/designs/watch_hhmm/runs/03-02_10-51/results/magic/watch_hhmm.gds
+8df5281b065138e58fcd256b4333eeb0  openlane/designs/challenge/runs/03-02_10-32/results/magic/challenge.gds
+1007095ed631c911d620599b726b41b9  openlane/designs/MM2hdmi/runs/03-02_10-34/results/magic/MM2hdmi.gds
+f1f3524cf0c46404ed3e72cb27b21ec2  openlane/designs/multi_project_harness/runs/04-02_10-09/results/magic/multi_project_harness.gds
+
+## user_project_wrapper/macros md5sum of gds
+
+721069ba3e0704b7b0aba667e06592ac  caravel-release/openlane/user_project_wrapper/macros/gds/ws2812.gds
+8e38a8f555b28f8151d920c07aceac5f  caravel-release/openlane/user_project_wrapper/macros/gds/vga_clock.gds
+9c4e8d090f2285986507f1d791ae57a9  caravel-release/openlane/user_project_wrapper/macros/gds/seven_segment_seconds.gds
+7bb449e37a4207e63fcc05bf23b5dd89  caravel-release/openlane/user_project_wrapper/macros/gds/spinet5.gds
+371c7bade3ee65b6cff0e3d6156452c5  caravel-release/openlane/user_project_wrapper/macros/gds/asic_freq.gds
+4785b071c4415a29145f20b88e550215  caravel-release/openlane/user_project_wrapper/macros/gds/watch_hhmm.gds
+8df5281b065138e58fcd256b4333eeb0  caravel-release/openlane/user_project_wrapper/macros/gds/challenge.gds
+1007095ed631c911d620599b726b41b9  caravel-release/openlane/user_project_wrapper/macros/gds/MM2hdmi.gds
+f1f3524cf0c46404ed3e72cb27b21ec2  caravel-release/openlane/user_project_wrapper/macros/gds/multi_project_harness.gds
+
+md5sum of user_project_wrapper.gds in mpw-one-a
+
+0f464aeec0d4b2c85d0210ff61063de5  caravel-release/openlane/user_project_wrapper/runs/user_project_wrapper/results/magic/user_project_wrapper.gds
+-rw-r--r-- 1 matt matt 52927232 Feb  4 13:15 caravel-release/openlane/user_project_wrapper/runs/user_project_wrapper/results/magic/user_project_wrapper.gds
+
+md5sum of user_project_wrapper.gds in mpw-one-b
+
+0f464aeec0d4b2c85d0210ff61063de5  caravel-mpw-one-b/gds/user_project_wrapper.gds
+-rw-r--r-- 1 matt matt 52927232 Feb  4 13:25 caravel-mpw-one-b/gds/user_project_wrapper.gds
