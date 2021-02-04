@@ -11,7 +11,7 @@ openlane_designs = os.path.join(os.environ['OPENLANE_ROOT'], 'designs')
 gds_dir = "macros/gds/"
 lef_dir = "macros/lef/"
 
-designs = ["ws2812", "vga_clock", "seven_segment_seconds", "spinet5", "asic_freq", "watch_hhmm", "challenge", "MM2hdmi"]
+designs = ["ws2812", "vga_clock", "seven_segment_seconds", "spinet5", "asic_freq", "watch_hhmm", "challenge", "MM2hdmi", "multi_project_harness"]
 
 def report(designs):
     for design in designs:
