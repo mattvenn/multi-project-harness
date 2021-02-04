@@ -16,6 +16,8 @@ set ::env(CLOCK_PORT) "clk_10"
 set ::env(FP_CORE_UTIL) 25
 set ::env(PL_TARGET_DENSITY) [ expr ($::env(FP_CORE_UTIL)+5) / 100.0 ]
 
+set ::env(DIODE_INSERTION_STRATEGY) 1
+
 set filename $::env(DESIGN_DIR)/$::env(PDK)_$::env(STD_CELL_LIBRARY)_config.tcl
 if { [file exists $filename] == 1} {
 	source $filename

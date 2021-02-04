@@ -18,8 +18,11 @@ set ::env(FP_SIZING) absolute
 set ::env(DIE_AREA) "0 0 1500 400"
 set ::env(PL_TARGET_DENSITY) 0.25
 
+# deal with metal5 shorting issue
+set ::env(GLB_RT_OBS) "met5 0 0 1500 400"
+
 set ::env(PL_SKIP_INITIAL_PLACEMENT) 1
-set ::env(DIODE_INSERTION_STRATEGY) 2
+set ::env(DIODE_INSERTION_STRATEGY) 1
 
 set ::env(FP_PIN_ORDER_CFG) $::env(DESIGN_DIR)/pin_order.cfg
 
